@@ -17,4 +17,15 @@ Vagrant.configure( "2" ) do | config |
   # Every Vagrant development environment requires a box. You can search for boxes at 
   # https://vagrantcloud.com/search.
   config.vm.box = "benlumia007/sandbox"
+
+  # setup.sh or custom.sh
+  #
+  # By default, the Vagrantfile is set to use the setup.sh bash script which is located in
+  # the provision directory. If custom.sh is detected when created manually, then it will
+  # use custom.sh as a replacement.
+  if File.exists?( File.join( vagrant_dir,'provision','custom.sh' ) ) then
+    config.vm.provision "custom", type: "shell", path: File.join( "provision", "custom.sh" )
+  else
+    config.vm.provision "default", type: "shell", path: File.join( "provision", "setup.sh" )
+  end
 end
