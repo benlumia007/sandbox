@@ -92,6 +92,17 @@ Vagrant.configure( "2" ) do | config |
   # https://vagrantcloud.com/search.
   config.vm.box = "benlumia007/sandbox"
 
+  # You can customize the name that appears in the VirtualBox Graphic User Interface by
+  # setting up the name property. By default, Vagrant sets it to the container folder of
+  # the Vagrantfile plus a timestamp when the machine was created. By setting another name,
+  # your Virtual Machine can be more easily identified.
+  config.vm.provider "virtualbox" do | vm |
+    vm.name = "sandbox"
+
+    vm.customize ["modifyvm", :id, "--memory", sandbox_config['vm_config']['memory']]
+    vm.customize ["modifyvm", :id, "--cpus", sandbox_config['vm_config']['cores']]
+  end
+
   # setup.sh or custom.sh
   #
   # By default, the Vagrantfile is set to use the setup.sh bash script which is located in
