@@ -17,6 +17,11 @@ if File.file?( File.join( vagrant_dir, 'sandbox-custom.yml' ) ) == false then
   FileUtils.cp( File.join( vagrant_dir, 'sandbox-setup.yml' ), File.join(vagrant_dir, 'sandbox-custom.yml' ) )
 end
 
+# This will register sandbox-custom.yml as the default to be used to configured the entire
+# vm. 
+sandbox_config_file = File.join( vagrant_dir, 'sandbox-custom.yml' )
+sandbox_config = YAML.load_file( sandbox_config_file )
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure configures the 
 # configuration version (we support older styles for backwards compatibility). Please don't
 # change it unless you know what you're doing.
