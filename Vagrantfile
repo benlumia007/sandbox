@@ -117,6 +117,28 @@ Vagrant.configure( "2" ) do | config |
     end
   end
 
+  # Add a provision script that allows site created when set in the sandbox-custom.yml
+  sandbox_config['sites'].each do | site, args |
+    if args['skip_provisioning'] === false then
+      config.vm.provision "site-#{site}",
+        type: "shell",
+        path: File.join( "provision", "sites.sh" ),
+        args: [
+          site,
+          args['repo'].to_s,
+          args['branch'],
+          args['vm_dir'],
+          args['skip_provisioning'].to_s,
+        ]
+    end
+  end
+
+  # This uses the vagrant-hostsupdater plugin and adds an entry to your /etc/hosts file on your host system.
+  if defined?( VagrantPlugins::HostsUpdater )
+    config.hostsupdater.aliases = sandbox_config['hosts']
+    config.hostsupdater.remove_on_suspend = true
+  end
+
   # setup.sh or custom.sh
   #
   # By default, the Vagrantfile is set to use the setup.sh bash script which is located in
