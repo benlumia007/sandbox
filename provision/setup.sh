@@ -47,3 +47,7 @@ if ! apt-get -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-co
     apt-get clean
 return 1
 fi
+
+# Install Mailcatcher
+echo "Installing Mailcatcher"
+gem install mailcatcher
