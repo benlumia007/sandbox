@@ -105,7 +105,11 @@ Vagrant.configure( "2" ) do | config |
   
   # Create a private network, which allows host-only access to the machine using a specific IP.
   config.vm.network :private_network, id: "sandbox_primary", ip: sandbox_config['vm_config']['private_network_ip']
-  
+
+  # /srv/www. This is the default folder that  holds all of the custom sites when you
+  # generate a new site using the sandbox-custom.yml.
+  config.vm.synced_folder "sites/", "/srv/www", :owner => "www-data", :mount_options => [ "dmode=775", "fmode=774" ]
+
   # setup.sh or custom.sh
   #
   # By default, the Vagrantfile is set to use the setup.sh bash script which is located in
