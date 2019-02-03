@@ -67,6 +67,20 @@ sandbox_config['sites'].each do | site, args |
   sandbox_config['sites'][site].delete('hosts')
 end
 
+# This section is meant to be used for sandbox-custom.yml and register vm_config.
+if ! sandbox_config['vm_config'].kind_of? Hash then
+  sandbox_config['vm_config'] = Hash.new
+end
+
+defaults = Hash.new
+defaults['memory'] = 512
+defaults['cores'] = 1
+defaults['private_network_ip'] = '192.141.145.100'
+
+sandbox_config['vm_config'] = defaults.merge( sandbox_config['vm_config'] )
+
+sandbox_config['hosts'] = sandbox_config['hosts'].uniq
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure configures the 
 # configuration version (we support older styles for backwards compatibility). Please don't
 # change it unless you know what you're doing.
