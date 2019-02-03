@@ -7,6 +7,16 @@ require 'fileutils'
 # automatically when vagrant init takes affect.
 vagrant_dir = File.expand_path( File.dirname( __FILE__ ) )
 
+# sandbox-setup.yml and sandbox-custom.yml
+#
+# By default, sandbox-setup.yml is the main file with all the configurations needed to create
+# and modify a site and modify virtual machine if needed. When you run your first vagrant up,
+# it will make a copy of sandbox-setup.yml and rename it to sandbox-custom.yml so that the
+# sandbox-setup.yml remains on touch.
+if File.file?( File.join( vagrant_dir, 'sandbox-custom.yml' ) ) == false then
+  FileUtils.cp( File.join( vagrant_dir, 'sandbox-setup.yml' ), File.join(vagrant_dir, 'sandbox-custom.yml' ) )
+end
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure configures the 
 # configuration version (we support older styles for backwards compatibility). Please don't
 # change it unless you know what you're doing.
