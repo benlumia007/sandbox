@@ -102,7 +102,10 @@ Vagrant.configure( "2" ) do | config |
     vm.customize ["modifyvm", :id, "--memory", sandbox_config['vm_config']['memory']]
     vm.customize ["modifyvm", :id, "--cpus", sandbox_config['vm_config']['cores']]
   end
-
+  
+  # Create a private network, which allows host-only access to the machine using a specific IP.
+  config.vm.network :private_network, id: "sandbox_primary", ip: sandbox_config['vm_config']['private_network_ip']
+  
   # setup.sh or custom.sh
   #
   # By default, the Vagrantfile is set to use the setup.sh bash script which is located in
