@@ -110,6 +110,13 @@ Vagrant.configure( "2" ) do | config |
   # generate a new site using the sandbox-custom.yml.
   config.vm.synced_folder "sites/", "/srv/www", :owner => "www-data", :mount_options => [ "dmode=775", "fmode=774" ]
 
+  # This section when set, it will synced a folder that will use www-data as default.
+  sandbox_config['sites'].each do | site, args |
+    if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
+      config.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "www-data", :mount_options => [ "dmode=775", "fmode=774" ]
+    end
+  end
+
   # setup.sh or custom.sh
   #
   # By default, the Vagrantfile is set to use the setup.sh bash script which is located in
