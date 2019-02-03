@@ -51,3 +51,6 @@ fi
 # Install Mailcatcher
 echo "Installing Mailcatcher"
 gem install mailcatcher
+
+# Install Shyaml
+pip install shyaml
