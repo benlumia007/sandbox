@@ -22,6 +22,51 @@ end
 sandbox_config_file = File.join( vagrant_dir, 'sandbox-custom.yml' )
 sandbox_config = YAML.load_file( sandbox_config_file )
 
+# This section allows you to use the sandbox-custom.yml to register sites so that it can be
+# install sites per each request.
+if ! sandbox_config['sites'].kind_of? Hash then
+  sandbox_config['sites'] = Hash.new
+end
+
+if ! sandbox_config['hosts'].kind_of? Hash then
+  sandbox_config['hosts'] = Array.new
+end
+
+sandbox_config['sites'].each do | site, args |
+  if args.kind_of? String then
+    repo = args
+    args = Hash.new
+    args['repo'] = repo
+  end
+
+  if ! args.kind_of? Hash then
+    args = Hash.new
+  end
+
+  defaults = Hash.new
+  defaults['repo'] = false
+  defaults['vm_dir'] = "/srv/www/#{site}"
+  defaults['local_dir'] = File.join( vagrant_dir, 'sites', site )
+  defaults['branch'] = 'master'
+  defaults['skip_provisioning'] = false
+  defaults['allow_customfile'] = false
+  defaults['hosts'] = Array.new
+
+  sandbox_config['sites'][site] = defaults.merge( args )
+
+  if ! sandbox_config['sites'][site]['skip_provisioning'] then
+    site_paths = Dir.glob( Array.new( 4 ) {|i| sandbox_config['sites'][site]['local_dir'] + '/*'*( i+1 ) + '/vvv-hosts' } )
+
+    sandbox_config['sites'][site]['hosts'] += site_paths.map do | path |
+      lines = File.readlines( path ).map( &:chomp )
+      lines.grep( /\A[^#]/ )
+    end.flatten
+
+    sandbox_config['hosts'] += sandbox_config['sites'][site]['hosts']
+  end
+  sandbox_config['sites'][site].delete('hosts')
+end
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure configures the 
 # configuration version (we support older styles for backwards compatibility). Please don't
 # change it unless you know what you're doing.
