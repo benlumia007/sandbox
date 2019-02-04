@@ -106,14 +106,20 @@ Vagrant.configure( "2" ) do | config |
   # Create a private network, which allows host-only access to the machine using a specific IP.
   config.vm.network :private_network, id: "sandbox_primary", ip: sandbox_config['vm_config']['private_network_ip']
 
+  # /srv/log
+  #
+  #
+  config.vm.synced_folder "log", "/srv/log"
   # /srv/config
   #
   # This is where all the configuration files that are available to use to copy to the sandbox
   # vagrant box.
   config.vm.synced_folder "config", "/srv/config"
 
-  # /srv/www. This is the default folder that  holds all of the custom sites when you
-  # generate a new site using the sandbox-custom.yml.
+  # /srv/www
+  #
+  # This is the default folder that  holds all of the custom sites when you generate a new site using 
+  # the sandbox-custom.yml.
   config.vm.synced_folder "sites", "/srv/www", :owner => "www-data", :mount_options => [ "dmode=775", "fmode=774" ]
 
   # This section when set, it will synced a folder that will use www-data as default.
