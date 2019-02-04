@@ -93,11 +93,21 @@ else
 fi
 
 # Configure Mailcatcher
-if [[ ! /lib/systemd/system/mailcatcher.service ]]; then
+if [[ ! -f /lib/systemd/system/mailcatcher.service ]]; then
     echo "Copying /srv/config/mailcatcher/mailcatcher.service   /lib/systemd/system/mailcatcher.service"
     cp "/srv/config/mailcatcher/mailcatcher.service" "/lib/systemd/system/mailcatcher.service"
+    echo "Enable Mailcatcher at Startup"
     systemctl enable mailcatcher
     systemctl start mailcatcher
 else
     echo "mailcatcher.service has already been configured."
+fi
+
+if [[ ! f /etc/php/7.2/mods-available/mailcatcher.ini ]]; then
+    echo "Copying /srv/config/mailcatcher/mailcatcher.ini   /etc/php/7.2/mods-available/mailcatcher.ini"
+    cp "/srv/config/mailcatcher/mailcatcher.ini" "/etc/php/7.2/mods-available/mailcatcher.ini"
+    echo "Enable PHP Module for Mailcatcher"
+    phpenmod mailcatcher
+    echo "Restarting Apache Server"
+    service apache2 restart
 fi
