@@ -70,8 +70,26 @@ else
 fi
 
 if [[ -f /etc/mysql/mysql.cnf ]]; then
+    echo "Copying /srv/config/mysql/mysql.cnf   /etc/mysql/mysql.cnf"
     cp -rf "/srv/config/mysql/mysql.cnf" "/etc/mysql/mysql.cnf"
+    echo "Restarting MySQL Server"
     service mysql restart
     chgrp adm /var/log/mysql/slow.log
+else
+    echo "mysql.cnf has been configured."
 fi
 
+echo "PHP Configuration"
+if [[ ! -f /etc/php/7.2/mods-available/php-custom.ini ]]; then
+    echo "Copying /srv/config/php/php-custom.ini   /etc/php/7.2/mods-available/php-custom.ini"
+    cp "/srv/config/php/php-custom.ini" "/etc/php/7.2/mods-available/php-custom.ini"
+    phpenmod php-custom
+    mkdir -p /srv/log/php
+    touch /srv/log/php/php_errors.log
+    echo "Restarting Apache Server"
+    service apache2 restart
+else
+    echo "php-custom.ini has been configured and enabled."
+fi
+
+# Configure Mailcatcher
