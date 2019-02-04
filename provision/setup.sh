@@ -6,10 +6,6 @@ noroot() {
   sudo -EH -u "vagrant" "$@";
 }
 
-# Check for updates
-apt-get update
-apt-get upgrade -y
-
 apt_install=(
     software-properties-common
 
@@ -117,7 +113,7 @@ if [[ ! -f /etc/php/7.2/mods-available/mailcatcher.ini ]]; then
 fi
 
 echo "Installing Composer"
-composer_setup() {
+if [[ ! -f /usr/local/bin/composer ]]; then
     EXPECTED_SIGNATURE="$(wget -q -O - https://composer.github.io/installer.sig)"
     noroot php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     ACTUAL_SIGNATURE="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
@@ -130,29 +126,19 @@ composer_setup() {
     fi
 
     noroot php composer-setup.php --quiet
-    RESULT=$?
     noroot rm composer-setup.php
     noroot chmod +x composer.phar
     mv composer.phar /usr/local/bin/composer
-    exit $RESULT
-}
-
-if [[ ! -f "/usr/local/bin/composer" ]]; then
-    composer_setup
 else
     echo "composer is installed."
 fi
 
 # Installing WP-Cli
-wp_cli_setup() {
+if [[ ! -f /usr/local/bin/wp ]]; then
     echo "downloading wp-cli"
     noroot curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     noroot chmod +x wp-cli.phar
     mv wp-cli.phar /usr/local/bin/wp
-}
-
-if [[ ! -f "/usr/local/bin/wp" ]]; then
-    wp_cli_setup
 else
     echo "wp-cli is installed."
 fi
