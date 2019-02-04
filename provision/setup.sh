@@ -142,3 +142,17 @@ if [[ ! -f "/usr/local/bin/composer" ]]; then
 else
     echo "composer is installed."
 fi
+
+# Installing WP-Cli
+wp_cli_setup() {
+    echo "downloading wp-cli"
+    noroot curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    noroot chmod +x wp-cli.phar
+    mv wp-cli.phar /usr/local/bin/wp
+}
+
+if [[ ! -f "/usr/local/bin/wp" ]]; then
+    wp_cli_setup
+else
+    echo "wp-cli is installed."
+fi
