@@ -113,7 +113,7 @@ if [[ ! -f /etc/php/7.2/mods-available/mailcatcher.ini ]]; then
 fi
 
 echo "Installing Composer"
-if [[ ! -f /usr/local/bin/composer ]]; then
+if [[ ! -f "/usr/local/bin/composer" ]]; then
     EXPECTED_SIGNATURE="$(wget -q -O - https://composer.github.io/installer.sig)"
     noroot php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     ACTUAL_SIGNATURE="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
@@ -134,11 +134,20 @@ else
 fi
 
 # Installing WP-Cli
-if [[ ! -f /usr/local/bin/wp ]]; then
+if [[ ! -f "/usr/local/bin/wp" ]]; then
     echo "downloading wp-cli"
     noroot curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     noroot chmod +x wp-cli.phar
     mv wp-cli.phar /usr/local/bin/wp
 else
     echo "wp-cli is installed."
+fi
+
+echo "Generating a root certificate for web development."
+if [[ ! -d "/vagrant/certificates/ca" ]]; then
+    noroot mkdir -p /vagrant/certificates/ca
+    noroot openssl genrsa -out /vagrant/certificates/ca/ca.key 4096
+    noroot openssl req -x509 -new -nodes -key /vagrant/certificates/ca/ca.key -sha256 -days 3650 -out /vagrant/certificates/ca/ca.crt -subj "/CN=Sandbox Internal CA"
+else
+    echo "a root certificate of ca has been generated."
 fi
