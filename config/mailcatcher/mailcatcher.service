@@ -1,0 +1,9 @@
+[Unit]
+Description=MailCatcher Service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/mailcatcher --foreground --ip 0.0.0.0
+
+[Install]
+WantedBy=multi-user.target
