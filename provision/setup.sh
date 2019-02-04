@@ -68,3 +68,10 @@ if [[ ! -f /home/vagrant/.my.cnf ]]; then
 else
     echo ".my.cnf is already been configured"
 fi
+
+if [[ -f /etc/mysql/mysql.cnf ]]; then
+    cp -rf "/srv/config/mysql/mysql.cnf" "/etc/mysql/mysql.cnf"
+    service mysql restart
+    chgrp adm /var/log/mysql/slow.log
+fi
+
