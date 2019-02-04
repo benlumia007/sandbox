@@ -161,4 +161,16 @@ Vagrant.configure( "2" ) do | config |
     config.hostsupdater.aliases = sandbox_config['hosts']
     config.hostsupdater.remove_on_suspend = true
   end
+
+  config.trigger.after :up do |trigger|
+    trigger.name = "Vagrant Up"
+    trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_up" }
+    trigger.on_error = :continue
+  end
+
+  config.trigger.after :reload do |trigger|
+    trigger.name = "Vagrant Reload"
+    trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_up" }
+    trigger.on_error = :continue
+  end
 end
