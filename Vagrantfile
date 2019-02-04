@@ -109,7 +109,7 @@ Vagrant.configure( "2" ) do | config |
   # /srv/log
   #
   #
-  config.vm.synced_folder "log", "/srv/log"
+  config.vm.synced_folder "log", "/srv/log", :owner => 'vagrant', :mount_options => [ "dmode=777", "fmode=777"]
   # /srv/config
   #
   # This is where all the configuration files that are available to use to copy to the sandbox
