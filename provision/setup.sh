@@ -116,6 +116,7 @@ if [[ ! -f /etc/php/7.2/mods-available/mailcatcher.ini ]]; then
     service apache2 restart
 fi
 
+echo "Installing Composer"
 composer_setup() {
     EXPECTED_SIGNATURE="$(wget -q -O - https://composer.github.io/installer.sig)"
     noroot php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -131,11 +132,13 @@ composer_setup() {
     noroot php composer-setup.php --quiet
     RESULT=$?
     noroot rm composer-setup.php
+    noroot chmod +x composer.phar
+    mv composer.phar /usr/local/bin/composer
     exit $RESULT
 }
-composer_setup
 
-if [[ -f /home/vagrant/composer.phar ]]; then
-    chmod +x /home/vagrant/composer.phar
-    mv /home/vagrant/composer.phar /usr/local/bin/composer
+if [[ ! -f "/usr/local/bin/composer" ]]; then
+    composer_setup
+else
+    echo "composer is installed."
 fi
