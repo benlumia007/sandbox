@@ -1,0 +1,9 @@
+sites:
+  #example:
+  #  repo: https://github.com/benlumia007/sandbox-custom-site.git
+  #  hosts:
+  #    - example.test
+
+vm_config:
+  memory: 512
+  core: 1
