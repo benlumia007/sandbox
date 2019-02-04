@@ -103,7 +103,7 @@ else
     echo "mailcatcher.service has already been configured."
 fi
 
-if [[ ! f /etc/php/7.2/mods-available/mailcatcher.ini ]]; then
+if [[ ! -f /etc/php/7.2/mods-available/mailcatcher.ini ]]; then
     echo "Copying /srv/config/mailcatcher/mailcatcher.ini   /etc/php/7.2/mods-available/mailcatcher.ini"
     cp "/srv/config/mailcatcher/mailcatcher.ini" "/etc/php/7.2/mods-available/mailcatcher.ini"
     echo "Enable PHP Module for Mailcatcher"
