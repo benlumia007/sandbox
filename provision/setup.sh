@@ -93,3 +93,11 @@ else
 fi
 
 # Configure Mailcatcher
+if [[ ! /lib/systemd/system/mailcatcher.service ]]; then
+    echo "Copying /srv/config/mailcatcher/mailcatcher.service   /lib/systemd/system/mailcatcher.service"
+    cp "/srv/config/mailcatcher/mailcatcher.service" "/lib/systemd/system/mailcatcher.service"
+    systemctl enable mailcatcher
+    systemctl start mailcatcher
+else
+    echo "mailcatcher.service has already been configured."
+fi
