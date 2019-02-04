@@ -2,6 +2,10 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
+rm /var/lib/apt/lists/lock
+rm /var/cache/apt/archives/lock
+rm /var/lib/dpkg/lock
+
 # Check for updates
 apt-get update
 apt-get upgrade -y
