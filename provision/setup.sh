@@ -2,6 +2,10 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
+noroot() {
+  sudo -EH -u "vagrant" "$@";
+}
+
 # Check for updates
 apt-get update
 apt-get upgrade -y
