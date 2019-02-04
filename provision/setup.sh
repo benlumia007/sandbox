@@ -115,3 +115,27 @@ if [[ ! -f /etc/php/7.2/mods-available/mailcatcher.ini ]]; then
     echo "Restarting Apache Server"
     service apache2 restart
 fi
+
+composer_setup() {
+    EXPECTED_SIGNATURE="$(wget -q -O - https://composer.github.io/installer.sig)"
+    noroot php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    ACTUAL_SIGNATURE="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+
+    if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]
+    then
+        >&2 echo 'ERROR: Invalid installer signature'
+        noroot rm composer-setup.php
+        exit 1
+    fi
+
+    noroot php composer-setup.php --quiet
+    RESULT=$?
+    noroot rm composer-setup.php
+    exit $RESULT
+}
+composer_setup
+
+if [[ -f /home/vagrant/composer.phar ]]; then
+    chmod +x /home/vagrant/composer.phar
+    mv /home/vagrant/composer.phar /usr/local/bin/composer
+fi
