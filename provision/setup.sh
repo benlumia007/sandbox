@@ -2,10 +2,6 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
-rm /var/lib/apt/lists/lock
-rm /var/cache/apt/archives/lock
-rm /var/lib/dpkg/lock
-
 # Check for updates
 apt-get update
 apt-get upgrade -y
@@ -57,4 +53,18 @@ echo "Installing Mailcatcher"
 gem install mailcatcher
 
 # Install Shyaml
+echo "Installing Shyaml"
 pip install shyaml
+
+# MySQL Configuration
+if [[ ! -f /home/vagrant/.my.cnf ]]; then
+    echo "Copying /srv/config/mysql/.my.cnf     /home/vagrant/.my.cnf"
+    cp "/srv/config/mysql/.my.cnf" "/home/vagrant/.my.cnf"
+
+    chmod 0755 /home/vagrant/.my.cnf
+
+    mysql -u root -proot -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'root';"
+    mysql -u root -proot -e "FLUSH PRIVILEGES;"
+else
+    echo ".my.cnf is already been configured"
+fi
