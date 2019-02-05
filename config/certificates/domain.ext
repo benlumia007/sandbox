@@ -4,5 +4,5 @@ keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
 subjectAltName = @alt_names
 
 [alt_names]
-DNS.1 = *.{{DOMAIN}}
-DNS.2 = {{DOMAIN}}
+DNS.1 = *.{{DOMAIN}}.test
+DNS.2 = {{DOMAIN}}.test
