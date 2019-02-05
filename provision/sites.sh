@@ -35,9 +35,9 @@ if [[ false != "${REPO}" ]]; then
     noroot git checkout ${BRANCH} -q
   fi
 else
-  echo "The site: '${DOMAIN}' does not have a site template, assuming custom provision/vvv-init.sh and provision/vvv-nginx.conf"
+  echo "The site: '${DOMAIN}' does not have a site template, assuming provision/setup.sh"
   if [[ ! -d ${VM_DIR} ]]; then
-    echo "Error: The '${DOMAN}' has no folder, VVV does not create the folder for you, or set up the Nginx configs. Use a site template or create the folder and provisioner files, then reprovision VVV"
+    echo "Error: The '${DOMAN}' has no folder."
   fi
 fi
 
