@@ -68,6 +68,7 @@ if [[ ! -f /home/vagrant/.my.cnf ]]; then
 
     echo "create wordpress user"
     mysql -u root -proot -e "CREATE USER 'wp'@'localhost' IDENTIFIED BY 'wp';"
+    mysql -u root -proot -e "GRANT USAGE ON *.* TO 'wp'@'localhost';"
     mysql -u root -proot -e "FLUSH PRIVILEGES;"
 else
     echo ".my.cnf is already been configured"
