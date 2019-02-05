@@ -65,6 +65,10 @@ if [[ ! -f /home/vagrant/.my.cnf ]]; then
 
     mysql -u root -proot -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'root';"
     mysql -u root -proot -e "FLUSH PRIVILEGES;"
+
+    echo "create wordpress user"
+    mysql -u root -proot -e "CREATE USER 'wp'@'localhost' IDENTIFIED BY 'wp';"
+    mysql -u root -proot -e "FLUSH PRIVILEGES;"
 else
     echo ".my.cnf is already been configured"
 fi
