@@ -201,7 +201,7 @@ Vagrant.configure( "2" ) do | config |
       utilities = Hash.new
     end
     utilities.each do | utility |
-        config.vm.provision "utility-#{name}-#{utility}",
+        config.vm.provision "resources-#{name}-#{utility}",
           type: "shell",
           path: File.join( "provision/scripts", "utility.sh" ),
           args: [
