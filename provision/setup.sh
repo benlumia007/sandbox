@@ -48,12 +48,3 @@ if [[ ! -f "/etc/php/7.2/mods-available/mailcatcher.ini" ]]; then
     echo "restarting apache server"
     service apache2 restart
 fi
-
-if [[ ! -d "/vagrant/certificates/ca" ]]; then
-    noroot mkdir -p "/vagrant/certificates/ca"
-    noroot openssl genrsa -out "/vagrant/certificates/ca/ca.key" 4096
-    noroot openssl req -x509 -new -nodes -key "/vagrant/certificates/ca/ca.key" -sha256 -days 3650 -out "/vagrant/certificates/ca/ca.crt" -subj "/CN=Sandbox Internal CA"
-    a2enmod ssl headers rewrite
-else
-    echo "a root certificate of ca has been generated."
-fi
