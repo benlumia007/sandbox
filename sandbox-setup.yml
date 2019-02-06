@@ -1,9 +1,25 @@
+---
+# sandbox-setup.yml
+#
+# This is the main YAML formatted file which is done in spaces and not tabs, and whitespace.
+# If you do not stick to the format, it will fail on provision.
+
+# Important Note
+#
+# If you need to add a new site, copy the example and uncomment the lines and enter site
+# name. You will then need to run and reprovision by using vagrant reload --provision.
+
+# Below are your sites that gets generated when provision or when you run vagrant up for
+# the first time. 
 sites:
   #example:
   #  repo: https://github.com/benlumia007/sandbox-custom-site.git
   #  hosts:
   #    - example.test
 
+# vm_config controls how Vagrant works and you are enable to increase memory if you need more
+# or if you wish to add more core to the virtual machine. Please take into consider that the
+# memory and core have limitations on how much your hosts computer have.
 vm_config:
   memory: 512
   core: 1
