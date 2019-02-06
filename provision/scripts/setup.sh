@@ -2,9 +2,8 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
-noroot() {
-  sudo -EH -u "vagrant" "$@";
-}
+apt-get update
+apt-get upgrade -y
 
 # MySQL Configuration
 if [[ ! -f "/srv/log/mysql/slow.log" ]]; then
