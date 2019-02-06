@@ -163,9 +163,9 @@ Vagrant.configure( "2" ) do | config |
   # the provision directory. If custom.sh is detected when created manually, then it will
   # use custom.sh as a replacement.
   if File.exists?( File.join( vagrant_dir,'provision','custom.sh' ) ) then
-    config.vm.provision "custom", type: "shell", path: File.join( "provision", "custom.sh" )
+    config.vm.provision "custom", type: "shell", path: File.join( "provision/scripts", "custom.sh" )
   else
-    config.vm.provision "default", type: "shell", path: File.join( "provision", "setup.sh" )
+    config.vm.provision "default", type: "shell", path: File.join( "provision/scripts", "setup.sh" )
   end
 
   # Add a provision script that allows site created when set in the sandbox-custom.yml
@@ -173,7 +173,7 @@ Vagrant.configure( "2" ) do | config |
     if args['skip_provisioning'] === false then
       config.vm.provision "site-#{site}",
         type: "shell",
-        path: File.join( "provision", "sites.sh" ),
+        path: File.join( "provision/scripts", "sites.sh" ),
         args: [
           site,
           args['repo'].to_s,
@@ -188,7 +188,7 @@ Vagrant.configure( "2" ) do | config |
   sandbox_config['resources'].each do | name, args |
     config.vm.provision "resources-#{name}",
       type: "shell",
-      path: File.join( "provision", "resources.sh" ),
+      path: File.join( "provision/scripts", "resources.sh" ),
       args: [
           name,
           args['repo'].to_s,
@@ -203,7 +203,7 @@ Vagrant.configure( "2" ) do | config |
     utilities.each do | utility |
         config.vm.provision "utility-#{name}-#{utility}",
           type: "shell",
-          path: File.join( "provision", "utility.sh" ),
+          path: File.join( "provision/scripts", "utility.sh" ),
           args: [
               name,
               utility
