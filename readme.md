@@ -16,7 +16,7 @@ Sandbox is built with Ubuntu 18.04 LTS (Bionic) based VirtualBox Virtual Machine
 - [Mailcatcher](https://mailcatcher.me/)
 
 ## How to Use Sandbox
-To avoid any confusions with running vagrant up for the first time. Vagrant will duplicate sandbox-setup.yml to sandbox-custom.yml to avoid accidentally writing on the main file for sandbox-setup.yml. It will create a new site by default (sandbox.test)
+To avoid any confusions with running vagrant up for the first time. Vagrantfile will duplicate sandbox-setup.yml to sandbox-custom.yml to avoid accidentally writing on the main file for sandbox-setup.yml. It will create a new site by default (sandbox.test)
 
 If you wish to add more sites beforehand, then you will need to copy the sandbox-setup.yml manually and rename it to sandbox-custom.yml, add your sites and vagrant up.
 
