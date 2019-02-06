@@ -92,6 +92,7 @@ Vagrant.configure( "2" ) do | config |
   # https://vagrantcloud.com/search.
   config.vm.box = "benlumia007/sandbox"
   config.vm.box_version = "0.0.1"
+  config.vm.base_mac = "0800273C9A89"
 
   # You can customize the name that appears in the VirtualBox Graphic User Interface by
   # setting up the name property. By default, Vagrant sets it to the container folder of
@@ -135,11 +136,11 @@ Vagrant.configure( "2" ) do | config |
   # By default, the Vagrantfile is set to use the setup.sh bash script which is located in
   # the provision directory. If custom.sh is detected when created manually, then it will
   # use custom.sh as a replacement.
-  #if File.exists?( File.join( vagrant_dir,'provision','custom.sh' ) ) then
-  #  config.vm.provision "custom", type: "shell", path: File.join( "provision", "custom.sh" )
-  #else
-  #  config.vm.provision "default", type: "shell", path: File.join( "provision", "setup.sh" )
-  #end
+  if File.exists?( File.join( vagrant_dir,'provision','custom.sh' ) ) then
+    config.vm.provision "custom", type: "shell", path: File.join( "provision", "custom.sh" )
+  else
+    config.vm.provision "default", type: "shell", path: File.join( "provision", "setup.sh" )
+  end
 
   # Add a provision script that allows site created when set in the sandbox-custom.yml
   sandbox_config['sites'].each do | site, args |
@@ -164,13 +165,13 @@ Vagrant.configure( "2" ) do | config |
   end
 
   config.trigger.after :up do |trigger|
-    trigger.name = "Vagrant Up"
+    trigger.name = "vagrant up"
     trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_up" }
     trigger.on_error = :continue
   end
 
   config.trigger.after :reload do |trigger|
-    trigger.name = "Vagrant Reload"
+    trigger.name = "vagrant reload"
     trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_up" }
     trigger.on_error = :continue
   end
