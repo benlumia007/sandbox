@@ -17,15 +17,15 @@ sites:
     hosts:
       - sandbox.test
 
-# Below is the extra resources that can be used to create additional neat features or software
-utilities:
-  core:
-    - tls-ca
-
   #example:
   #  repo: https://github.com/benlumia007/sandbox-custom-site.git
   #  hosts:
   #    - example.test
+
+# Below is the extra resources that can be used to create additional neat features or software
+utilities:
+  core:
+    - tls-ca
 
 # vm_config controls how Vagrant works and you are enable to increase memory if you need more
 # or if you wish to add more core to the virtual machine. Please take into consider that the
