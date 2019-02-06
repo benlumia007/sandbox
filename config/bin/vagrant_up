@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Restarting Apache Server"
+echo "restarting apache server"
 sudo service apache2 restart
-echo "Restarting MySQL Server"
+echo "restarting mysql server"
 sudo service mysql restart
