@@ -67,6 +67,32 @@ sandbox_config['sites'].each do | site, args |
   sandbox_config['sites'][site].delete('hosts')
 end
 
+# This section is mean to be used for utilties if any
+if ! sandbox_config['resources'].kind_of? Hash then
+  sandbox_config['resources'] = Hash.new
+else
+  sandbox_config['resources'].each do |name, args|
+    if args.kind_of? String then
+        repo = args
+        args = Hash.new
+        args['repo'] = repo
+        args['branch'] = 'master'
+
+        sandbox_config['resources'][name] = args
+    end
+  end
+end
+
+if ! sandbox_config['resources'].key?('core')
+  sandbox_config['resources']['core'] = Hash.new
+  sandbox_config['resources']['core']['repo'] = 'https://github.com/benlumia007/sandbox-resources.git'
+  sandbox_config['resources']['core']['branch'] = 'master'
+end
+
+if ! sandbox_config['utilities'].kind_of? Hash then
+  sandbox_config['utilities'] = Hash.new
+end
+
 # This section is meant to be used for sandbox-custom.yml and register vm_config.
 if ! sandbox_config['vm_config'].kind_of? Hash then
   sandbox_config['vm_config'] = Hash.new
@@ -156,6 +182,33 @@ Vagrant.configure( "2" ) do | config |
           args['skip_provisioning'].to_s,
         ]
     end
+  end
+
+  # resources
+  sandbox_config['resources'].each do | name, args |
+    config.vm.provision "resources-#{name}",
+      type: "shell",
+      path: File.join( "provision", "resources.sh" ),
+      args: [
+          name,
+          args['repo'].to_s,
+          args['branch'],
+      ]
+  end
+
+  sandbox_config['utilities'].each do | name, utilities |
+    if ! utilities.kind_of? Array then
+      utilities = Hash.new
+    end
+    utilities.each do | utility |
+        config.vm.provision "utility-#{name}-#{utility}",
+          type: "shell",
+          path: File.join( "provision", "utility.sh" ),
+          args: [
+              name,
+              utility
+          ]
+      end
   end
 
   # This uses the vagrant-hostsupdater plugin and adds an entry to your /etc/hosts file on your host system.
