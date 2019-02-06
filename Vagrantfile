@@ -138,11 +138,17 @@ Vagrant.configure( "2" ) do | config |
   #
   #
   config.vm.synced_folder "log", "/srv/log", :owner => 'vagrant', :mount_options => [ "dmode=777", "fmode=777"]
+
   # /srv/config
   #
   # This is where all the configuration files that are available to use to copy to the sandbox
   # vagrant box.
   config.vm.synced_folder "config", "/srv/config"
+
+  # /srv/database
+  #
+  # database stores here
+  config.vm.synced_folder "database", "/srv/database"
 
   # /srv/www
   #
@@ -226,6 +232,12 @@ Vagrant.configure( "2" ) do | config |
   config.trigger.after :reload do |trigger|
     trigger.name = "vagrant reload"
     trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_up" }
+    trigger.on_error = :continue
+  end
+
+  config.trigger.before :halt do |trigger|
+    trigger.name = "vagrant halt"
+    trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_halt" }
     trigger.on_error = :continue
   end
 end
