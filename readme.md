@@ -13,6 +13,7 @@ Sandbox is built with Ubuntu 18.04 LTS (Bionic) based VirtualBox Virtual Machine
 - [PHP 7.2](http://www.php.net/downloads.php)
 - [Composer](https://getcomposer.org/)
 - [WP-Cli](https://wp-cli.org/)
+- [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer)
 - [Mailcatcher](https://mailcatcher.me/)
 
 ## How to Use Sandbox

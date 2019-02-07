@@ -1,2 +1,2 @@
 # Sites
-This is where all sites are generated per site. 
+Please note that this is where all sites will be generated.
