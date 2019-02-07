@@ -31,8 +31,8 @@ utilities:
 # or if you wish to add more core to the virtual machine. Please take into consider that the
 # memory and core have limitations on how much your hosts computer have.
 vm_config:
-  memory: 512
-  core: 1
+  memory: 2048
+  core: 2
 
 options:
   db_backups: true
