@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ -f "/vagrant/config/bin/vagrant_destroy_custom" ]]; then
+	echo "Executing vagrant_destroy_custom"
+	/vagrant/config/bin/vagrant_destroy_custom
+else
+    /vagrant/config/bin/db_backups
+fi

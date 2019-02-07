@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ -f "/vagrant/config/bin/vagrant_halt_custom" ]]; then
+	echo "Executing vagrant_halt_custom"
+	/vagrant/config/bin/vagrant_halt_custom
+else
+    /vagrant/config/bin/db_backups
+fi
