@@ -67,6 +67,8 @@ sandbox_config['sites'].each do | site, args |
   sandbox_config['sites'][site].delete('hosts')
 end
 
+sandbox_config['hosts'] += ['dashboard']
+
 # This section is mean to be used for utilties if any
 if ! sandbox_config['resources'].kind_of? Hash then
   sandbox_config['resources'] = Hash.new
@@ -106,6 +108,15 @@ defaults['private_network_ip'] = '192.141.145.100'
 sandbox_config['vm_config'] = defaults.merge( sandbox_config['vm_config'] )
 
 sandbox_config['hosts'] = sandbox_config['hosts'].uniq
+
+if ! sandbox_config['dashboard']
+  sandbox_config['dashboard'] = Hash.new
+end
+
+dashboard_defaults = Hash.new
+dashboard_defaults['repo'] = 'https://github.com/benlumia007/sandbox-dashboard.git'
+dashboard_defaults['branch'] = 'master'
+sandbox_config['dashboard'] = dashboard_defaults.merge(sandbox_config['dashboard'])
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure configures the 
 # configuration version (we support older styles for backwards compatibility). Please don't
@@ -216,6 +227,15 @@ Vagrant.configure( "2" ) do | config |
           ]
       end
   end
+
+  # Provision the dashboard that appears when you visit vvv.test
+  config.vm.provision "dashboard",
+      type: "shell",
+      path: File.join( "provision/scripts", "dashboard.sh" ),
+      args: [
+        sandbox_config['dashboard']['repo'],
+        sandbox_config['dashboard']['branch']
+      ]
 
   # This uses the vagrant-hostsupdater plugin and adds an entry to your /etc/hosts file on your host system.
   if defined?( VagrantPlugins::HostsUpdater )
