@@ -15,7 +15,6 @@ if [[ ! -d ${DIR} ]]; then
       noroot openssl genrsa -out "/vagrant/certificates/dashboard/dashboard.key" 4096
       noroot openssl req -new -key "/vagrant/certificates/dashboard/dashboard.key" -out "/vagrant/certificates/dashboard/dashboard.csr" -subj "/CN=dashboard"
       noroot openssl x509 -req -in "/vagrant/certificates/dashboard/dashboard.csr" -CA "/vagrant/certificates/ca/ca.crt" -CAkey "/vagrant/certificates/ca/ca.key" -CAcreateserial -out "/vagrant/certificates/dashboard/dashboard.crt" -days 3650 -sha256 -extfile "/vagrant/certificates/dashboard/dashboard.ext"
-      sed -i '/certificate/s/^#//g' "/etc/apache2/sites-available/dashboard.conf"
   fi
 
   echo "Copying apache2.conf    /etc/apache2/sites-available/dashboard.conf"
