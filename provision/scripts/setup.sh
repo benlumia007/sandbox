@@ -2,9 +2,6 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
-apt-get update
-apt-get upgrade -y
-
 # MySQL Configuration
 if [[ ! -f "/srv/log/mysql/slow.log" ]]; then
     echo "copy /srv/config/mysql/my.cnf   /etc/mysql/my.cnf"
@@ -47,3 +44,5 @@ if [[ ! -f "/etc/php/7.2/mods-available/mailcatcher.ini" ]]; then
     echo "restarting apache server"
     service apache2 restart
 fi
+
+a2enmod ssl headers rewrite
