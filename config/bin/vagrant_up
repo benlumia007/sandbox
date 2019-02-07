@@ -1,9 +1,4 @@
 #!/bin/bash
-
-if [[ -d /vagrant/database/backups ]]; then
-    /vagrant/config/bin/db_restores
-fi
-
 echo "restarting apache server"
 sudo service apache2 restart
 echo "restarting mysql server"
