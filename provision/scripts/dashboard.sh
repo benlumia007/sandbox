@@ -18,5 +18,4 @@ if [[ false != "dashboard" && false != "${REPO}" ]]; then
     git checkout ${BRANCH} -q
   fi
 fi
-
 exit 0
