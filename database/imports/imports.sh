@@ -24,6 +24,7 @@ if [[ $db_restores != "False" ]]; then
             noroot mysql -u root -e "CREATE DATABASE IF NOT EXISTS $domain"
             noroot mysql -u root -e "GRANT ALL PRIVILEGES ON $domain.* TO 'wp'@'localhost';"
             noroot mysql -u root "$domain" < "$data"
+            echo "restored $domain success"
         done
     done
 fi
