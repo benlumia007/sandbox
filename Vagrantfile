@@ -240,4 +240,9 @@ Vagrant.configure( "2" ) do | config |
     trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_halt" }
     trigger.on_error = :continue
   end
+  config.trigger.before :destroy do |trigger|
+    trigger.name = "vagrant destroy"
+    trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_destroy" }
+    trigger.on_error = :continue
+  end
 end
