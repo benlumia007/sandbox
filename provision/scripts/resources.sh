@@ -23,5 +23,4 @@ if [[ false != "${NAME}" && false != "${REPO}" ]]; then
     noroot git checkout ${BRANCH} -q
   fi
 fi
-
 exit 0
