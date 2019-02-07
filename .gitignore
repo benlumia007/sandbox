@@ -1,8 +1,8 @@
 /.vagrant
 /sandbox-custom.yml
-/log/mysql
-/log/php
+/log/*
+/log/*
 /certificates
-/provision/resources
-/database/backups
+/provision/*
+/database/*
 /sites/*
