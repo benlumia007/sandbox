@@ -185,15 +185,6 @@ Vagrant.configure( "2" ) do | config |
     config.vm.provision "default", type: "shell", path: File.join( "provision/scripts", "setup.sh" )
   end
 
-  # Provision the dashboard that appears when you visit vvv.test
-  config.vm.provision "site-dashboard",
-      type: "shell",
-      path: File.join( "provision/scripts", "dashboard.sh" ),
-      args: [
-        sandbox_config['dashboard']['repo'],
-        sandbox_config['dashboard']['branch']
-      ]
-
   # Add a provision script that allows site created when set in the sandbox-custom.yml
   sandbox_config['sites'].each do | site, args |
     if args['skip_provisioning'] === false then
@@ -236,6 +227,15 @@ Vagrant.configure( "2" ) do | config |
           ]
       end
   end
+
+  # Provision the dashboard that appears when you visit vvv.test
+  config.vm.provision "site-dashboard",
+      type: "shell",
+      path: File.join( "provision/scripts", "dashboard.sh" ),
+      args: [
+        sandbox_config['dashboard']['repo'],
+        sandbox_config['dashboard']['branch']
+      ]
 
   # This uses the vagrant-hostsupdater plugin and adds an entry to your /etc/hosts file on your host system.
   if defined?( VagrantPlugins::HostsUpdater )
