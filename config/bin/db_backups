@@ -1,0 +1,22 @@
+#!/bin/bash
+
+sandbox_config=/vagrant/sandbox-custom.yml
+
+db_backups=`cat ${sandbox_config} | shyaml get-value options.db_backups 2> /dev/null`
+
+noroot() {
+    sudo -EH -u "vagrant" "$@";
+}
+
+if [[ $db_backups != "False"  ]]; then
+    mkdir -p /srv/database/backups
+
+    echo "Performing Database Backups"
+    noroot mysql -u root -e "show databases" | grep -v -F "information_schema" | grep -v -F "performance_schema" | grep -v -F "mysql" | grep -v -F "Database" | grep -v -F "sys" |
+    while read dbname;
+        do
+            echo "backing up database for $dbname"
+            noroot mysqldump -u root "$dbname" > "/srv/database/backups/$dbname.sql"
+            echo "$dbname is backed up"
+        done
+fi
