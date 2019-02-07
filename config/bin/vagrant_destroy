@@ -5,6 +5,9 @@ if [[ -f "/vagrant/config/bin/vagrant_destroy_custom" ]]; then
 	/vagrant/config/bin/vagrant_destroy_custom
 else
     /vagrant/config/bin/db_backups
-	rm -rf /vagrant/certificates/dashboard
-	rm -rf /srv/www/dashboard
+
+	if [[ -d "/srv/www/dashboard" ]];
+		rm -rf /vagrant/certificates/dashboard
+		rm -rf /srv/www/dashboard
+	fi
 fi
