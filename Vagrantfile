@@ -101,8 +101,8 @@ if ! sandbox_config['vm_config'].kind_of? Hash then
 end
 
 defaults = Hash.new
-defaults['memory'] = 512
-defaults['cores'] = 1
+defaults['memory'] = 2048
+defaults['cores'] = 2
 defaults['private_network_ip'] = '192.141.145.100'
 
 sandbox_config['vm_config'] = defaults.merge( sandbox_config['vm_config'] )
