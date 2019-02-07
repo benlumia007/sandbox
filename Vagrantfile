@@ -145,10 +145,15 @@ Vagrant.configure( "2" ) do | config |
   # Create a private network, which allows host-only access to the machine using a specific IP.
   config.vm.network :private_network, id: "sandbox_primary", ip: sandbox_config['vm_config']['private_network_ip']
 
-  # /srv/log
+  # /var/log/php
+  #
+  # 
+  config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dmode=777", "fmode=777"]
+
+  # /var/log/mysql
   #
   #
-  config.vm.synced_folder "log", "/srv/log", :owner => 'vagrant', :mount_options => [ "dmode=777", "fmode=777"]
+  config.vm.synced_folder "log/mysql", "/var/log/mysql", :owner => 'mysql', :group => 'adm'
 
   # /srv/config
   #
