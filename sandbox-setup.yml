@@ -33,3 +33,7 @@ utilities:
 vm_config:
   memory: 512
   core: 1
+
+options:
+  db_backups: true
+  db_restores: true
