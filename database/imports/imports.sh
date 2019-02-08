@@ -20,22 +20,26 @@ fi
 
 cd /srv/database/backups/
 
+for site in `get_sites`
+do
+    noroot mysql -u root -e "CREATE DATABASE IF NOT EXISTS $site"
+    noroot mysql -u root -e "GRANT ALL PRIVILEGES ON $site.* TO 'wp'@'localhost' IDENTIFIED BY 'wp';"
+done
+
 count=`ls -1 *.sql 2>/dev/null | wc -l`
 
 if [[ $count != 0 ]]; then
     for file in $( ls *.sql )
     do
         domain=${file%%.sql}
-
         database=`noroot mysql -u root --skip-column-names -e "SHOW TABLES FROM $domain"`
-		if [ "" == "$database" ]
-		then
-            echo "creating database for $domain"
-            noroot mysql -u root -e "CREATE DATABASE IF NOT EXISTS $domain"
+
+        if [[ "" == "$database" ]]; then
             echo "importing database for $domain"
-			noroot mysql -u root $domain < $domain.sql
-		else
-			echo "successfully imported for $domain"
-		fi
+            noroot mysql -u root $domain < $domain.sql
+            echo "successfully imported for $domain"
+        else
+            echo "database for $domain already exists"
+        fi
     done
 fi
