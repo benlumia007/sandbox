@@ -30,11 +30,12 @@ if [[ $count != 0 ]]; then
         database=`noroot mysql -u root --skip-column-names -e "SHOW TABLES FROM $domain"`
 		if [ "" == "$database" ]
 		then
+            echo "creating database for $domain"
             noroot mysql -u root -e "CREATE DATABASE IF NOT EXISTS $domain"
+            echo "importing database for $domain"
 			noroot mysql -u root $domain < $domain.sql
 		else
-			echo "$domain has been imported successfully."
+			echo "successfully imported for $domain"
 		fi
-
     done
 fi
