@@ -31,7 +31,6 @@ if [[ $count != 0 ]]; then
 		if [ "" == "$database" ]
 		then
             noroot mysql -u root -e "CREATE DATABASE IF NOT EXISTS $domain"
-
 			noroot mysql -u root $domain < $domain.sql
 		else
 			echo "$domain has been imported successfully."
