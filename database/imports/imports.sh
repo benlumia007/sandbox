@@ -9,25 +9,51 @@ get_sites() {
     echo ${value:-$@}
 }
 
+# noroot
+#
+# noroot allows provision scripts to be run as the default user "vagrant" rather than the root
+# since provision scripts are run with root privileges.
 noroot() {
     sudo -EH -u "vagrant" "$@";
 }
 
+# $db_restores ( true or false )
+#
+# when db_restores set as true or false, it is taken from the main file of sanbox-custom.yml's
+# options features. when set to true, it will then import database to the correct user when set
+# to false, then it will skip database importing.
 if [[ $db_restores == "False"  ]]; then
     echo "skipping database importing..."
     exit;
 fi
 
+# /srv/database/backups
+#
+# this is where all the database of *.sql will be located when you do a vagrant halt or vagrant
+# destroy, it wil then back up the database depending on how much sites you have generated.
 cd /srv/database/backups/
 
+# site in `get_sites`
+#
+# this is a for loop where it grabs information from sandbox-custom.yml and displays the site's
+# site so that database an be imported when value is set to true.
 for site in `get_sites`
 do
     noroot mysql -u root -e "CREATE DATABASE IF NOT EXISTS $site"
     noroot mysql -u root -e "GRANT ALL PRIVILEGES ON $site.* TO 'wp'@'localhost' IDENTIFIED BY 'wp';"
 done
 
+# count
+#
+# ahh, so this is interesting one, count will find all of the *.sql and show how many, for example
+# if there is 3 files then it will list 3, this allows us to do the next part.
 count=`ls -1 *.sql 2>/dev/null | wc -l`
 
+# $count != 0
+#
+# apparently, when you vagrant halt or vagrant destroy, it will then back up the database and will
+# use mysqldump to generate a *.sql. so if you have 1 or more sites then it will start importing
+# database.
 if [[ $count != 0 ]]; then
     for file in $( ls *.sql )
     do
