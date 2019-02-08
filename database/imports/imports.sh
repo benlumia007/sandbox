@@ -37,7 +37,6 @@ if [[ $count != 0 ]]; then
         if [[ "" == "$database" ]]; then
             echo "importing database for $domain"
             noroot mysql -u root $domain < $domain.sql
-            echo "successfully imported for $domain"
         else
             echo "database for $domain already exists"
         fi
