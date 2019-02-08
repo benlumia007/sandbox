@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# variables
+#
+# default variables to create sites and directories and some other stuff.
 DOMAIN=$1
 SITE_ESCAPED=`echo ${DOMAIN} | sed 's/\./\\\\./g'`
 REPO=$2
@@ -9,8 +12,16 @@ SKIP_PROVISIONING=$5
 PATH_TO_SITE=${VM_DIR}
 SITE_NAME=${SITE}
 
+# /vagrant/sandbox-custom.yml
+#
+# this allows you to grab information that are needed and use shyaml to read only,since
+# shyaml is not writeable but read only.
 SANDBOX_CONFIG=/vagrant/sandbox-custom.yml
 
+# noroot
+#
+# noroot allows provision scripts to be run as the default user "vagrant" rather than the root
+# since provision scripts are run with root privileges.
 noroot() {
     sudo -EH -u "vagrant" "$@";
 }
