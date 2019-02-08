@@ -35,5 +35,6 @@ vm_config:
   core: 2
 
 options:
-  db_backups: true
+   db_backups: true
   db_restores: true
+       xdebug: true
