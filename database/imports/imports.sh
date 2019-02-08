@@ -13,18 +13,29 @@ noroot() {
     sudo -EH -u "vagrant" "$@";
 }
 
-if [[ $db_restores != "False" ]]; then
-    for domain in `get_sites`
-    do 
-        sql=*.sql
-        cd "/srv/database/backups"
+if [[ $db_restores == "False"  ]]; then
+    echo "skipping database importing..."
+    exit;
+fi
 
-        for data in $sql
-        do
+cd /srv/database/backups/
+
+count=`ls -1 *.sql 2>/dev/null | wc -l`
+
+if [[ $count != 0 ]]; then
+    for file in $( ls *.sql )
+    do
+        domain=${file%%.sql}
+
+        database=`noroot mysql -u root --skip-column-names -e "SHOW TABLES FROM $domain"`
+		if [ "" == "$database" ]
+		then
             noroot mysql -u root -e "CREATE DATABASE IF NOT EXISTS $domain"
-            noroot mysql -u root -e "GRANT ALL PRIVILEGES ON $domain.* TO 'wp'@'localhost';"
-            noroot mysql -u root "$domain" < "$data"
-            echo "restoring database for $domain."
-        done
+
+			noroot mysql -u root $domain < $domain.sql
+		else
+			echo "$domain has been imported successfully."
+		fi
+
     done
 fi
