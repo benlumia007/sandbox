@@ -2,6 +2,10 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
+# check for update with apt-get since if we are using bash script, it is recommended using
+# apt-get instead of apt because it will throw an notice
+apt-get update -y
+
 # /vagrant/database/backups
 #
 # database will be backup to this location when you vagrant halt or vagrant destroy, this
