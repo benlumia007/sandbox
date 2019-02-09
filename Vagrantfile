@@ -131,11 +131,6 @@ Vagrant.configure( "2" ) do | config |
   config.vm.box_version = "0.0.1"
   config.vm.base_mac = "0800273C9A89"
 
-  # xdebug
-  #
-  # setting forwarded port off by default
-  # config.vm.network "forwarded_port", guest: 9000, host: 9000
-
   # You can customize the name that appears in the VirtualBox Graphic User Interface by
   # setting up the name property. By default, Vagrant sets it to the container folder of
   # the Vagrantfile plus a timestamp when the machine was created. By setting another name,
