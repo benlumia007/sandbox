@@ -7,7 +7,5 @@ xdebug=`cat ${sandbox_config} | shyaml get-value options.xdebug 2> /dev/null`
 if [[ $xdebug == "True" ]]; then
     phpenmod xdebug
 else
-    if [[ $xdebug != "False" ]]; then
-        phpdismod xdebug
-    fi
+    phpdismod xdebug
 fi
