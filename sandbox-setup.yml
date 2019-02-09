@@ -37,3 +37,4 @@ vm_config:
 options:
   db_backups: true
   db_restores: true
+  xdebug: false
