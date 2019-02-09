@@ -22,11 +22,15 @@ sites:
   #  hosts:
   #    - example.test
 
+# utilities
+#
 # Below is the extra resources that can be used to create additional neat features or software
 utilities:
   core:
     - tls-ca
 
+# vm_config 
+# 
 # vm_config controls how Vagrant works and you are enable to increase memory if you need more
 # or if you wish to add more core to the virtual machine. Please take into consider that the
 # memory and core have limitations on how much your hosts computer have.
@@ -34,6 +38,14 @@ vm_config:
   memory: 2048
   core: 2
 
+# options
+#
+# Options are extra features that allows you to do backup of your database and restores them if
+# both are set to true. Both Backup and Restores are set to true by default and it will do a 
+# backup when you do a vagrant halt and vagrant destroy. Restores happens if destroy the virtual
+# machine, it will then restore all databases back to same user.  Xdebug is set to false since it
+# takes more memory or whatnot, use it for your own sake but is not really config yet so that's
+# something that you have to do on your own. 
 options:
   db_backups: true
   db_restores: true
