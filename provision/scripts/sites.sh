@@ -16,7 +16,7 @@ site_name=${domain}
 #
 # this allows you to grab information that are needed and use shyaml to read only,since
 # shyaml is not writeable but read only.
-SANDBOX_CONFIG=/vagrant/sandbox-custom.yml
+sandbox_config=/vagrant/sandbox-custom.yml
 
 # noroot
 #
@@ -29,7 +29,7 @@ noroot() {
 # Takes 2 values, a key to fetch a value for, and an optional default value
 # e.g. echo `get_config_value 'key' 'defaultvalue'`
 get_config_value() {
-    local value=`cat ${SANDBOX_CONFIG} | shyaml get-value sites.${site_escaped}.custom.${1} 2> /dev/null`
+    local value=`cat ${sandbox_config} | shyaml get-value sites.${site_escaped}.custom.${1} 2> /dev/null`
     echo ${value:-$2}
 }
 

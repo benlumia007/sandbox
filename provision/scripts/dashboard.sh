@@ -3,10 +3,18 @@ repo=$1
 branch=${2:-master}
 dir="/srv/www/dashboard/public_html"
 
+# noroot
+#
+# noroot allows provision scripts to be run as the default user "vagrant" rather than the root
+# since provision scripts are run with root privileges.
 noroot() {
-  sudo -EH -u "vagrant" "$@";
+    sudo -EH -u "vagrant" "$@";
 }
 
+# dashboard
+#
+# this will install a dashboard specifically under the following directory so that it can be
+# served as a site. 
 if [[ ! -d ${dir} ]]; then
   if [[ ! -d "/vagrant/certificates/dashboard" ]]; then
       mkdir -p "/vagrant/certificates/dashboard"
