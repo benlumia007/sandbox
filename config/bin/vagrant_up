@@ -1,5 +1,5 @@
 #!/bin/bash
 echo "restarting apache server"
-sudo service apache2 restart
+service apache2 restart
 echo "restarting mysql server"
-sudo service mysql restart
+service mysql restart
