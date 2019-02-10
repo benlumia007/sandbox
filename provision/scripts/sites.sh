@@ -3,14 +3,14 @@
 # variables
 #
 # default variables to create sites and directories and some other stuff.
-DOMAIN=$1
-SITE_ESCAPED=`echo ${DOMAIN} | sed 's/\./\\\\./g'`
-REPO=$2
-BRANCH=$3
-VM_DIR=$4
-SKIP_PROVISIONING=$5
-PATH_TO_SITE=${VM_DIR}
-SITE_NAME=${SITE}
+domain=$1
+site_escaped=`echo ${domain} | sed 's/\./\\\\./g'`
+repo=$2
+branch=$3
+vm_dir=$4
+skip_provisioning=$5
+path_to_site=${vm_dir}
+site_name=${domain}
 
 # /vagrant/sandbox-custom.yml
 #
@@ -29,31 +29,31 @@ noroot() {
 # Takes 2 values, a key to fetch a value for, and an optional default value
 # e.g. echo `get_config_value 'key' 'defaultvalue'`
 get_config_value() {
-    local value=`cat ${SANDBOX_CONFIG} | shyaml get-value sites.${SITE_ESCAPED}.custom.${1} 2> /dev/null`
+    local value=`cat ${SANDBOX_CONFIG} | shyaml get-value sites.${site_escaped}.custom.${1} 2> /dev/null`
     echo ${value:-$2}
 }
 
-if [[ false != "${REPO}" ]]; then
+if [[ false != "${repo}" ]]; then
   # Clone or pull the site repository
-  if [[ ! -d ${VM_DIR}/provision/.git ]]; then
-    echo -e "\nDownloading ${DOMAIN}, see ${REPO}"
-    noroot git clone --recursive --branch ${BRANCH} ${REPO} ${VM_DIR}/provision -q
+  if [[ ! -d ${vm_dir}/provision/.git ]]; then
+    echo -e "\nDownloading ${domain}, see ${repo}"
+    noroot git clone --recursive --branch ${branch} ${repo} ${vm_dir}/provision -q
   else
-    echo -e "\nUpdating ${DOMAIN}..."
-    cd ${VM_DIR}/provision
-    noroot git reset origin/${BRANCH} --hard -q
-    noroot git pull origin ${BRANCH} -q
-    noroot git checkout ${BRANCH} -q
+    echo -e "\nUpdating ${domain}..."
+    cd ${vm_dir}/provision
+    noroot git reset origin/${branch} --hard -q
+    noroot git pull origin ${branch} -q
+    noroot git checkout ${branch} -q
   fi
 else
-  echo "The site: '${DOMAIN}' does not have a site template, assuming provision/setup.sh"
-  if [[ ! -d ${VM_DIR} ]]; then
-    echo "Error: The '${DOMAN}' has no folder."
+  echo "The site: '${domain}' does not have a site template, assuming provision/setup.sh"
+  if [[ ! -d ${vm_dir} ]]; then
+    echo "Error: The '${domain}' has no folder."
   fi
 fi
 
-if [[ -d ${VM_DIR} ]]; then
-    if [[ -f ${VM_DIR}/provision/setup.sh ]]; then
-      cd ${VM_DIR}/provision && source setup.sh
+if [[ -d ${vm_dir} ]]; then
+    if [[ -f ${vm_dir}/provision/setup.sh ]]; then
+      cd ${vm_dir}/provision && source setup.sh
     fi
 fi
