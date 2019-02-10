@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-REPO=$1
-BRANCH=${2:-master}
-DIR="/srv/www/dashboard/public_html"
+repo=$1
+branch=${2:-master}
+dir="/srv/www/dashboard/public_html"
 
 noroot() {
   sudo -EH -u "vagrant" "$@";
 }
 
-if [[ ! -d ${DIR} ]]; then
+if [[ ! -d ${dir} ]]; then
   if [[ ! -d "/vagrant/certificates/dashboard" ]]; then
       mkdir -p "/vagrant/certificates/dashboard"
       cp "/srv/config/certificates/domain.ext" "/vagrant/certificates/dashboard/dashboard.ext"
@@ -26,18 +26,18 @@ if [[ ! -d ${DIR} ]]; then
   service apache2 restart
 fi
 
-if [[ false != "dashboard" && false != "${REPO}" ]]; then
+if [[ false != "dashboard" && false != "${repo}" ]]; then
   # Clone or pull the resources repository
-  if [[ ! -d ${DIR}/.git ]]; then
-    echo -e "\nDownloading dashboard, see ${REPO}"
-    git clone ${REPO} --branch ${BRANCH} ${DIR} -q
-    cd ${DIR}
-    git checkout ${BRANCH} -q
+  if [[ ! -d ${dir}/.git ]]; then
+    echo -e "\nDownloading dashboard, see ${repo}"
+    git clone ${repo} --branch ${branch} ${dir} -q
+    cd ${dir}
+    git checkout ${branch} -q
   else
     echo -e "\nUpdating dashboard..."
-    cd ${DIR}
-    git pull origin ${BRANCH} -q
-    git checkout ${BRANCH} -q
+    cd ${dir}
+    git pull origin ${branch} -q
+    git checkout ${branch} -q
   fi
 fi
 exit 0
