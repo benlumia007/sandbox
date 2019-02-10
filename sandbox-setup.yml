@@ -27,6 +27,7 @@ sites:
 # Below is the extra resources that can be used to create additional neat features or software
 utilities:
   core:
+    - phpmyadmin
     - tls-ca
 
 # vm_config 
