@@ -1,26 +1,31 @@
 #!/usr/bin/env bash
 
-NAME=$1
-REPO=$2
-BRANCH=${3:-master}
-DIR="/vagrant/provision/resources/${NAME}"
+# variables
+#
+# name = name of the resource that's been used.
+# repo = name of the repo's name that is been used.
+# branch = master
+# dir = where the resources going to be downloaded to.
+name=$1
+repo=$2
+branch=${3:-master}
+dir="/vagrant/provision/resources/${name}"
 
 noroot() {
   sudo -EH -u "vagrant" "$@";
 }
 
-if [[ false != "${NAME}" && false != "${REPO}" ]]; then
-  # Clone or pull the resources repository
-  if [[ ! -d ${DIR}/.git ]]; then
-    echo -e "\nDownloading ${NAME} resources, see ${REPO}"
-    noroot git clone ${REPO} --branch ${BRANCH} ${DIR} -q
-    cd ${DIR}/
-    noroot git checkout ${BRANCH} -q
+if [[ false != "${name}" && false != "${repo}" ]]; then
+  if [[ ! -d ${dir}/.git ]]; then
+    echo -e "downloading ${name} resources, see ${repo}"
+    noroot git clone ${repo} --branch ${branch} ${dir} -q
+    cd ${dir}/
+    noroot git checkout ${branch} -q
   else
-    echo -e "\nUpdating ${NAME} resources..."
-    cd ${DIR}
-    noroot git pull origin ${BRANCH} -q
-    noroot git checkout ${BRANCH} -q
+    echo -e "Updating ${name} resources..."
+    cd ${dir}
+    noroot git pull origin ${branch} -q
+    noroot git checkout ${branch} -q
   fi
 fi
 exit 0
