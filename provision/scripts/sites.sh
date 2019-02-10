@@ -34,12 +34,11 @@ get_config_value() {
 }
 
 if [[ false != "${repo}" ]]; then
-  # Clone or pull the site repository
   if [[ ! -d ${vm_dir}/provision/.git ]]; then
-    echo -e "\nDownloading ${domain}, see ${repo}"
+    echo "downloading ${domain}, see ${repo}"
     noroot git clone --recursive --branch ${branch} ${repo} ${vm_dir}/provision -q
   else
-    echo -e "\nUpdating ${domain}..."
+    echo "updating ${domain}..."
     cd ${vm_dir}/provision
     noroot git reset origin/${branch} --hard -q
     noroot git pull origin ${branch} -q
