@@ -1,5 +1,9 @@
 #!/bin/bash
+
+# restart apache
 echo "restarting apache server"
 service apache2 restart
+
+# restart mysql
 echo "restarting mysql server"
 service mysql restart
