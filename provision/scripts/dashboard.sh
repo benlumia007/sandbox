@@ -35,14 +35,13 @@ if [[ ! -d ${dir} ]]; then
 fi
 
 if [[ false != "dashboard" && false != "${repo}" ]]; then
-  # Clone or pull the resources repository
   if [[ ! -d ${dir}/.git ]]; then
-    echo -e "\nDownloading dashboard, see ${repo}"
+    echo -e "downloading dashboard, see ${repo}"
     git clone ${repo} --branch ${branch} ${dir} -q
     cd ${dir}
     git checkout ${branch} -q
   else
-    echo -e "\nUpdating dashboard..."
+    echo -e "updating dashboard..."
     cd ${dir}
     git pull origin ${branch} -q
     git checkout ${branch} -q
