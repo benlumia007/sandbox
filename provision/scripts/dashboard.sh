@@ -30,8 +30,6 @@ if [[ ! -d ${dir} ]]; then
   sed -i -e "s/{{DOMAIN}}/dashboard/g" "/etc/apache2/sites-available/dashboard.conf"
   echo "enable dashboard"
   a2ensite "dashboard.conf"
-  echo "restarting apache server"
-  service apache2 restart
 fi
 
 if [[ false != "dashboard" && false != "${repo}" ]]; then
