@@ -9,8 +9,6 @@ repo=$2
 branch=$3
 vm_dir=$4
 skip_provisioning=$5
-path_to_site=${vm_dir}
-site_name=${domain}
 
 # /vagrant/sandbox-custom.yml
 #
