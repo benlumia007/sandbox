@@ -48,8 +48,6 @@ sandbox_config['sites'].each do | site, args |
   defaults['vm_dir'] = "/srv/www/#{site}"
   defaults['local_dir'] = File.join( vagrant_dir, 'sites', site )
   defaults['branch'] = 'master'
-  defaults['skip_provisioning'] = false
-  defaults['allow_customfile'] = false
   defaults['hosts'] = Array.new
 
   sandbox_config['sites'][site] = defaults.merge( args )

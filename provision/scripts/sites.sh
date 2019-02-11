@@ -8,7 +8,6 @@ site_escaped=`echo ${domain} | sed 's/\./\\\\./g'`
 repo=$2
 branch=$3
 vm_dir=$4
-skip_provisioning=$5
 
 # /vagrant/sandbox-custom.yml
 #
