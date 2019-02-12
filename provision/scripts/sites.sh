@@ -37,19 +37,19 @@ get_config_value() {
 # this will download the sandbox-custom-site and installs WordPress and it's dependencies.
 if [[ false != "${repo}" ]]; then
   if [[ ! -d ${vm_dir}/provision/.git ]]; then
-    echo "downloading ${domain}, please see ${repo}"
+    echo "downloading ${domain}.test, please see ${repo}"
     noroot git clone --recursive --branch ${branch} ${repo} ${vm_dir}/provision -q
   else
-    echo "updating ${domain}..."
+    echo "updating ${domain}.test..."
     cd ${vm_dir}/provision
     noroot git reset origin/${branch} --hard -q
     noroot git pull origin ${branch} -q
     noroot git checkout ${branch} -q
   fi
 else
-  echo "The site: '${domain}' does not have a site template, assuming provision/setup.sh"
+  echo "The site: '${domain}.tes' does not have a site template, assuming provision/setup.sh"
   if [[ ! -d ${vm_dir} ]]; then
-    echo "Error: The '${domain}' has no folder."
+    echo "Error: The '${domain}.test' has no folder."
   fi
 fi
 
