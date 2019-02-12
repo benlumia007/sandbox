@@ -4,10 +4,10 @@
 #
 # default variables to create sites and directories and some other stuff.
 domain=$1
-site_escaped=`echo ${domain} | sed 's/\./\\\\./g'`
 repo=$2
 branch=$3
 vm_dir=$4
+provision=$5
 
 # /vagrant/sandbox-custom.yml
 #
@@ -23,13 +23,18 @@ noroot() {
     sudo -EH -u "vagrant" "$@";
 }
 
-# Takes 2 values, a key to fetch a value for, and an optional default value
-# e.g. echo `get_config_value 'key' 'defaultvalue'`
+# get_config_value
+#
+# this should get the sites.site and outputs it out so that it can be read and continue to
+# insall the site's information.
 get_config_value() {
-    local value=`cat ${sandbox_config} | shyaml get-value sites.${site_escaped}.custom.${1} 2> /dev/null`
-    echo ${value:-$2}
+    local value=`cat ${sandbox_config} | shyaml get-value sites.${1} 2> /dev/null`
+    echo ${value:-$@}
 }
 
+# downloads repository from github.
+#
+# this will download the sandbox-custom-site and installs WordPress and it's dependencies.
 if [[ false != "${repo}" ]]; then
   if [[ ! -d ${vm_dir}/provision/.git ]]; then
     echo "downloading ${domain}, please see ${repo}"
