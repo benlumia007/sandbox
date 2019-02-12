@@ -262,25 +262,31 @@ Vagrant.configure( "2" ) do | config |
     config.hostsupdater.aliases = sandbox_config['hosts']
     config.hostsupdater.remove_on_suspend = true
   end
-
-  config.trigger.after :up do |trigger|
+  
+  # triggers
+  #
+  # triggers allows you to certain commands so that things falls into place, when you vagrant halt or vagrant
+  # destroy, it will then back up any database and converted it to a .sql file or if you vagrant up, it will
+  # restart the apache and mysql server just in case if something happens.
+  config.trigger.after :up do | trigger |
     trigger.name = "vagrant up"
     trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_up" }
     trigger.on_error = :continue
   end
 
-  config.trigger.after :reload do |trigger|
+  config.trigger.after :reload do | trigger |
     trigger.name = "vagrant reload"
     trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_up" }
     trigger.on_error = :continue
   end
 
-  config.trigger.before :halt do |trigger|
+  config.trigger.before :halt do | trigger |
     trigger.name = "vagrant halt"
     trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_halt" }
     trigger.on_error = :continue
   end
-  config.trigger.before :destroy do |trigger|
+
+  config.trigger.before :destroy do | trigger |
     trigger.name = "vagrant destroy"
     trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_destroy" }
     trigger.on_error = :continue
