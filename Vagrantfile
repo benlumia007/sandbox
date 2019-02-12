@@ -224,7 +224,7 @@ Vagrant.configure( "2" ) do | config |
           name,
           args['repo'].to_s,
           args['branch'],
-    ]
+      ]
   end
 
   sandbox_config['utilities'].each do | name, utilities |
