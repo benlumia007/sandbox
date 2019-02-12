@@ -52,7 +52,7 @@ sandbox_config['sites'].each do | site, args |
 
   sandbox_config['sites'][site] = defaults.merge( args )
 
-  if ! sandbox_config['sites'][site]['skip_provisioning'] then
+  if ! sandbox_config['sites'][site]['provision'] then
     site_paths = Dir.glob( Array.new( 4 ) {|i| sandbox_config['sites'][site]['local_dir'] + '/*'*( i+1 ) + '/vvv-hosts' } )
 
     sandbox_config['sites'][site]['hosts'] += site_paths.map do | path |
@@ -190,7 +190,7 @@ Vagrant.configure( "2" ) do | config |
 
   # Add a provision script that allows site created when set in the sandbox-custom.yml
   sandbox_config['sites'].each do | site, args |
-    if args['skip_provisioning'] === false then
+    if args['provision'] === false then
       config.vm.provision "site-#{site}",
         type: "shell",
         path: File.join( "provision/scripts", "sites.sh" ),
@@ -199,47 +199,47 @@ Vagrant.configure( "2" ) do | config |
           args['repo'].to_s,
           args['branch'],
           args['vm_dir'],
-          args['skip_provisioning'].to_s,
+          args['provision'].to_s,
         ]
     end
   end
 
   # Provision the dashboard that appears when you visit vvv.test
-  config.vm.provision "site-dashboard",
-      type: "shell",
-      path: File.join( "provision/scripts", "dashboard.sh" ),
-      args: [
-        sandbox_config['dashboard']['repo'],
-        sandbox_config['dashboard']['branch']
-      ]
+  #config.vm.provision "site-dashboard",
+  #    type: "shell",
+  #    path: File.join( "provision/scripts", "dashboard.sh" ),
+  #    args: [
+  #      sandbox_config['dashboard']['repo'],
+  #      sandbox_config['dashboard']['branch']
+  #    ]
 
 
   # resources
-  sandbox_config['resources'].each do | name, args |
-    config.vm.provision "resources-#{name}",
-      type: "shell",
-      path: File.join( "provision/scripts", "resources.sh" ),
-      args: [
-          name,
-          args['repo'].to_s,
-          args['branch'],
-      ]
-  end
+  #sandbox_config['resources'].each do | name, args |
+  #  config.vm.provision "resources-#{name}",
+  #    type: "shell",
+  #    path: File.join( "provision/scripts", "resources.sh" ),
+  #    args: [
+  #        name,
+  #        args['repo'].to_s,
+  #        args['branch'],
+  #    ]
+  #end
 
-  sandbox_config['utilities'].each do | name, utilities |
-    if ! utilities.kind_of? Array then
-      utilities = Hash.new
-    end
-    utilities.each do | utility |
-        config.vm.provision "resources-#{name}-#{utility}",
-          type: "shell",
-          path: File.join( "provision/scripts", "utility.sh" ),
-          args: [
-              name,
-              utility
-          ]
-      end
-  end
+ # sandbox_config['utilities'].each do | name, utilities |
+ #   if ! utilities.kind_of? Array then
+ #     utilities = Hash.new
+ #   end
+ #   utilities.each do | utility |
+ #       config.vm.provision "resources-#{name}-#{utility}",
+ #         type: "shell",
+ #         path: File.join( "provision/scripts", "utility.sh" ),
+ #         args: [
+ #             name,
+ #             utility
+ #         ]
+ #     end
+ # end
 
   # This uses the vagrant-hostsupdater plugin and adds an entry to your /etc/hosts file on your host system.
   if defined?( VagrantPlugins::HostsUpdater )
