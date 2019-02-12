@@ -24,7 +24,9 @@ sites:
 
 # utilities
 #
-# Below is the extra resources that can be used to create additional neat features or software
+# Below is the extra resources that can be used to create additional neat features or software.
+# Currently phpmyadmin and tls-ca ( SSL Certificates ) are the only one that's supported right
+# now
 utilities:
   core:
     - phpmyadmin
