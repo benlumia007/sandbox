@@ -17,8 +17,7 @@ if File.file?( File.join( vagrant_dir, 'sandbox-custom.yml' ) ) == false then
   FileUtils.cp( File.join( vagrant_dir, 'sandbox-setup.yml' ), File.join( vagrant_dir, 'sandbox-custom.yml' ) )
 end
 
-# This will register sandbox-custom.yml as the default to be used to configured the entire
-# vm. 
+# This will register sandbox-custom.yml as the default to be used to configured the entire vm. 
 sandbox_config_file = File.join( vagrant_dir, 'sandbox-custom.yml' )
 sandbox_config = YAML.load_file( sandbox_config_file )
 
@@ -66,9 +65,17 @@ sandbox_config['sites'].each do | site, args |
   sandbox_config['sites'][site].delete('hosts')
 end
 
+# dashboard.test
+#
+# this is the default dashboard, when enabled as you can see here, it will then generate
+# a new site before the resources takes affect, this will then let you see what exactly
+# have you added a site using the sandbox-custom.yml.
 sandbox_config['hosts'] += ['dashboard.test']
 
-# This section is mean to be used for utilties if any
+# resources
+#
+# this is the resources that gets added by default under the sandbox-custom.yml. this will
+# automatically add phpmyadmin and tls-ca for ssl certificates. 
 if ! sandbox_config['resources'].kind_of? Hash then
   sandbox_config['resources'] = Hash.new
 else
@@ -94,7 +101,11 @@ if ! sandbox_config['utilities'].kind_of? Hash then
   sandbox_config['utilities'] = Hash.new
 end
 
-# This section is meant to be used for sandbox-custom.yml and register vm_config.
+# vm_config
+#
+# this section for vm_config has its default, memory, core and the private ip that is been use
+# by default. the private ip is something that doesn't get change often, so leaving as it is will
+# work just fine.
 if ! sandbox_config['vm_config'].kind_of? Hash then
   sandbox_config['vm_config'] = Hash.new
 end
@@ -108,6 +119,9 @@ sandbox_config['vm_config'] = defaults.merge( sandbox_config['vm_config'] )
 
 sandbox_config['hosts'] = sandbox_config['hosts'].uniq
 
+# dashboard configuration
+#
+# this will grab the dashboard repo and gets installed before the resources takes place.
 if ! sandbox_config['dashboard']
   sandbox_config['dashboard'] = Hash.new
 end
