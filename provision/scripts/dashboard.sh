@@ -20,7 +20,7 @@ if [[ ! -d ${dir} ]]; then
   cp "/srv/config/apache/apache.conf" "/etc/apache2/sites-available/dashboard.conf"
   sed -i -e "s/{{DOMAIN}}/dashboard/g" "/etc/apache2/sites-available/dashboard.conf"
   echo "enable dashboard"
-  a2ensite "dashboard.conf"
+  a2ensite "dashboard.conf" -q
 fi
 
 if [[ false != "dashboard" && false != "${repo}" ]]; then
