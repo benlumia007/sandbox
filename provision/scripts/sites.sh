@@ -43,7 +43,6 @@ if [[ false != "${repo}" ]]; then
     echo "updating ${domain}.test..."
     cd ${vm_dir}/provision
     noroot git pull origin ${branch} -q
-    noroot git checkout ${branch} -q
   fi
 else
   echo "The site: '${domain}.test' does not have a site template, assuming provision/setup.sh"
