@@ -47,7 +47,7 @@ if [[ false != "${repo}" ]]; then
     noroot git checkout ${branch} -q
   fi
 else
-  echo "The site: '${domain}.tes' does not have a site template, assuming provision/setup.sh"
+  echo "The site: '${domain}.test' does not have a site template, assuming provision/setup.sh"
   if [[ ! -d ${vm_dir} ]]; then
     echo "Error: The '${domain}.test' has no folder."
   fi
