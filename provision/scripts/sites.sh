@@ -38,11 +38,10 @@ get_config_value() {
 if [[ false != "${repo}" ]]; then
   if [[ ! -d ${vm_dir}/provision/.git ]]; then
     echo "downloading ${domain}.test, please see ${repo}"
-    noroot git clone --recursive --branch ${branch} ${repo} ${vm_dir}/provision -q
+    noroot git clone ${repo} --branch ${branch} ${vm_dir}/provision -q
   else
     echo "updating ${domain}.test..."
     cd ${vm_dir}/provision
-    noroot git reset origin/${branch} --hard -q
     noroot git pull origin ${branch} -q
     noroot git checkout ${branch} -q
   fi
