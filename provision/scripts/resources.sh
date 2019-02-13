@@ -27,13 +27,10 @@ if [[ false != "${name}" && false != "${repo}" ]]; then
   if [[ ! -d ${dir}/.git ]]; then
     echo "downloading ${name} resources, please see ${repo}"
     noroot git clone ${repo} --branch ${branch} ${dir} -q
-    cd ${dir}/
-    noroot git checkout ${branch} -q
   else
     echo -e "Updating ${name} resources..."
     cd ${dir}
     noroot git pull origin ${branch} -q
-    noroot git checkout ${branch} -q
   fi
 fi
 exit 0
