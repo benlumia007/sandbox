@@ -22,3 +22,8 @@ Sandbox requires VirtualBox and Vagrant.
 To avoid any confusions with running vagrant up for the first time. Vagrantfile will duplicate sandbox-setup.yml to sandbox-custom.yml to avoid accidentally writing on the main file for sandbox-setup.yml. It will create a new site by default (sandbox.test)
 
 If you wish to add more sites beforehand, then you will need to copy the sandbox-setup.yml manually and rename it to sandbox-custom.yml, add your sites and vagrant up.
+
+## Licensing
+This project Sandbox is under GNU GPL, version 2.0 or higher.
+
+2019 (C) Benjamin Lu
