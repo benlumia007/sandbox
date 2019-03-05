@@ -11,6 +11,8 @@
 /certificates
 /provision/*
 !/provision/scripts/*
+
+# database
 /database/*
 !/database/readme.md
 
