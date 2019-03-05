@@ -4,6 +4,7 @@
 # Logs
 /log/php/*
 !/log/php/readme.md
+
 /log/mysql/*
 !/log/mysql/readme.md
 
