@@ -6,3 +6,4 @@
 /provision/*
 /database/*
 /sites/*
+!/sites/readme.md
