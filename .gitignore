@@ -10,6 +10,7 @@
 
 /certificates
 /provision/*
+!/provision/scripts/*
 /database/*
 
 # There is no need to share individual sites with one another.
