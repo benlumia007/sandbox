@@ -3,6 +3,7 @@
 
 # Logs
 /log/apache/*
+!/log/apache/readme.md
 
 /log/php/*
 !/log/php/readme.md
