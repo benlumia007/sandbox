@@ -31,7 +31,6 @@ utilities:
   core:
     - phpmyadmin
     - tls-ca
-    - cockpit
 
 # vm_config
 #
