@@ -80,7 +80,7 @@ sandbox_config['hosts'] += ['dashboard.test']
 if ! sandbox_config['resources'].kind_of? Hash then
   sandbox_config['resources'] = Hash.new
 else
-  sandbox_config['resources'].each do |name, args|
+  sandbox_config['resources'].each do | name, args |
     if args.kind_of? String then
         repo = args
         args = Hash.new
@@ -130,7 +130,7 @@ end
 dashboard_defaults = Hash.new
 dashboard_defaults['repo'] = 'https://github.com/benlumia007/sandbox-dashboard.git'
 dashboard_defaults['branch'] = 'master'
-sandbox_config['dashboard'] = dashboard_defaults.merge(sandbox_config['dashboard'])
+sandbox_config['dashboard'] = dashboard_defaults.merge( sandbox_config['dashboard'] )
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure configures the
 # configuration version (we support older styles for backwards compatibility). Please don't
