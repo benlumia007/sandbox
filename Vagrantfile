@@ -18,7 +18,7 @@ if File.file?( File.join( vagrant_dir, 'sandbox-custom.yml' ) ) == false then
   FileUtils.cp( File.join( vagrant_dir, 'sandbox-setup.yml' ), File.join( vagrant_dir, 'sandbox-custom.yml' ) )
 end
 
-# This will register sandbox-custom.yml as the default to be used to configured the entire vm. 
+# This will register sandbox-custom.yml as the default to be used to configured the entire vm.
 sandbox_config_file = File.join( vagrant_dir, 'sandbox-custom.yml' )
 sandbox_config = YAML.load_file( sandbox_config_file )
 
@@ -54,7 +54,7 @@ sandbox_config['sites'].each do | site, args |
   sandbox_config['sites'][site] = defaults.merge( args )
 
   if ! sandbox_config['sites'][site]['provision'] then
-    site_paths = Dir.glob( Array.new( 4 ) {|i| sandbox_config['sites'][site]['local_dir'] + '/*'*( i+1 ) + '/vvv-hosts' } )
+    site_paths = Dir.glob( Array.new( 4 ) { | i | sandbox_config['sites'][site]['local_dir'] + '/*' * ( i+1 ) + 'readme.md' } )
 
     sandbox_config['sites'][site]['hosts'] += site_paths.map do | path |
       lines = File.readlines( path ).map( &:chomp )
@@ -76,7 +76,7 @@ sandbox_config['hosts'] += ['dashboard.test']
 # resources
 #
 # this is the resources that gets added by default under the sandbox-custom.yml. this will
-# automatically add phpmyadmin and tls-ca for ssl certificates. 
+# automatically add phpmyadmin and tls-ca for ssl certificates.
 if ! sandbox_config['resources'].kind_of? Hash then
   sandbox_config['resources'] = Hash.new
 else
@@ -132,14 +132,14 @@ dashboard_defaults['repo'] = 'https://github.com/benlumia007/sandbox-dashboard.g
 dashboard_defaults['branch'] = 'master'
 sandbox_config['dashboard'] = dashboard_defaults.merge(sandbox_config['dashboard'])
 
-# All Vagrant configuration is done below. The "2" in Vagrant.configure configures the 
+# All Vagrant configuration is done below. The "2" in Vagrant.configure configures the
 # configuration version (we support older styles for backwards compatibility). Please don't
 # change it unless you know what you're doing.
 Vagrant.configure( "2" ) do | config |
   # The most common configuration options are documented and commented below. For a complete
   # reference, please see the online documentation at https://docs.vagrantup.com.
 
-  # Every Vagrant development environment requires a box. You can search for boxes at 
+  # Every Vagrant development environment requires a box. You can search for boxes at
   # https://vagrantcloud.com/search.
   config.vm.box = "benlumia007/sandbox"
   config.vm.box_version = "0.0.2"
@@ -155,13 +155,13 @@ Vagrant.configure( "2" ) do | config |
     vm.customize ["modifyvm", :id, "--memory", sandbox_config['vm_config']['memory']]
     vm.customize ["modifyvm", :id, "--cpus", sandbox_config['vm_config']['cores']]
   end
-  
+
   # Create a private network, which allows host-only access to the machine using a specific IP.
   config.vm.network :private_network, id: "sandbox_primary", ip: sandbox_config['vm_config']['private_network_ip']
 
   # /var/log/php
   #
-  # 
+  #
   config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dmode=777", "fmode=777"]
 
   # /var/log/mysql
@@ -182,7 +182,7 @@ Vagrant.configure( "2" ) do | config |
 
   # /srv/www
   #
-  # This is the default folder that  holds all of the custom sites when you generate a new site using 
+  # This is the default folder that  holds all of the custom sites when you generate a new site using
   # the sandbox-custom.yml.
   config.vm.synced_folder "sites", "/srv/www", :owner => "www-data", :mount_options => [ "dmode=775", "fmode=774" ]
 
@@ -263,7 +263,7 @@ Vagrant.configure( "2" ) do | config |
     config.hostsupdater.aliases = sandbox_config['hosts']
     config.hostsupdater.remove_on_suspend = true
   end
-  
+
   # triggers
   #
   # triggers allows you to certain commands so that things falls into place, when you vagrant halt or vagrant
