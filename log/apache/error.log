@@ -1,0 +1,2 @@
+[Wed Mar 06 05:56:31.893829 2019] [mpm_prefork:notice] [pid 3723] AH00163: Apache/2.4.29 (Ubuntu) OpenSSL/1.1.0g configured -- resuming normal operations
+[Wed Mar 06 05:56:31.893956 2019] [core:notice] [pid 3723] AH00094: Command line: '/usr/sbin/apache2'
