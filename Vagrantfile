@@ -4,6 +4,18 @@ Vagrant.require_version ">= 2.2.1"
 require 'yaml'
 require 'fileutils'
 
+def virtualbox_version()
+  vboxmanage = Vagrant::Util::Which.which( "VBoxManage" ) || Vagrant::Util::Which.which( "VBoxManage.exe" )
+  if vboxmanage != nil
+    s = Vagrant::Util::Subprocess.execute( vboxmanage, '--version' )
+    return s.stdout.strip!
+  else
+    return 'unknown'
+  end
+end
+
+platform = 'platform-' + Vagrant::Util::Platform.platform + ' '
+
 # All folders and projects will be at the main location of the folder that has been created
 # automatically when vagrant init takes affect.
 vagrant_dir = File.expand_path( File.dirname( __FILE__ ) )
@@ -18,6 +30,10 @@ if [ 'up', 'reload' ].include? ARGV[0] then
 
   Project:        https://github.com:benlumia007/sandbox
   Dashboard:      https://sandbox.test
+
+  Platform:       #{platform}
+  VirtualBox:     #{virtualbox_version}
+  Vagrant:        #{Vagrant::VERSION}
 
   HEREDOC
   puts splash
