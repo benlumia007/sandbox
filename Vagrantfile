@@ -8,6 +8,18 @@ require 'fileutils'
 # automatically when vagrant init takes affect.
 vagrant_dir = File.expand_path( File.dirname( __FILE__ ) )
 
+# Documentations
+splash = <<-HEREDOC
+Contributor:   benlumia007
+Release Date:   March 6, 2019
+Version:        0.0.2
+
+Project:        https://github.com:benlumia007/sandbox
+Dashboard:      https://sandbox.test
+
+HEREDOC
+puts splash
+
 # sandbox-setup.yml and sandbox-custom.yml
 #
 # By default, sandbox-setup.yml is the main file with all the configurations needed to create
