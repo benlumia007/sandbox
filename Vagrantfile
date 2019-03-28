@@ -8,17 +8,20 @@ require 'fileutils'
 # automatically when vagrant init takes affect.
 vagrant_dir = File.expand_path( File.dirname( __FILE__ ) )
 
-# Documentations
-splash = <<-HEREDOC
-Contributor:   benlumia007
-Release Date:   March 6, 2019
-Version:        0.0.2
+if [ 'up', 'reload' ].include? ARGV[0] then
+  # Documentations
+  splash = <<-HEREDOC
 
-Project:        https://github.com:benlumia007/sandbox
-Dashboard:      https://sandbox.test
+  Contributor:    benlumia007
+  Release Date:   April 1, 2019
+  Version:        0.0.3
 
-HEREDOC
-puts splash
+  Project:        https://github.com:benlumia007/sandbox
+  Dashboard:      https://sandbox.test
+
+  HEREDOC
+  puts splash
+end
 
 # sandbox-setup.yml and sandbox-custom.yml
 #
