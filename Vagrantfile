@@ -7,27 +7,25 @@ require 'fileutils'
 def virtualbox_path()
   @vboxmanage_path = nil
   if Vagrant::Util::Platform.windows? || Vagrant::Util::Platform.cygwin?
-      @vboxmanage_path = Vagrant::Util::Which.which("VBoxManage")
+      @vboxmanage_path = Vagrant::Util::Which.which( "VBoxManage" )
 
-      # On Windows, we use the VBOX_INSTALL_PATH environmental
-      # variable to find VBoxManage.
-      if !@vboxmanage_path && (ENV.key?("VBOX_INSTALL_PATH") ||
-        ENV.key?("VBOX_MSI_INSTALL_PATH"))
+      # On Windows, we use the VBOX_INSTALL_PATH environmental variable to find VBoxManage.
+      if !@vboxmanage_path && ( ENV.key?( "VBOX_INSTALL_PATH" ) || ENV.key?("VBOX_MSI_INSTALL_PATH" ) )
 
         # Get the path.
         path = ENV["VBOX_INSTALL_PATH"] || ENV["VBOX_MSI_INSTALL_PATH"]
 
         # There can actually be multiple paths in here, so we need to
         # split by the separator ";" and see which is a good one.
-        path.split(";").each do |single|
+        path.split( ";" ).each do | single |
           # Make sure it ends with a \
-          single += "\\" if !single.end_with?("\\")
+          single += "\\" if !single.end_with?( "\\" )
 
           # If the executable exists, then set it as the main path
           # and break out
           vboxmanage = "#{single}VBoxManage.exe"
-          if File.file?(vboxmanage)
-            @vboxmanage_path = Vagrant::Util::Platform.cygwin_windows_path(vboxmanage)
+          if File.file?( vboxmanage )
+            @vboxmanage_path = Vagrant::Util::Platform.cygwin_windows_path( vboxmanage )
             break
           end
         end
@@ -40,8 +38,8 @@ def virtualbox_path()
         "#{drive}/Program Files (x86)/Oracle/VirtualBox",
         "#{ENV["PROGRAMFILES"]}/Oracle/VirtualBox"
       ].each do |maybe|
-        path = File.join(maybe, "VBoxManage.exe")
-        if File.file?(path)
+        path = File.join( maybe, "VBoxManage.exe" )
+        if File.file?( path )
           @vboxmanage_path = path
           break
         end
@@ -50,16 +48,16 @@ def virtualbox_path()
       if !Vagrant::Util::Platform.wsl_windows_access?
         raise Vagrant::Errors::WSLVirtualBoxWindowsAccessError
       end
-      @vboxmanage_path = Vagrant::Util::Which.which("VBoxManage") || Vagrant::Util::Which.which("VBoxManage.exe")
+      @vboxmanage_path = Vagrant::Util::Which.which( "VBoxManage" ) || Vagrant::Util::Which.which( "VBoxManage.exe" )
       if !@vboxmanage_path
         # If we still don't have one, try to find it using common locations
         drive = "/mnt/c"
         [
           "#{drive}/Program Files/Oracle/VirtualBox",
           "#{drive}/Program Files (x86)/Oracle/VirtualBox"
-        ].each do |maybe|
-          path = File.join(maybe, "VBoxManage.exe")
-          if File.file?(path)
+        ].each do | maybe |
+          path = File.join( maybe, "VBoxManage.exe" )
+          if File.file?( path )
             @vboxmanage_path = path
             break
           end
@@ -74,7 +72,7 @@ end
 
 def virtualbox_version()
   vboxmanage = virtualbox_path()
-  s = Vagrant::Util::Subprocess.execute(vboxmanage, '--version')
+  s = Vagrant::Util::Subprocess.execute( vboxmanage, '--version' )
   return s.stdout.strip!
 end
 
@@ -98,6 +96,7 @@ if [ 'up', 'reload' ].include? ARGV[0] then
   Platform:       #{platform}
   VirtualBox:     #{virtualbox_version}
   Vagrant:        #{Vagrant::VERSION}
+  Path:           #{vagrant_dir}
 
   HEREDOC
   puts splash
