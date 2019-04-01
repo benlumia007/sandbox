@@ -33,13 +33,6 @@ def virtualbox_path()
         end
       end
 
-def virtualbox_version()
-  vboxmanage = Vagrant::Util::Which.which("VBoxManage") || Vagrant::Util::Which.which("VBoxManage.exe")
-  if vboxmanage != nil
-      s = Vagrant::Util::Subprocess.execute(vboxmanage, '--version')
-      return s.stdout.strip!
-  else
-      return 'unknown'
       # If we still don't have one, try to find it using common locations
       drive = ENV["SYSTEMDRIVE"] || "C:"
       [
