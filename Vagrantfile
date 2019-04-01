@@ -87,7 +87,8 @@ if [ 'up', 'reload' ].include? ARGV[0] then
   splash = <<-HEREDOC
 
   Contributor:    benlumia007
-  Release Date:   April 1, 2019
+  Release Date:   February 22, 2019
+  Last Updated:   April 1, 2019
   Version:        0.0.3
 
   Project:        https://github.com:benlumia007/sandbox
