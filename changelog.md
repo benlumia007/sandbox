@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.3
+- Add a splash screen
+
 ## 0.0.2
 - Add grunt
 - Add npm
