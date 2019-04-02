@@ -1,4 +1,9 @@
 # Changelog
 
+## 0.0.2
+- Add grunt
+- Add npm
+- update box to version 0.0.2
+
 ## 0.0.1
-Initial Public Release
+- Initial Public Release
