@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.4
+- https://sandbox.test ( fixed )
+
 ## 0.0.3
 - Add a splash screen
 
