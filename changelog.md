@@ -1,4 +1,4 @@
 # Changelog
 
-## 1.0.0 - April 17, 2019
+## 1.0.0 - May 1, 2019
 - Initial Public Release
