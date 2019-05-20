@@ -7,6 +7,7 @@
 - Changed all trigger location from `/vagrant` to `/srv/`
 - Add Script inline for `/vagrant`
 - Modify `/srv/provision/resources.sh`
+- Modify `/srv/provision/utility.sh`
 
 ## 1.0.0 - May 1, 2019
 - Initial Public Release
