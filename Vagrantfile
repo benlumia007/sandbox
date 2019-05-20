@@ -261,6 +261,10 @@ Vagrant.configure( "2" ) do | config |
   # disabled the default shared folder /vagrant and re-created as a non-sharing folder.
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
+  # /srv/certificates
+  #
+  # This will be used to generated all certificates related.
+  config.vm.synced_folder "certificates", "/srv/certificates", create: true
 
   # /srv/config
   #
