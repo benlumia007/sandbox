@@ -253,6 +253,15 @@ Vagrant.configure( "2" ) do | config |
   # Create a private network, which allows host-only access to the machine using a specific IP.
   config.vm.network :private_network, id: "sandbox_primary", ip: sandbox_config['vm_config']['private_network_ip']
 
+  # /vagrant
+  #
+  # The following config.vm.synced_folder will map directories in your Vagrant environment which will map any
+  # changes within your local enviornment and virtual machine. This will then cause issues due to sharing the same
+  # file. There is really no point of having the same files so we only want to share specific files. We will then
+  # disabled the default shared folder /vagrant and re-created as a non-sharing folder.
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+
   # /srv/config
   #
   # This is where all the configuration files that are available to use to copy to the sandbox
@@ -269,15 +278,15 @@ Vagrant.configure( "2" ) do | config |
   #
   config.vm.synced_folder "log/apache", "/var/log/apache2", :owner => 'root', :group => 'adm'
 
-  # /var/log/php
-  #
-  #
-  config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dmode=777", "fmode=777"]
-
   # /var/log/mysql
   #
   #
   config.vm.synced_folder "log/mysql", "/var/log/mysql", :owner => 'mysql', :group => 'adm'
+
+  # /var/log/php
+  #
+  #
+  config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dmode=777", "fmode=777"]
 
   # /srv/www
   #
