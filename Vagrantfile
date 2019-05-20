@@ -260,6 +260,7 @@ Vagrant.configure( "2" ) do | config |
   # file. There is really no point of having the same files so we only want to share specific files. We will then
   # disabled the default shared folder /vagrant and re-created as a non-sharing folder.
   config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.provision "file", source: "#{vagrant_dir}/sandbox-custom.yml", destination: "/home/vagrant/sandbox-custom.yml"
   $script = <<-SCRIPT
     mkdir -p /vagrant
     cp -f /home/vagrant/sandbox-custom.yml /vagrant
