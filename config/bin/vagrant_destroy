@@ -1,13 +1,13 @@
 #!/bin/bash
 
-if [[ -f "/vagrant/config/bin/vagrant_destroy_custom" ]]; then
+if [[ -f "/srv/config/bin/vagrant_destroy_custom" ]]; then
 	echo "Executing vagrant_destroy_custom"
-	/vagrant/config/bin/vagrant_destroy_custom
+	/srv/config/bin/vagrant_destroy_custom
 else
-    /vagrant/config/bin/db_backups
+    /srv/config/bin/db_backups
 
 	if [[ -d "/srv/www/dashboard" ]]; then
-		rm -rf /vagrant/certificates/dashboard
+		rm -rf /srv/certificates/dashboard
 		rm -rf /srv/www/dashboard
 	fi
 fi
