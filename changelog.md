@@ -6,6 +6,7 @@
 - New Shared Folder `certificates`, `srv/certificates`
 - Changed all trigger location from `/vagrant` to `/srv/`
 - Add Script inline for `/vagrant`
+- Modify `/srv/provision/resources.sh`
 
 ## 1.0.0 - May 1, 2019
 - Initial Public Release
