@@ -9,6 +9,7 @@
 - Modify `/srv/provision/resources.sh`
 - Modify `/srv/provision/utility.sh`
 - Moved the symlink to the sandbox-resources for tls-ca
+- Updated apache.conf for certificates
 
 ## 1.0.0 - May 1, 2019
 - Initial Public Release
