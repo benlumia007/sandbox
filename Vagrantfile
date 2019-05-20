@@ -264,8 +264,6 @@ Vagrant.configure( "2" ) do | config |
   $script = <<-SCRIPT
     mkdir -p /vagrant
     cp -f /home/vagrant/sandbox-custom.yml /vagrant
-    
-    ln -s /srv/certificates /vagrant/certificates
   SCRIPT
     config.vm.provision "shell", inline: $script
 
