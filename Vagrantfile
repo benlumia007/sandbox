@@ -384,31 +384,31 @@ Vagrant.configure( "2" ) do | config |
   # restart the apache and mysql server just in case if something happens.
   config.trigger.after :up do | trigger |
     trigger.name = "vagrant up"
-    trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_up" }
+    trigger.run_remote = { inline: "/srv/config/bin/vagrant_up" }
     trigger.on_error = :continue
   end
 
   config.trigger.after :reload do | trigger |
     trigger.name = "vagrant reload"
-    trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_up" }
+    trigger.run_remote = { inline: "/srv/config/bin/vagrant_up" }
     trigger.on_error = :continue
   end
 
   config.trigger.before :halt do | trigger |
     trigger.name = "vagrant halt"
-    trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_halt" }
+    trigger.run_remote = { inline: "/srv/config/bin/vagrant_halt" }
     trigger.on_error = :continue
   end
 
   config.trigger.before :suspend do | trigger |
     trigger.name = "vagrant suspend"
-    trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_halt" }
+    trigger.run_remote = { inline: "/srv/config/bin/vagrant_halt" }
     trigger.on_error = :continue
   end
 
   config.trigger.before :destroy do | trigger |
     trigger.name = "vagrant destroy"
-    trigger.run_remote = { inline: "/vagrant/config/bin/vagrant_destroy" }
+    trigger.run_remote = { inline: "/srv/config/bin/vagrant_destroy" }
     trigger.on_error = :continue
   end
 end
