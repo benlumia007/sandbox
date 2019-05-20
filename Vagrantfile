@@ -263,7 +263,7 @@ Vagrant.configure( "2" ) do | config |
   config.vm.provision "file", source: "#{vagrant_dir}/sandbox-custom.yml", destination: "/home/vagrant/sandbox-custom.yml"
   $script = <<-SCRIPT
     mkdir -p /vagrant
-    mv -f /home/vagrant/sandbox-custom.yml /vagrant
+    cp -f /home/vagrant/sandbox-custom.yml /vagrant
     
     ln -s /srv/certificates /vagrant/certificates
   SCRIPT
@@ -284,8 +284,7 @@ Vagrant.configure( "2" ) do | config |
   # /srv/database
   #
   # database stores here
-  config.vm.synced_folder "database/backups", "/srv/database"
-  config.vm.synced_folder "database/data", "/var/lib/mysql", create: true, owner: "mysql", group: "mysql"
+  config.vm.synced_folder "database", "/srv/database"
 
   # /var/log/apache
   #
