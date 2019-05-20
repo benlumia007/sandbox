@@ -9,7 +9,7 @@
 name=$1
 repo=$2
 branch=${3:-master}
-dir="/vagrant/provision/resources/${name}"
+dir="/srv/provision/resources/${name}"
 
 # noroot
 #
