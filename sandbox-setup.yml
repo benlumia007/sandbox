@@ -16,6 +16,9 @@ sites:
     repo: https://github.com/benlumia007/sandbox-custom-site.git
     hosts:
       - sandbox.test
+    custom:
+      plugins:
+        - query-monitor
 
   #example:
   #  repo: https://github.com/benlumia007/sandbox-custom-site.git
