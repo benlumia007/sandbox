@@ -4,6 +4,7 @@
 #
 # default variables to create sites and directories and some other stuff.
 domain=$1
+escaped=`echo ${domain} | sed 's/\./\\\\./g'`
 repo=$2
 branch=$3
 vm_dir=$4
@@ -28,7 +29,7 @@ noroot() {
 # this should get the sites.site and outputs it out so that it can be read and continue to
 # insall the site's information.
 get_config_value() {
-    local value=`cat ${sandbox_config} | shyaml get-value sites.${1} 2> /dev/null`
+    local value=`cat ${sandbox_config} | shyaml get-value sites.${escaped}.custom.${1} 2> /dev/null`
     echo ${value:-$@}
 }
 
