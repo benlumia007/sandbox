@@ -13,6 +13,7 @@
 - Add contributing.md
 - Updated provision/sites.sh to use custom feature
 - Add Default Plugins during installation
+- Updated `sandbox-setup.yml`
 
 ## 1.0.0 - May 1, 2019
 - Initial Public Release
