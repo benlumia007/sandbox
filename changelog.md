@@ -11,6 +11,8 @@
 - Moved the symlink to the sandbox-resources for tls-ca
 - Updated apache.conf for certificates
 - Add contributing.md
+- Updated provision/sites.sh to use custom feature
+- Add Default Plugins during installation
 
 ## 1.0.0 - May 1, 2019
 - Initial Public Release
