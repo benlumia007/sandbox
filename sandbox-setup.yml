@@ -18,7 +18,10 @@ sites:
       - sandbox.test
     custom:
       plugins:
+        - jetpack
         - query-monitor
+        - theme-check
+        - theme-sniffer
 
   #example:
   #  repo: https://github.com/benlumia007/sandbox-custom-site.git
