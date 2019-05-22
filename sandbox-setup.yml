@@ -23,10 +23,16 @@ sites:
         - theme-check
         - theme-sniffer
 
-  #example:
+  # example:
   #  repo: https://github.com/benlumia007/sandbox-custom-site.git
   #  hosts:
   #    - example.test
+  #  custom:
+  #    plugins:
+  #      - jetpack
+  #      - query-monitor
+  #      - theme-check
+  #      - theme-sniffer
 
 # utilities
 #
