@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.1 - TBD
+## 1.0.1 - May 23, 2019
 - Disabled `/vagrant` by default
 - New Shared Folder `provision`, `srv/provision`
 - New Shared Folder `certificates`, `srv/certificates`
