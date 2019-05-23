@@ -1,5 +1,8 @@
 # Changelog
 
+# 1.0.2 - TBD
+- Changed vm.name
+
 ## 1.0.1 - May 23, 2019
 - Disabled `/vagrant` by default
 - New Shared Folder `provision`, `srv/provision`
