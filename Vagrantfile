@@ -245,7 +245,7 @@ Vagrant.configure( "2" ) do | config |
   # the Vagrantfile plus a timestamp when the machine was created. By setting another name,
   # your Virtual Machine can be more easily identified.
   config.vm.provider "virtualbox" do | vm |
-    vm.name = "sandbox"
+    vm.name = "sandbox_" + ( Digest::SHA256.hexdigest vagrant_dir)[0..10]
 
     vm.customize ["modifyvm", :id, "--memory", sandbox_config['vm_config']['memory']]
     vm.customize ["modifyvm", :id, "--cpus", sandbox_config['vm_config']['cores']]
