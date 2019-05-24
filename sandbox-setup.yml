@@ -17,6 +17,7 @@ sites:
     hosts:
       - sandbox.test
     custom:
+      title: Sandbox
       plugins:
         - jetpack
         - query-monitor
