@@ -245,28 +245,6 @@ Vagrant.configure( "2" ) do | config |
   config.vm.box_version = "1.0.0"
   config.vm.base_mac = "0800273C9A89"
 
-  # You can customize the name that appears in the VirtualBox Graphic User Interface by
-  # setting up the name property. By default, Vagrant sets it to the container folder of
-  # the Vagrantfile plus a timestamp when the machine was created. By setting another name,
-  # your Virtual Machine can be more easily identified.
-  config.vm.provider "virtualbox" do | vm |
-    vm.name = "sandbox_" + ( Digest::SHA256.hexdigest vagrant_dir)[0..10]
-
-    vm.customize ["modifyvm", :id, "--memory", sandbox_config['vm_config']['memory']]
-    vm.customize ["modifyvm", :id, "--cpus", sandbox_config['vm_config']['cores']]
-  end
-
-  config.vm.provider :hyperv do | vm, override |
-    vm.memory = sandbox_config['vm_config']['memory']
-    vm.cpus = sandbox_config['vm_config']['core']
-    vm.enable_virtualization_extensions = true
-    vm.linked_clone = true
-  end
-
-  config.vm.provider :hyperv do | vm, override |
-    override.vm.box = "benlumia007/sandbox"
-  end
-
   # Create a private network, which allows host-only access to the machine using a specific IP.
   config.vm.network :private_network, id: "sandbox_primary", ip: sandbox_config['vm_config']['private_network_ip']
 
@@ -329,25 +307,36 @@ Vagrant.configure( "2" ) do | config |
     end
   end
 
-  config.vm.provider :hyperv do | vm, override |
-  # /srv/www
-  #
-  # This is the default folder that  holds all of the custom sites when you generate a new site using
-  # the sandbox-custom.yml.
-  override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :mount_options => []
+  # You can customize the name that appears in the VirtualBox Graphic User Interface by
+  # setting up the name property. By default, Vagrant sets it to the container folder of
+  # the Vagrantfile plus a timestamp when the machine was created. By setting another name,
+  # your Virtual Machine can be more easily identified.
+  config.vm.provider "virtualbox" do | vm |
+    vm.name = "sandbox_" + ( Digest::SHA256.hexdigest vagrant_dir)[0..10]
 
-  # /var/log/php
-  #
-  #
-  override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
-
-
-  # This section when set, it will synced a folder that will use www-data as default.
-  sandbox_config['sites'].each do | site, args |
-    if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
-      override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :mount_options => []
-    end
+    vm.customize ["modifyvm", :id, "--memory", sandbox_config['vm_config']['memory']]
+    vm.customize ["modifyvm", :id, "--cpus", sandbox_config['vm_config']['cores']]
   end
+
+  # Microsoft Hyper-V
+  #
+  #
+  config.vm.provider :hyperv do | vm, override |
+    vm.memory = sandbox_config['vm_config']['memory']
+    vm.cpus = sandbox_config['vm_config']['core']
+    vm.enable_virtualization_extensions = true
+    vm.linked_clone = true
+
+    override.vm.box = "benlumia007/sandbox"
+
+    override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :mount_options => []
+    override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
+
+    sandbox_config['sites'].each do | site, args |
+      if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
+        override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :mount_options => []
+      end
+    end
   end
 
   # setup.sh or custom.sh
