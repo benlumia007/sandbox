@@ -251,6 +251,17 @@ Vagrant.configure( "2" ) do | config |
     vm.customize ["modifyvm", :id, "--cpus", sandbox_config['vm_config']['cores']]
   end
 
+  config.vm.provider :hyperv do | vm, override |
+    vm.memory = sandbox_config['vm_config']['memory']
+    vm.cpus = sandbox_config['vm_config']['core']
+    vm.enable_virtualization_extensions = true
+    vm.linked_clone = true
+  end
+
+  config.vm.provider :hyperv do | vm, override |
+    override.vm.box = "benlumia007/sandbox"
+  end
+
   # Create a private network, which allows host-only access to the machine using a specific IP.
   config.vm.network :private_network, id: "sandbox_primary", ip: sandbox_config['vm_config']['private_network_ip']
 
@@ -311,6 +322,27 @@ Vagrant.configure( "2" ) do | config |
     if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
       config.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "www-data", :mount_options => [ "dmode=775", "fmode=774" ]
     end
+  end
+
+  config.vm.provider :hyperv do | vm, override |
+  # /srv/www
+  #
+  # This is the default folder that  holds all of the custom sites when you generate a new site using
+  # the sandbox-custom.yml.
+  config.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :mount_options => []
+
+  # /var/log/php
+  #
+  #
+  config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
+
+
+  # This section when set, it will synced a folder that will use www-data as default.
+  sandbox_config['sites'].each do | site, args |
+    if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
+      config.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :mount_options => []
+    end
+  end
   end
 
   # setup.sh or custom.sh
