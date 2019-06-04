@@ -3,6 +3,7 @@
 # 1.0.2 - TBD
 - Changed vm.name
 - Add Custom Title
+- Removed Custom Settings
 
 ## 1.0.1 - May 23, 2019
 - Disabled `/vagrant` by default
