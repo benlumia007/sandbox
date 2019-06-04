@@ -329,18 +329,18 @@ Vagrant.configure( "2" ) do | config |
   #
   # This is the default folder that  holds all of the custom sites when you generate a new site using
   # the sandbox-custom.yml.
-  override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :mount_options => []
+  config.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :mount_options => []
 
   # /var/log/php
   #
   #
-  override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
+  config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
 
 
   # This section when set, it will synced a folder that will use www-data as default.
   sandbox_config['sites'].each do | site, args |
     if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
-      override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :mount_options => []
+      config.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :mount_options => []
     end
   end
   end
