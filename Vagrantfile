@@ -313,6 +313,27 @@ Vagrant.configure( "2" ) do | config |
     end
   end
 
+  # Microsoft Hyper-V
+  #
+  #
+  config.vm.provider :hyperv do | vm, override |
+    vm.memory = sandbox_config['vm_config']['memory']
+    vm.cpus = sandbox_config['vm_config']['core']
+    vm.enable_virtualization_extensions = true
+    vm.linked_clone = true
+
+    override.vm.box = "benlumia007/sandbox"
+
+    override.vm.synced_folder "sites", "/srv/www", :owner => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
+    override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
+
+    sandbox_config['sites'].each do | site, args |
+      if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
+        override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
+      end
+    end
+  end
+
   # setup.sh or custom.sh
   #
   # By default, the Vagrantfile is set to use the setup.sh bash script which is located in
