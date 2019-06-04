@@ -16,24 +16,11 @@ sites:
     repo: https://github.com/benlumia007/sandbox-custom-site.git
     hosts:
       - sandbox.test
-    custom:
-      title: Sandbox
-      plugins:
-        - jetpack
-        - query-monitor
-        - theme-check
-        - theme-sniffer
 
   # example:
   #  repo: https://github.com/benlumia007/sandbox-custom-site.git
   #  hosts:
   #    - example.test
-  #  custom:
-  #    plugins:
-  #      - jetpack
-  #      - query-monitor
-  #      - theme-check
-  #      - theme-sniffer
 
 # utilities
 #
