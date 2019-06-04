@@ -329,12 +329,12 @@ Vagrant.configure( "2" ) do | config |
 
     override.vm.box = "benlumia007/sandbox"
 
-    override.vm.synced_folder "sites", "/srv/www", :owner => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
+    override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data" :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dir_mode=0777", "file_mode=0777" ]
 
     sandbox_config['sites'].each do | site, args |
       if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
-        override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
+        override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :group => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
       end
     end
   end
