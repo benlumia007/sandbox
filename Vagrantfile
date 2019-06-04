@@ -326,7 +326,8 @@ Vagrant.configure( "2" ) do | config |
     vm.cpus = sandbox_config['vm_config']['core']
     vm.enable_virtualization_extensions = true
     vm.linked_clone = true
-
+    
+    vm.name = "sandbox_" + ( Digest::SHA256.hexdigest vagrant_dir)[0..10]
     override.vm.box = "benlumia007/sandbox"
 
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :mount_options => []
