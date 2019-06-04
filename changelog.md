@@ -3,7 +3,6 @@
 # 1.0.2 - TBD
 - Changed vm.name
 - Add Custom Title
-- Add New Provider for Microsoft Hyper-V and fixed Shared Folder
 
 ## 1.0.1 - May 23, 2019
 - Disabled `/vagrant` by default
