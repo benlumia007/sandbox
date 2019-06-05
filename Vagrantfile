@@ -322,6 +322,7 @@ Vagrant.configure( "2" ) do | config |
   #
   #
   config.vm.provider :hyperv do | vm, override |
+    vm.vmname = "sandbox_" + ( Digest::SHA256.hexdigest vagrant_dir)[0..10]
     vm.memory = sandbox_config['vm_config']['memory']
     vm.cpus = sandbox_config['vm_config']['core']
     vm.enable_virtualization_extensions = true
