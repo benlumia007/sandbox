@@ -232,6 +232,8 @@ if defined? sandbox_config['vm_config']['provider'] then
   ENV['VAGRANT_DEFAULT_PROVIDER'] = sandbox_config['vm_config']['provider']
 end
 
+REMOTE_IP = %x{/usr/local/bin/vagrant ssh-config | /bin/grep -i HostName | /usr/bin/cut -d\' \' -f4}
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure configures the
 # configuration version (we support older styles for backwards compatibility). Please don't
 # change it unless you know what you're doing.
@@ -329,7 +331,7 @@ Vagrant.configure( "2" ) do | config |
 
     override.vm.box = "benlumia007/sandbox"
 
-    override.vm.network :private_network, id: "sandbox_primary", ip: nil
+    override.vm.network :private_network, id: "sandbox_primary", ip: ${REMOTE_IP}
 
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dir_mode=0777", "file_mode=0777" ]
