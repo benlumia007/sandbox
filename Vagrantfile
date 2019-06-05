@@ -1,6 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-Vagrant.require_version ">= 2.2.1"
+Vagrant.require_version ">= 2.2.4"
 require 'yaml'
 require 'fileutils'
 
@@ -88,8 +88,8 @@ if [ 'up', 'reload' ].include? ARGV[0] then
 
   Contributor:    benlumia007
   Release Date:   May 1, 2019
-  Last Updated:   May 23, 2019
-  Version:        1.0.1
+  Last Updated:   June 5, 2019
+  Version:        1.0.2
 
   Project:        https://github.com/benlumia007/sandbox
   Dashboard:      https://sandbox.test

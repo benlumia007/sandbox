@@ -1,6 +1,6 @@
 # Changelog
 
-# 1.0.2 - TBD
+# 1.0.2 - June 5, 2019
 - Changed vm.name
 - Add Custom Title
 - Removed Custom Settings
