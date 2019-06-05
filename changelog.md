@@ -6,6 +6,7 @@
 - Removed Custom Settings
 - Add Provider for Microsoft Hyper-V
 - Fixed Shared Folder Permissions for Microsoft Hyper-V
+- Change VM name for Microsoft Hyper-V
 
 ## 1.0.1 - May 23, 2019
 - Disabled `/vagrant` by default
