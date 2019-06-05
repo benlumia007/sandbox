@@ -329,6 +329,9 @@ Vagrant.configure( "2" ) do | config |
 
     override.vm.box = "benlumia007/sandbox"
 
+    override.vm.network :private_network, id: "sandbox_primary", ip: 127.0.0.1
+    override.vm.network "forwarded_port", guest: 80, host: 80
+
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dir_mode=0777", "file_mode=0777" ]
 
