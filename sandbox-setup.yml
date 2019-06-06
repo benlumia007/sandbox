@@ -54,3 +54,4 @@ options:
   db_backups: true
   db_restores: true
   xdebug: false
+  timezone: America/Los_Angeles
