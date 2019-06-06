@@ -292,7 +292,7 @@ Vagrant.configure( "2" ) do | config |
   # /var/log/provision
   #
   #
-  config.vm.synced_folder "log/provision", "/var/log/provision", owner: "root", group: "syslog", mount_options: [ "dmode=777", "fmode=666" ]
+  config.vm.synced_folder "log/provision", "/var/log/provision", owner: "root", group: "syslog", mount_options: [ "dmode=0777", "fmode=0666" ]
 
   # /srv/www
   #
