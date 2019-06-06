@@ -1,5 +1,8 @@
 # Changelog
 
+# 1.0.3 - TBD
+- Add Logs for Provision
+
 # 1.0.2 - June 5, 2019
 - Changed vm.name
 - Add Custom Title
