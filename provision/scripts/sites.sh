@@ -10,6 +10,14 @@ branch=$3
 vm_dir=$4
 provision=$5
 
+date_time=`cat /vagrant/provisioned_at`
+log_folder="/var/log/provisioners/${date_time}"
+log_file="${log_folder}/${domain}.log"
+mkdir -p "${log_folder}"
+touch "${log_file}"
+exec > >(tee -a "${log_file}" )
+exec 2> >(tee -a "${log_file}" >&2 )
+
 # /vagrant/sandbox-custom.yml
 #
 # this allows you to grab information that are needed and use shyaml to read only,since
