@@ -1,0 +1,11 @@
+#!/bin/bash
+
+sandbox_config=/vagrant/sandbox-custom.yml
+
+timezone=`cat ${sandbox_config} | shyaml get-value options.timezone 2> /dev/null`
+
+if [[ ${timezone} == "America/Los_Angeles" ]]; then
+    timedatectl set-timezone ${timezone}
+else
+    timedatectl set-timezone ${timezone}
+fi
