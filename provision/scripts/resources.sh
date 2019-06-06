@@ -11,6 +11,14 @@ repo=$2
 branch=${3:-master}
 dir="/srv/provision/resources/${name}"
 
+date=`cat /vagrant/provisioning_at`
+folder="/var/log/provision/${date}/resources/${name}"
+file="${folder}/${name}.log"
+mkdir -p ${folder}
+touch ${file}
+exec > >(tee -a "${file}" )
+exec 2> >(tee -a "${file}" >&2 )
+
 # noroot
 #
 # noroot allows provision scripts to be run as the default user "vagrant" rather than the root
