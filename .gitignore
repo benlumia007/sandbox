@@ -11,6 +11,9 @@
 /log/mysql/*
 !/log/mysql/readme.md
 
+/log/provision/*
+!/log/provision/readme.md
+
 /certificates
 /provision/*
 !/provision/scripts/*
