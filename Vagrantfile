@@ -269,8 +269,6 @@ Vagrant.configure( "2" ) do | config |
   config.vm.provision "file", source: "#{vagrant_dir}/sandbox-custom.yml", destination: "/home/vagrant/sandbox-custom.yml"
   $script = <<-SCRIPT
     mkdir -p /vagrant
-    touch /vagrant/provisioned_at
-    echo `date "+%m.%d.%Y"` > /vagrant/provisioned_at
     cp -f /home/vagrant/sandbox-custom.yml /vagrant
   SCRIPT
     config.vm.provision "shell", inline: $script
@@ -306,8 +304,6 @@ Vagrant.configure( "2" ) do | config |
   #
   #
   config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dmode=0777", "fmode=0777"]
-
-  config.vm.synced_folder "log/provisioners", "/var/log/provisioners", create: true, owner: "root", group: "syslog", mount_options: [ "dmode=777", "fmode=666" ]
 
   # /srv/www
   #
