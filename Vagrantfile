@@ -44,25 +44,6 @@ def virtualbox_path()
           break
         end
       end
-      elsif Vagrant::Util::Platform.wsl?
-      if !Vagrant::Util::Platform.wsl_windows_access?
-        raise Vagrant::Errors::WSLVirtualBoxWindowsAccessError
-      end
-      @vboxmanage_path = Vagrant::Util::Which.which( "VBoxManage" ) || Vagrant::Util::Which.which( "VBoxManage.exe" )
-      if !@vboxmanage_path
-        # If we still don't have one, try to find it using common locations
-        drive = "/mnt/c"
-        [
-          "#{drive}/Program Files/Oracle/VirtualBox",
-          "#{drive}/Program Files (x86)/Oracle/VirtualBox"
-        ].each do | maybe |
-          path = File.join( maybe, "VBoxManage.exe" )
-          if File.file?( path )
-            @vboxmanage_path = path
-            break
-          end
-        end
-      end
   end
 
   # Fall back to hoping for the PATH to work out
@@ -342,7 +323,7 @@ Vagrant.configure( "2" ) do | config |
 
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dir_mode=0777", "file_mode=0777" ]
-    config.vm.synced_folder "log/provision", "/var/log/provision", owner: "root", group: "syslog", mount_options: [ "dir_mode=0777", "file_mode=0666" ]
+    override.vm.synced_folder "log/provision", "/var/log/provision", owner: "root", group: "syslog", mount_options: [ "dir_mode=0777", "file_mode=0666" ]
 
     sandbox_config['sites'].each do | site, args |
       if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
