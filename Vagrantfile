@@ -224,7 +224,6 @@ Vagrant.configure( "2" ) do | config |
   # https://vagrantcloud.com/search.
   config.vm.box = "benlumia007/sandbox"
   config.vm.box_version = "1.0.0"
-  config.vm.base_mac = "0800273C9A89"
 
   # You can customize the name that appears in the VirtualBox Graphic User Interface by
   # setting up the name property. By default, Vagrant sets it to the container folder of
