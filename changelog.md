@@ -2,6 +2,8 @@
 
 # 1.0.3 - TBD
 - Add Logs for Provision
+- Add Provider Support for Parallels ( Pro )
+- Fixed Shared Folder Permissions for Parallels
 
 # 1.0.2 - June 5, 2019
 - Changed vm.name
