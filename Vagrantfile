@@ -332,6 +332,21 @@ Vagrant.configure( "2" ) do | config |
     end
   end
 
+  # Parallels Desktop ( Pro )
+  #
+  #
+  config.vm.provider :parallels do | vm, override |
+    override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => []
+    override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
+    override.vm.synced_folder "log/provision", "/var/log/provision", owner: "root", group: "syslog", mount_options: []
+
+    sandbox_config['sites'].each do | site, args |
+      if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
+        override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :group => "www-data", :mount_options => []
+      end
+    end
+  end
+
   # setup.sh or custom.sh
   #
   # By default, the Vagrantfile is set to use the setup.sh bash script which is located in
