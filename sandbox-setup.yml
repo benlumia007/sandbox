@@ -40,6 +40,13 @@ utilities:
 vm_config:
   memory: 2048
   core: 2
+
+  # Providers
+  #
+  # Since VirtualBox is the default, We have added two new providers, Microsoft Hyper-V and
+  # Parallels for MacOS. Parallels only works with Pro and Business versions. If you need to
+  # use one of the two, please uncomment below and change the provider name to what you are
+  # going to use.
   # provider: hyperv
 
 # options
