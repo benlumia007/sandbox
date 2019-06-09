@@ -334,6 +334,10 @@ Vagrant.configure( "2" ) do | config |
   #
   #
   config.vm.provider :parallels do | vm, override |
+    vm.name = "sandbox_" + ( Digest::SHA256.hexdigest vagrant_dir)[0..10]
+    vm.memory = sandbox_config['vm_config']['memory']
+    vm.cpus = sandbox_config['vm_config']['core']
+
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => []
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
     override.vm.synced_folder "log/provision", "/var/log/provision", owner: "root", group: "syslog", mount_options: []
