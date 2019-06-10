@@ -1,6 +1,7 @@
 # Changelog
 
 # 1.0.4 - TBD
+- Removed provision logs
 
 # 1.0.3 - June 10, 2019
 - Add Logs for Provision
