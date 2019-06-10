@@ -236,7 +236,8 @@ Vagrant.configure( "2" ) do | config |
     vm.customize ["modifyvm", :id, "--cpus", sandbox_config['vm_config']['cores']]
   end
 
-  # Create a private network, which allows host-only access to the machine using a specific IP.
+  # Create a private network, which allows host-only access to the machine using a specific IP. This should only work
+  # with VirtualBox and Parallels, whereas, Microsoft Hyper-V does not.
   config.vm.network :private_network, id: "sandbox_primary", ip: sandbox_config['vm_config']['private_network_ip']
 
   # /vagrant
