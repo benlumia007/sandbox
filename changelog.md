@@ -1,6 +1,6 @@
 # Changelog
 
-# 1.0.3 - TBD
+# 1.0.3 - June 10, 2019
 - Add Logs for Provision
 - Add Provider Support for Parallels ( Pro )
 - Fixed Shared Folder Permissions for Parallels
