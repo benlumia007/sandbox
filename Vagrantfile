@@ -4,8 +4,6 @@ Vagrant.require_version ">= 2.2.4"
 require 'yaml'
 require 'fileutils'
 
-platform = 'platform-' + Vagrant::Util::Platform.platform + ' '
-
 # All folders and projects will be at the main location of the folder that has been created
 # automatically when vagrant init takes affect.
 vagrant_dir = File.expand_path( File.dirname( __FILE__ ) )
