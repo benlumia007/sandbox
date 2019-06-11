@@ -15,7 +15,7 @@ if [ 'up', 'reload' ].include? ARGV[0] then
   Contributor:    benlumia007
   Release Date:   May 1, 2019
   Last Updated:   June 11, 2019
-  Version:        1.0.4
+  Version:        1.0.5
 
   Project:        https://github.com/benlumia007/sandbox
   Dashboard:      https://sandbox.test
