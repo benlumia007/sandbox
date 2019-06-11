@@ -22,6 +22,11 @@ sites:
   #  hosts:
   #    - example.test
 
+  # example:
+  #  repo: https://github.com/benlumia007/sandbox-empty-site.git
+  #  hosts:
+  #    - example.test
+
 # utilities
 #
 # Below is the extra resources that can be used to create additional neat features or software.
