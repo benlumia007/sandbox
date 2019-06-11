@@ -130,7 +130,7 @@ end
 defaults = Hash.new
 defaults['memory'] = 2048
 defaults['cores'] = 2
-defaults['private_network_ip'] = '172.141.145.100'
+defaults['private_network_ip'] = '192.141.145.100'
 
 sandbox_config['vm_config'] = defaults.merge( sandbox_config['vm_config'] )
 
