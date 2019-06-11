@@ -197,8 +197,12 @@ Vagrant.configure( "2" ) do | config |
     echo "copy sandbox-custom.yml to /vagrant"
     cp -f /home/vagrant/sandbox-custom.yml /vagrant
 
+    echo "create file provisioning_at"
     touch /vagrant/provisioning_at
+    echo "`date "+%m.%d.%Y-%I.%M.%S"` > /vagrant/provisioning_at"
     echo `date "+%m.%d.%Y-%I.%M.%S"` > /vagrant/provisioning_at
+
+    sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile
   SCRIPT
     config.vm.provision "initial-setup", type: "shell" do | s |
       s.inline = $script
@@ -269,6 +273,8 @@ Vagrant.configure( "2" ) do | config |
 
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dir_mode=0777", "file_mode=0777" ]
+    override.vm.synced_folder "log/provision", "/var/log/provision", create: true, owner: "root", group: "syslog", mount_options: [ "dir_mode=0777", "file_mode=0666" ]
+
 
     sandbox_config['sites'].each do | site, args |
       if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
@@ -287,6 +293,8 @@ Vagrant.configure( "2" ) do | config |
 
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => []
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
+    override.vm.synced_folder "log/provision", "/var/log/provision", create: true, owner: "root", group: "syslog", mount_options: []
+
 
     sandbox_config['sites'].each do | site, args |
       if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
