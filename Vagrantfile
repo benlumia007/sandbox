@@ -198,7 +198,7 @@ Vagrant.configure( "2" ) do | config |
     cp -f /home/vagrant/sandbox-custom.yml /vagrant
 
     touch /vagrant/provisioning_at
-    echo `date "+%m.%d.%Y-%I:%M:%S"` > /vagrant/provisioning_at
+    echo `date "+%m.%d.%Y-%I.%M.%S"` > /vagrant/provisioning_at
 
     sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile
   SCRIPT
