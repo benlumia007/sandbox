@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# /var/log/provision/${date}/resources/${2}/${2}.log
+#
+# This will generate a ${2}.log during provision, if it exists then it will generate
+# a log to tell if it is suceeded or failed.
 date=`cat /vagrant/provisioning_at`
 folder="/var/log/provision/${date}/resources/${2}"
 file="${folder}/${2}.log"
