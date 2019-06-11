@@ -3,6 +3,10 @@ repo=$1
 branch=${2:-master}
 dir="/srv/www/dashboard/public_html"
 
+# /var/log/provision/${date}/dashboard/dashboard.log
+#
+# This will generate a dashboard.log during provision, if it exists then it will generate
+# a log to tell if it is suceeded or failed.
 date=`cat /vagrant/provisioning_at`
 folder="/var/log/provision/${date}/dashboard"
 file="${folder}/dashboard.log"
