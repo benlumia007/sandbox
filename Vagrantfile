@@ -192,7 +192,9 @@ Vagrant.configure( "2" ) do | config |
   config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.provision "file", source: "#{vagrant_dir}/sandbox-custom.yml", destination: "/home/vagrant/sandbox-custom.yml"
   $script = <<-SCRIPT
+    echo "create folder /vagrant"
     mkdir -p /vagrant
+    echo "copy sandbox-custom.yml to /vagrant"
     cp -f /home/vagrant/sandbox-custom.yml /vagrant
   SCRIPT
     config.vm.provision "shell", inline: $script
