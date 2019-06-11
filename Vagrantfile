@@ -197,7 +197,7 @@ Vagrant.configure( "2" ) do | config |
     echo "copy sandbox-custom.yml to /vagrant"
     cp -f /home/vagrant/sandbox-custom.yml /vagrant
 
-    echo "create file provisioning_at"
+    echo "create file /vagrant/provisioning_at"
     touch /vagrant/provisioning_at
     echo "`date "+%m.%d.%Y-%I.%M.%S"` > /vagrant/provisioning_at"
     echo `date "+%m.%d.%Y-%I.%M.%S"` > /vagrant/provisioning_at
