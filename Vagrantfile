@@ -84,14 +84,14 @@ end
 
 # dashboard.test
 #
-# this is the default dashboard, when enabled as you can see here, it will then generate
+# This is the default dashboard, when enabled as you can see here, it will then generate
 # a new site before the resources takes affect, this will then let you see what exactly
 # have you added a site using the sandbox-custom.yml.
 sandbox_config['hosts'] += ['dashboard.test']
 
-# resources
+# Resources
 #
-# this is the resources that gets added by default under the sandbox-custom.yml. this will
+# This is the resources that gets added by default under the sandbox-custom.yml. this will
 # automatically add phpmyadmin and tls-ca for ssl certificates.
 if ! sandbox_config['resources'].kind_of? Hash then
   sandbox_config['resources'] = Hash.new
