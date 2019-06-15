@@ -2,8 +2,8 @@
 /sandbox-custom.yml
 
 # Logs
-/log/apache/*
-!/log/apache/readme.md
+/log/nginx/*
+!/log/nginx/readme.md
 
 /log/php/*
 !/log/php/readme.md
