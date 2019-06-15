@@ -31,7 +31,6 @@ if [[ ! -d ${dir} ]]; then
   echo "copying nginx.conf    /etc/nginx/conf.d/dashboard.conf"
   cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/dashboard.conf"
   sed -i -e "s/{{DOMAIN}}/dashboard/g" "/etc/nginx/conf.d/dashboard.conf"
-  a2ensite "dashboard.conf" -q
 fi
 
 if [[ false != "dashboard" && false != "${repo}" ]]; then
