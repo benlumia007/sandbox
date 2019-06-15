@@ -226,7 +226,7 @@ Vagrant.configure( "2" ) do | config |
   # /var/log/apache
   #
   #
-  config.vm.synced_folder "log/apache", "/var/log/apache2", :owner => 'root', :group => 'adm'
+  config.vm.synced_folder "log/nginx", "/var/log/nginx", :owner => 'www-data', :group => 'adm'
 
   # /var/log/mysql
   #
