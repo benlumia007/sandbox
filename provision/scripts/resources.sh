@@ -17,8 +17,8 @@ noroot() {
 
 # resources.sh
 #
-# this will download a specific repo ( https://github.com/sandbox-resources ) and runs a provision
-# script for each feature that's been added.
+# This will run and provision phpMyAdmin and TLS-CA for use. Please note that TLS-CA is recommended
+# and should be installed locally before accessing the dashboard or any sites will be generated.
 if [[ ! -d "${dir}" ]]; then
     noroot mkdir -p "${dir}"
     noroot cp "/srv/config/resources/${name}/provision" "${dir}"
