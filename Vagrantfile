@@ -312,6 +312,10 @@ Vagrant.configure( "2" ) do | config |
         sandbox_config['dashboard']['branch']
       ]
 
+  # resources
+  #
+  # This will grab all information related to the resources if exists in sandbox-setup.yml or
+  # sandbox-custom.yml. So far, phpMyAdmin and TLS-CA is available.
   sandbox_config['resources'].each do | name, utilities |
     if ! utilities.kind_of? Array then
       utilities = Hash.new
