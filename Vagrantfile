@@ -312,7 +312,7 @@ Vagrant.configure( "2" ) do | config |
         sandbox_config['dashboard']['branch']
       ]
 
-  sandbox_config['utilities'].each do | name, utilities |
+  sandbox_config['resources'].each do | name, utilities |
     if ! utilities.kind_of? Array then
       utilities = Hash.new
     end
@@ -320,7 +320,7 @@ Vagrant.configure( "2" ) do | config |
     utilities.each do | utility |
         config.vm.provision "resources-#{name}-#{utility}",
           type: "shell",
-          path: File.join( "provision/scripts", "utility.sh" ),
+          path: File.join( "provision/scripts", "resources.sh" ),
           args: [
               name,
               utility
