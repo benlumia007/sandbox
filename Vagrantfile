@@ -14,11 +14,15 @@ if [ 'up', 'reload' ].include? ARGV[0] then
 
   Contributor:    benlumia007
   Release Date:   May 1, 2019
-  Last Updated:   June 11, 2019
-  Version:        1.0.5
+  Version:        1.0.0
 
   Project:        https://github.com/benlumia007/sandbox
   Dashboard:      https://sandbox.test
+
+  System:         Ubuntu 18.04.2 LTS ( Bionic )
+  Server:         Nginx ( https://www.nginx.com )
+  Database:       MySQL Server 5.7
+  PHP:            7.2.19
 
   HEREDOC
   puts splash
