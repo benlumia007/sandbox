@@ -93,10 +93,6 @@ end
 # have you added a site using the sandbox-custom.yml.
 sandbox_config['hosts'] += ['dashboard.test']
 
-if ! sandbox_config['utilities'].kind_of? Hash then
-  sandbox_config['utilities'] = Hash.new
-end
-
 # vm_config
 #
 # this section for vm_config has its default, memory, core and the private ip that is been use
