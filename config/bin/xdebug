@@ -5,7 +5,7 @@ sandbox_config=/vagrant/sandbox-custom.yml
 xdebug=`cat ${sandbox_config} | shyaml get-value options.xdebug 2> /dev/null`
 
 if [[ $xdebug == "True" ]]; then
-    phpenmod xdebug
+    sudo phpenmod xdebug
 else
-    phpdismod xdebug
+    sudo phpdismod xdebug
 fi
