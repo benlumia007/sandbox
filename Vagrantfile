@@ -273,6 +273,7 @@ Vagrant.configure( "2" ) do | config |
 
     override.vm.network :private_network, id: "sandbox_primary", ip: nil
 
+    override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dir_mode=0777", "file_mode=0777" ]
     override.vm.synced_folder "log/provision", "/var/log/provision", create: true, owner: "root", group: "syslog", mount_options: [ "dir_mode=0777", "file_mode=0666" ]
@@ -293,6 +294,7 @@ Vagrant.configure( "2" ) do | config |
     vm.memory = sandbox_config['vm_config']['memory']
     vm.cpus = sandbox_config['vm_config']['core']
 
+    override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => []
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
     override.vm.synced_folder "log/provision", "/var/log/provision", create: true, owner: "root", group: "syslog", mount_options: []
