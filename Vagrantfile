@@ -123,6 +123,35 @@ dashboard_defaults['repo'] = 'https://github.com/benlumia007/sandbox-dashboard.g
 dashboard_defaults['branch'] = 'master'
 sandbox_config['dashboard'] = dashboard_defaults.merge( sandbox_config['dashboard'] )
 
+# Resources
+#
+# This is the resources that gets added by default under the sandbox-custom.yml. this will
+# automatically add phpmyadmin and tls-ca for ssl certificates.
+if ! sandbox_config['resources'].kind_of? Hash then
+  sandbox_config['resources'] = Hash.new
+else
+  sandbox_config['resources'].each do | name, args |
+    if args.kind_of? String then
+        repo = args
+        args = Hash.new
+        args['repo'] = repo
+        args['branch'] = 'master'
+
+        sandbox_config['resources'][name] = args
+    end
+  end
+end
+
+if ! sandbox_config['resources'].key?('core')
+  sandbox_config['resources']['core'] = Hash.new
+  sandbox_config['resources']['core']['repo'] = 'https://github.com/benlumia007/sandbox-resources.git'
+  sandbox_config['resources']['core']['branch'] = 'master'
+end
+
+if ! sandbox_config['utilities'].kind_of? Hash then
+  sandbox_config['utilities'] = Hash.new
+end
+
 if defined? sandbox_config['vm_config']['provider'] then
   # Override or set the vagrant provider.
   ENV['VAGRANT_DEFAULT_PROVIDER'] = sandbox_config['vm_config']['provider']
@@ -191,7 +220,7 @@ Vagrant.configure( "2" ) do | config |
   # This is where all the configuration files that are available to use to copy to the sandbox vagrant box. This
   # includes "provision" since we have disabled the default shared folder /vagrant.
   config.vm.synced_folder "config", "/srv/config"
-  config.vm.synced_folder "provision", "/srv/provision"
+  config.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
 
   # /srv/database
   #
@@ -313,10 +342,18 @@ Vagrant.configure( "2" ) do | config |
       ]
 
   # resources
-  #
-  # This will grab all information related to the resources if exists in sandbox-setup.yml or
-  # sandbox-custom.yml. So far, phpMyAdmin and TLS-CA is available.
-  sandbox_config['resources'].each do | name, utilities |
+  sandbox_config['resources'].each do | name, args |
+    config.vm.provision "resources-#{name}",
+      type: "shell",
+      path: File.join( "provision/scripts", "resources.sh" ),
+      args: [
+          name,
+          args['repo'].to_s,
+          args['branch'],
+      ]
+  end
+
+  sandbox_config['utilities'].each do | name, utilities |
     if ! utilities.kind_of? Array then
       utilities = Hash.new
     end
@@ -324,7 +361,7 @@ Vagrant.configure( "2" ) do | config |
     utilities.each do | utility |
         config.vm.provision "resources-#{name}-#{utility}",
           type: "shell",
-          path: File.join( "provision/scripts", "resources.sh" ),
+          path: File.join( "provision/scripts", "utility.sh" ),
           args: [
               name,
               utility
