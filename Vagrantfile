@@ -196,14 +196,10 @@ Vagrant.configure( "2" ) do | config |
   config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.provision "file", source: "#{vagrant_dir}/sandbox-custom.yml", destination: "/home/vagrant/sandbox-custom.yml"
   $script = <<-SCRIPT
-    echo "create folder /vagrant"
     mkdir -p /vagrant
-    echo "copy sandbox-custom.yml to /vagrant"
     cp -f /home/vagrant/sandbox-custom.yml /vagrant
 
-    echo "create file /vagrant/provisioning_at"
     touch /vagrant/provisioning_at
-    echo "`date "+%m.%d.%Y-%I.%M.%S"` > /vagrant/provisioning_at"
     echo `date "+%m.%d.%Y-%I.%M.%S"` > /vagrant/provisioning_at
   SCRIPT
     config.vm.provision "initial-setup", type: "shell" do | s |
