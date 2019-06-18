@@ -215,7 +215,7 @@ Vagrant.configure( "2" ) do | config |
   #
   # This is where all the configuration files that are available to use to copy to the sandbox vagrant box. This
   # includes "provision" since we have disabled the default shared folder /vagrant.
-  config.vm.synced_folder "config", "/srv/config"
+  config.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
   config.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
 
   # /srv/database
