@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export DEBIAN_FRONTEND=noninteractive
-
 # xdebug
 #
 # when you run this script, while the xdebug is set to true, it will then enable xdebug, with
