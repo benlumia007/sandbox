@@ -314,7 +314,7 @@ Vagrant.configure( "2" ) do | config |
     config.vm.provision "default", type: "shell", path: File.join( "provision/scripts", "setup.sh" )
   end
 
-  config.vm.provision "database", type: "shell", path: File.join( "provision/scripts/database.sh" )
+  config.vm.provision "import-database", type: "shell", path: File.join( "provision/scripts/database.sh" )
 
   # Add a provision script that allows site created when set in the sandbox-custom.yml
   sandbox_config['sites'].each do | site, args |
