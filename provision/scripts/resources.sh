@@ -25,10 +25,10 @@ noroot() {
 # script for each feature that's been added.
 if [[ false != "${name}" && false != "${repo}" ]]; then
   if [[ ! -d ${dir}/.git ]]; then
-    echo "downloading ${name} resources, please see ${repo}"
+    echo "Downloading Core Resources"
     noroot git clone ${repo} --branch ${branch} ${dir} -q
   else
-    echo -e "Updating ${name} resources..."
+    echo -e "Updating Core Resources"
     cd ${dir}
     noroot git pull origin ${branch} -q
   fi

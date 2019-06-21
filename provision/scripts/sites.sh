@@ -1,10 +1,16 @@
 #!/bin/bash
 
-# variables
+# Sandbox ( sites.sh )
 #
-# default variables to create sites and directories and some other stuff.
+# @package    Sandbox
+# @copyright  Copyright (C) 2019. Benjamin Lu
+# @license    GNU General Public License v2 or later ( https://www.gnu.org/licenses/gpl-2.0.html )
+# @author     Benjamin Lu ( https://github.com/benlumia007 )
+
+# Variables
+#
+# Default variables to create sites and directories and some other stuff that gets created along the way.
 domain=$1
-escaped=`echo ${domain} | sed 's/\./\\\\./g'`
 repo=$2
 branch=$3
 vm_dir=$4
@@ -41,29 +47,25 @@ noroot() {
 # this should get the sites.site and outputs it out so that it can be read and continue to
 # insall the site's information.
 get_config_value() {
-    local value=`cat ${sandbox_config} | shyaml get-value sites.${escaped}.custom.${1} 2> /dev/null`
+    local value=`cat ${sandbox_config} | shyaml get-value sites.${domain}.custom.${1} 2> /dev/null`
     echo ${value:-$@}
 }
 
-# downloads repository from github.
+# Downloading WordPress
 #
-# this will download the sandbox-custom-site and installs WordPress and it's dependencies.
+# All WordPress installation gets downloaded from GitHub.
 if [[ false != "${repo}" ]]; then
   if [[ ! -d ${vm_dir}/provision/.git ]]; then
-    echo "downloading ${domain}.test, please see ${repo}"
+    echo "Downloading WordPress for ${domain}.test"
     noroot git clone ${repo} --branch ${branch} ${vm_dir}/provision -q
   else
-    echo "updating ${domain}.test..."
+    echo "Updating WordPress for ${domain}.test"
     cd ${vm_dir}/provision
     noroot git pull origin ${branch} -q
   fi
-else
-  echo "The site: '${domain}.test' does not have a site template, assuming provision/setup.sh"
-  if [[ ! -d ${vm_dir} ]]; then
-    echo "Error: The '${domain}.test' has no folder."
-  fi
 fi
 
+# If ${vm_dir} exists, then run setup.sh
 if [[ -d ${vm_dir} ]]; then
     if [[ -f ${vm_dir}/provision/setup.sh ]]; then
       cd ${vm_dir}/provision && source setup.sh
