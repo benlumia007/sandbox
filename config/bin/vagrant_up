@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # restart apache
-echo "restarting nginx server"
+echo "Restarting: Nginx Server"
 service nginx restart
 
 # restart mysql
-echo "restarting mysql server"
+echo "Restarting: MySQL Server"
 service mysql restart
