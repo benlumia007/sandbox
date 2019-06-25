@@ -28,7 +28,7 @@ if [[ false != "${name}" && false != "${repo}" ]]; then
     echo "Downloading: Core Resources"
     noroot git clone ${repo} --branch ${branch} ${dir} -q
   else
-    echo -e "Updating: Core Resources"
+    echo "Updating: Core Resources"
     cd ${dir}
     noroot git pull origin ${branch} -q
   fi
