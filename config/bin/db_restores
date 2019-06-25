@@ -63,10 +63,10 @@ if [[ $count != 0 ]]; then
         database=`noroot mysql -u root --skip-column-names -e "SHOW TABLES FROM $domain"`
 
         if [[ "" == "$database" ]]; then
-            echo "importing database for $domain"
+            echo "Database: Importing $domain.sql"
             noroot mysql -u root $domain < $domain.sql
         else
-            echo "database for $domain already exists"
+            echo "Database: $domain already exists"
         fi
     done
 fi
