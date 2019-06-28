@@ -201,6 +201,8 @@ Vagrant.configure( "2" ) do | config |
 
     touch /vagrant/provisioning_at
     echo `date "+%m.%d.%Y-%I.%M.%S"` > /vagrant/provisioning_at
+
+    chown -R vagrant:vagrant /vagrant
   SCRIPT
     config.vm.provision "initial-setup", type: "shell" do | s |
       s.inline = $script
