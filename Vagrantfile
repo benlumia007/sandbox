@@ -41,8 +41,7 @@ end
 sandbox_config_file = File.join( vagrant_dir, 'sandbox-custom.yml' )
 sandbox_config = YAML.load_file( sandbox_config_file )
 
-# This section allows you to use the sandbox-custom.yml to register sites so that it can be
-# install sites per each request.
+# This section allows you to use the sandbox-custom.yml to register sites so that it can be install sites per each request.
 if ! sandbox_config['sites'].kind_of? Hash then
   sandbox_config['sites'] = Hash.new
 end
@@ -87,9 +86,8 @@ end
 
 # dashboard.test
 #
-# This is the default dashboard, when enabled as you can see here, it will then generate
-# a new site before the resources takes affect, this will then let you see what exactly
-# have you added a site using the sandbox-custom.yml.
+# This is the default dashboard, when enabled as you can see here, it will then generate a new site before the resources 
+# takes affect, this will then let you see what exactly have you added a site using the sandbox-custom.yml.
 sandbox_config['hosts'] += ['dashboard.test']
 
 # vm_config
