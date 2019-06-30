@@ -203,50 +203,23 @@ Vagrant.configure( "2" ) do | config |
     config.vm.provision "initial-setup", type: "shell" do | s |
       s.inline = $script
     end
-
-  # /srv/certificates
+  
+  # Default Synced Folders
   #
-  # This will be used to generated all certificates related.
+  # Here are the synced folders that gets shared from the host to the virtual machine. 
   config.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
-
-  # /srv/config
-  #
-  # This is where all the configuration files that are available to use to copy to the sandbox vagrant box. This
-  # includes "provision" since we have disabled the default shared folder /vagrant.
   config.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
-  config.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
-
-  # /srv/database
-  #
-  # database stores here
   config.vm.synced_folder "database", "/srv/database"
-
-  # /var/log/apache
-  #
-  #
-  config.vm.synced_folder "log/nginx", "/var/log/nginx", :owner => 'www-data', :group => 'adm'
-
-  # /var/log/mysql
-  #
-  #
-  config.vm.synced_folder "log/mysql", "/var/log/mysql", :owner => 'mysql', :group => 'adm'
-
-  # /var/log/php
-  #
-  #
-  config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dmode=0777", "fmode=0777"]
-
-    # /var/log/provision
-  #
-  #
-  config.vm.synced_folder "log/provision", "/var/log/provision", create: true, owner: "root", group: "syslog", mount_options: [ "dmode=0777", "fmode=0666" ]
-
-
-  # /srv/www
-  #
-  # This is the default folder that  holds all of the custom sites when you generate a new site using
-  # the sandbox-custom.yml.
+  config.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
   config.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ "dmode=0775", "fmode=0774" ]
+
+  # Default Synced Folders for Logs
+  #
+  # Here are the Synced Folders that gets shared which considers to be for logs
+  config.vm.synced_folder "log/nginx", "/var/log/nginx", :owner => 'www-data', :group => 'adm'
+  config.vm.synced_folder "log/mysql", "/var/log/mysql", :owner => 'mysql', :group => 'adm'
+  config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dmode=0777", "fmode=0777"]
+  config.vm.synced_folder "log/provision", "/var/log/provision", create: true, owner: "root", group: "syslog", mount_options: [ "dmode=0777", "fmode=0666" ]
 
   # This section when set, it will synced a folder that will use www-data as default.
   sandbox_config['sites'].each do | site, args |
@@ -267,10 +240,17 @@ Vagrant.configure( "2" ) do | config |
 
     override.vm.network :private_network, id: "sandbox_primary", ip: nil
 
+    # Default Synced Folders
+    #
+    # Here are the synced folders that gets shared from the host to the virtual machine. 
     override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
+
+    # Default Synced Folders for Logs
+    #
+    # Here are the Synced Folders that gets shared which considers to be for logs
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dir_mode=0777", "file_mode=0777" ]
     override.vm.synced_folder "log/provision", "/var/log/provision", create: true, owner: "root", group: "syslog", mount_options: [ "dir_mode=0777", "file_mode=0666" ]
 
@@ -290,11 +270,17 @@ Vagrant.configure( "2" ) do | config |
     vm.memory = sandbox_config['vm_config']['memory']
     vm.cpus = sandbox_config['vm_config']['core']
 
-    # Default Shares
+    # Default Synced Folders
+    #
+    # Here are the synced folders that gets shared from the host to the virtual machine. 
     override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => []
+
+    # Default Synced Folders for Logs
+    #
+    # Here are the Synced Folders that gets shared which considers to be for logs
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
     override.vm.synced_folder "log/provision", "/var/log/provision", create: true, owner: "root", group: "syslog", mount_options: []
 
