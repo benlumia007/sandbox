@@ -4,8 +4,7 @@ Vagrant.require_version ">= 2.2.4"
 require 'yaml'
 require 'fileutils'
 
-# All folders and projects will be at the main location of the folder that has been created
-# automatically when vagrant init takes affect.
+# All folders and projects will be at the main location of the folder that has been created automatically when vagrant init takes affect.
 vagrant_dir = File.expand_path( File.dirname( __FILE__ ) )
 
 if [ 'up', 'reload' ].include? ARGV[0] then
