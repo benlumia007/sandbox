@@ -1,6 +1,10 @@
 /.vagrant
 /sandbox-custom.yml
 
+# Certificates
+/log/certificates/*
+!/log/certificates/readme.md
+
 # Logs
 /log/nginx/*
 !/log/nginx/readme.md
