@@ -30,10 +30,9 @@ end
 
 # sandbox-setup.yml and sandbox-custom.yml
 #
-# By default, sandbox-setup.yml is the main file with all the configurations needed to create
-# and modify a site and modify virtual machine if needed. When you run your first vagrant up,
-# it will make a copy of sandbox-setup.yml and rename it to sandbox-custom.yml so that the
-# sandbox-setup.yml remains on touch.
+# By default, sandbox-setup.yml is the main file with all the configurations needed to create and modify a site and modify 
+# virtual machine if needed. When you run your first vagrant up, it will make a copy of sandbox-setup.yml and rename it to 
+# sandbox-custom.yml so that the sandbox-setup.yml remains on touch.
 if File.file?( File.join( vagrant_dir, 'sandbox-custom.yml' ) ) == false then
   FileUtils.cp( File.join( vagrant_dir, 'sandbox-setup.yml' ), File.join( vagrant_dir, 'sandbox-custom.yml' ) )
 end
