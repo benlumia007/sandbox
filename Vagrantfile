@@ -92,9 +92,8 @@ sandbox_config['hosts'] += ['dashboard.test']
 
 # vm_config
 #
-# this section for vm_config has its default, memory, core and the private ip that is been use
-# by default. the private ip is something that doesn't get change often, so leaving as it is will
-# work just fine.
+# This section for vm_config has its default, memory, core and the private ip that is been use by default. the private ip 
+# is something that doesn't get change often, so leaving as it is will work just fine.
 if ! sandbox_config['vm_config'].kind_of? Hash then
   sandbox_config['vm_config'] = Hash.new
 end
@@ -291,6 +290,7 @@ Vagrant.configure( "2" ) do | config |
     vm.memory = sandbox_config['vm_config']['memory']
     vm.cpus = sandbox_config['vm_config']['core']
 
+    override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => []
