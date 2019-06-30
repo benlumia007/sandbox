@@ -290,8 +290,9 @@ Vagrant.configure( "2" ) do | config |
     vm.memory = sandbox_config['vm_config']['memory']
     vm.cpus = sandbox_config['vm_config']['core']
 
-    override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => []
+    # Default Shares
     override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => []
+    override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => []
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
