@@ -377,7 +377,7 @@ Vagrant.configure( "2" ) do | config |
 
   config.trigger.after :reload do | trigger |
     trigger.name = "vagrant reload"
-    trigger.run_remote = { inline: "/srv/config/bin/vagrant_halt" }
+    trigger.run_remote = { inline: "/srv/config/bin/vagrant_up" }
     trigger.on_error = :continue
   end
 
