@@ -1,14 +1,21 @@
 #!/bin/bash
 
+# noroot
+#
+# noroot allows provision scripts to be run as the default user "vagrant" rather than the root
+# since provision scripts are run with root privileges.
+noroot() {
+    sudo -EH -u "vagrant" "$@";
+}
 
 # Composer
 
 composer_exists="$(which composer)"
 
 if [[ "/usr/local/bin/composer" != "${composer_exists}" ]]; then
-    curl -sS "https://getcomposer.org/installer" | php
-    chmod +x "composer.phar"
-    mv "composer.phar" "/usr/local/bin/composer"
+    noroot curl -sS "https://getcomposer.org/installer" | php
+    noroot chmod +x "composer.phar"
+    sudo mv "composer.phar" "/usr/local/bin/composer"
 fi
 
 # xdebug
