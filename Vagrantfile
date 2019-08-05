@@ -170,7 +170,7 @@ Vagrant.configure( "2" ) do | config |
   # the Vagrantfile plus a timestamp when the machine was created. By setting another name,
   # your Virtual Machine can be more easily identified.
   config.vm.provider "virtualbox" do | vm |
-    vm.name = "sandbox_" + ( Digest::SHA256.hexdigest vagrant_dir)[0..10]
+    vm.name = File.basename(vagrant_dir) + "_" + (Digest::SHA256.hexdigest vagrant_dir)[0..10]
 
     vm.customize ["modifyvm", :id, "--memory", sandbox_config['vm_config']['memory']]
     vm.customize ["modifyvm", :id, "--cpus", sandbox_config['vm_config']['cores']]
@@ -232,7 +232,7 @@ Vagrant.configure( "2" ) do | config |
   #
   #
   config.vm.provider :hyperv do | vm, override |
-    vm.vmname = "sandbox_" + ( Digest::SHA256.hexdigest vagrant_dir)[0..10]
+    vm.vmname = File.basename(vagrant_dir) + "_" + (Digest::SHA256.hexdigest vagrant_dir)[0..10]
     vm.memory = sandbox_config['vm_config']['memory']
     vm.cpus = sandbox_config['vm_config']['core']
     vm.enable_virtualization_extensions = true
@@ -266,7 +266,7 @@ Vagrant.configure( "2" ) do | config |
   #
   #
   config.vm.provider :parallels do | vm, override |
-    vm.name = "sandbox_" + ( Digest::SHA256.hexdigest vagrant_dir)[0..10]
+    vm.name = File.basename(vagrant_dir) + "_" + (Digest::SHA256.hexdigest vagrant_dir)[0..10]
     vm.memory = sandbox_config['vm_config']['memory']
     vm.cpus = sandbox_config['vm_config']['core']
 
