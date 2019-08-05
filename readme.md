@@ -14,7 +14,7 @@ Sandbox is built with Ubuntu 18.04 LTS (Bionic) based VirtualBox Virtual Machine
 - [Composer](https://getcomposer.org/)
 - [WP-Cli](https://wp-cli.org/)
 - [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer)
-- [Mailcatcher](https://mailcatcher.me/)
+- [MailHog](https://https://github.com/mailhog/MailHog/)
 
 ## How to Use Sandbox
 Sandbox requires VirtualBox and Vagrant.
