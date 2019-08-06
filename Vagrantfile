@@ -321,7 +321,7 @@ Vagrant.configure( "2" ) do | config |
     end
   end
 
-  # Provision the dashboard that appears when you visit vvv.test
+  # Provision the dashboard that appears when you visit https://dashboard.test
   config.vm.provision "site-dashboard",
       type: "shell",
       path: File.join( "provision/scripts", "dashboard.sh" ),
