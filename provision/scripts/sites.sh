@@ -56,10 +56,8 @@ get_config_value() {
 # All WordPress installation gets downloaded from GitHub.
 if [[ false != "${repo}" ]]; then
   if [[ ! -d ${vm_dir}/provision/.git ]]; then
-    echo "Downloading: WordPress for ${domain}.test"
     noroot git clone ${repo} --branch ${branch} ${vm_dir}/provision -q
   else
-    echo "Updating: WordPress for ${domain}.test"
     cd ${vm_dir}/provision
     noroot git pull origin ${branch} -q
   fi
