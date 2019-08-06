@@ -1,5 +1,5 @@
 # Sandbox
-Sandbox is a web development platform that uses [Vagrant](https://vagrantup.com) and VirtualBox to focus on WordPress Development. 
+Sandbox is a web development platform that uses [Vagrant](https://vagrantup.com) and [VirtualBox](https://www.virtualbox.org) to focus on WordPress Development. 
 
 ## System Requirements
 - Vagrant 2.2.4 or higher
