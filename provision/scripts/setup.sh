@@ -26,10 +26,3 @@ fi
 if [[ -f "/etc/php/7.2/mods-available/xdebug.ini" ]]; then
     /srv/config/bin/xdebug
 fi
-
-#timezone
-#
-#
-if [[ -f "/vagrant/provisioning_at" ]]; then
-    /srv/config/bin/timezone
-fi
