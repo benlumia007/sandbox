@@ -1,5 +1,5 @@
 /.vagrant
-/sandbox-custom.yml
+/config/sandbox-custom.yml
 
 # Certificates
 /log/certificates/*
