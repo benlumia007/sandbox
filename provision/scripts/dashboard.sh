@@ -3,18 +3,6 @@ repo=$1
 branch=${2:-master}
 dir="/srv/www/dashboard/public_html"
 
-# /var/log/provision/${date}/dashboard/dashboard.log
-#
-# This will generate a dashboard.log during provision, if it exists then it will generate
-# a log to tell if it is suceeded or failed.
-date=`cat /vagrant/provisioning_at`
-folder="/var/log/provision/${date}/dashboard"
-file="${folder}/dashboard.log"
-mkdir -p ${folder}
-touch ${file}
-exec > >(tee -a "${file}" )
-exec 2> >(tee -a "${file}" >&2 )
-
 # noroot
 #
 # noroot allows provision scripts to be run as the default user "vagrant" rather than the root
