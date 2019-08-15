@@ -4,12 +4,10 @@ Vagrant.require_version ">= 2.2.4"
 require 'yaml'
 require 'fileutils'
 
-# All folders and projects will be at the main location of the folder that has been created automatically when vagrant init
-# takes affect.
+# All folders and projects will be at the main location of the folder that has been created automatically when vagrant init takes affect.
 vagrant_dir = File.expand_path( File.dirname( __FILE__ ) )
 
 if [ 'up', 'reload' ].include? ARGV[0] then
-  # Documentations
   splash = <<-HEREDOC
 
   Contributor:    benlumia007
@@ -18,11 +16,6 @@ if [ 'up', 'reload' ].include? ARGV[0] then
 
   Project:        https://github.com/benlumia007/sandbox
   Dashboard:      https://sandbox.test
-
-  System:         Ubuntu 18.04.2 LTS ( Bionic )
-  Server:         Nginx ( https://www.nginx.com )
-  Database:       MySQL Server 5.7
-  PHP:            7.2.19
 
   HEREDOC
   puts splash
@@ -33,12 +26,12 @@ end
 # By default, sandbox-setup.yml is the main file with all the configurations needed to create and modify a site and modify 
 # virtual machine if needed. When you run your first vagrant up, it will make a copy of sandbox-setup.yml and rename it to 
 # sandbox-custom.yml so that the sandbox-setup.yml remains on touch.
-if File.file?( File.join( vagrant_dir, 'sandbox-custom.yml' ) ) == false then
-  FileUtils.cp( File.join( vagrant_dir, 'sandbox-setup.yml' ), File.join( vagrant_dir, 'sandbox-custom.yml' ) )
+if File.file?( File.join( vagrant_dir, '/config/sandbox-custom.yml' ) ) == false then
+  FileUtils.cp( File.join( vagrant_dir, '/config/sandbox-setup.yml' ), File.join( vagrant_dir, '/config/sandbox-custom.yml' ) )
 end
 
 # This will register sandbox-custom.yml as the default to be used to configured the entire vm.
-sandbox_config_file = File.join( vagrant_dir, 'sandbox-custom.yml' )
+sandbox_config_file = File.join( vagrant_dir, '/config/sandbox-custom.yml' )
 sandbox_config = YAML.load_file( sandbox_config_file )
 
 # This section allows you to use the sandbox-custom.yml to register sites so that it can be install sites per each request.
@@ -190,19 +183,6 @@ Vagrant.configure( "2" ) do | config |
   # file. There is really no point of having the same files so we only want to share specific files. We will then
   # disabled the default shared folder /vagrant and re-created as a non-sharing folder.
   config.vm.synced_folder ".", "/vagrant", disabled: true
-  config.vm.provision "file", source: "#{vagrant_dir}/sandbox-custom.yml", destination: "/home/vagrant/sandbox-custom.yml"
-  $script = <<-SCRIPT
-    mkdir -p /vagrant
-    cp -f /home/vagrant/sandbox-custom.yml /vagrant
-
-    touch /vagrant/provisioning_at
-    echo `date "+%m.%d.%Y-%I.%M.%S"` > /vagrant/provisioning_at
-
-    chown -R vagrant:vagrant /vagrant
-  SCRIPT
-    config.vm.provision "initial-setup", type: "shell" do | s |
-      s.inline = $script
-    end
   
   # Default Synced Folders
   #
