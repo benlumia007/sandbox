@@ -1,8 +1,3 @@
 #!/bin/bash
 
-if [[ -f "/srv/config/bin/vagrant_halt_custom" ]]; then
-	echo "Executing vagrant_halt_custom"
-	/srv/config/bin/vagrant_halt_custom
-else
-    /srv/config/bin/db_backups
-fi
+/srv/config/bin/db_backups
