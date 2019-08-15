@@ -2,7 +2,7 @@
 
 #!/bin/bash
 
-sandbox_config="/vagrant/sandbox-custom.yml"
+sandbox_config="/srv/config/sandbox-custom.yml"
 
 db_restores=`cat ${sandbox_config} | shyaml get-value options.db_restores 2> /dev/null`
 

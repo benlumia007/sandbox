@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sandbox_config="/vagrant/sandbox-custom.yml"
+sandbox_config="/srv/config/sandbox-custom.yml"
 
 db_backups=`cat ${sandbox_config} | shyaml get-value options.db_backups 2> /dev/null`
 
