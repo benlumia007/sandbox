@@ -66,11 +66,3 @@ options:
   db_backups: true
   db_restores: true
   xdebug: false
-  
-  # Timezone
-  #
-  # This allows you to set the vagrant box that you are using to set timezone to America/Los_Angeles.
-  # If you wish to set timezone to entry, please modify the line below. When you vagrant up for the first
-  # time, it will be at a differnt timezone so make sure to do  vagrant reload --provision so that truly
-  # takes affect.
-  timezone: America/Los_Angeles
