@@ -32,7 +32,7 @@ exec 2> >(tee -a "${file}" >&2 )
 #
 # this allows you to grab information that are needed and use shyaml to read only,since
 # shyaml is not writeable but read only.
-sandbox_config="/vagrant/sandbox-custom.yml"
+sandbox_config="/srv/config/sandbox-custom.yml"
 
 # noroot
 #
