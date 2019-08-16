@@ -141,11 +141,6 @@ if ! sandbox_config['utilities'].kind_of? Hash then
   sandbox_config['utilities'] = Hash.new
 end
 
-if defined? sandbox_config['vm_config']['provider'] then
-  # Override or set the vagrant provider.
-  ENV['VAGRANT_DEFAULT_PROVIDER'] = sandbox_config['vm_config']['provider']
-end
-
 # All Vagrant configuration is done below. The "2" in Vagrant.configure configures the
 # configuration version (we support older styles for backwards compatibility). Please don't
 # change it unless you know what you're doing.
