@@ -25,7 +25,6 @@ noroot() {
 # options features. when set to true, it will then import database to the correct user when set
 # to false, then it will skip database importing.
 if [[ $db_restores == "False"  ]]; then
-    echo "skipping database importing..."
     exit;
 fi
 
@@ -63,10 +62,7 @@ if [[ $count != 0 ]]; then
         database=`noroot mysql -u root --skip-column-names -e "SHOW TABLES FROM $domain"`
 
         if [[ "" == "$database" ]]; then
-            echo "Database: Importing $domain.sql"
             noroot mysql -u root $domain < $domain.sql
-        else
-            echo "Database: $domain already exists"
         fi
     done
 fi
