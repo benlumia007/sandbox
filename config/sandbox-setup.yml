@@ -9,8 +9,7 @@
 # If you need to add a new site, copy the example and uncomment the lines and enter site
 # name. You will then need to run and reprovision by using vagrant reload --provision.
 
-# Below are your sites that gets generated when provision or when you run vagrant up for
-# the first time.
+# Below are your sites that gets generated when provision or when you run vagrant up for the first time.
 sites:
   sandbox:
     repo: https://github.com/benlumia007/sandbox-custom-site.git
