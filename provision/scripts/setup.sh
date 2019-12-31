@@ -8,16 +8,6 @@ noroot() {
     sudo -EH -u "vagrant" "$@";
 }
 
-# Composer
-
-composer_exists="$(which composer)"
-
-if [[ "/usr/local/bin/composer" != "${composer_exists}" ]]; then
-    noroot curl -sS "https://getcomposer.org/installer" | php
-    noroot chmod +x "composer.phar"
-    sudo mv "composer.phar" "/usr/local/bin/composer"
-fi
-
 # xdebug
 #
 # when you run this script, while the xdebug is set to true, it will then enable xdebug, with
