@@ -23,8 +23,8 @@ end
 
 # sandbox-setup.yml and sandbox-custom.yml
 #
-# By default, sandbox-setup.yml is the main file with all the configurations needed to create and modify a site and modify 
-# virtual machine if needed. When you run your first vagrant up, it will make a copy of sandbox-setup.yml and rename it to 
+# By default, sandbox-setup.yml is the main file with all the configurations needed to create and modify a site and modify
+# virtual machine if needed. When you run your first vagrant up, it will make a copy of sandbox-setup.yml and rename it to
 # sandbox-custom.yml so that the sandbox-setup.yml remains on touch.
 if File.file?( File.join( vagrant_dir, '/config/sandbox-custom.yml' ) ) == false then
   FileUtils.cp( File.join( vagrant_dir, '/config/sandbox-setup.yml' ), File.join( vagrant_dir, '/config/sandbox-custom.yml' ) )
@@ -79,13 +79,13 @@ end
 
 # dashboard.test
 #
-# This is the default dashboard, when enabled as you can see here, it will then generate a new site before the resources 
+# This is the default dashboard, when enabled as you can see here, it will then generate a new site before the resources
 # takes affect, this will then let you see what exactly have you added a site using the sandbox-custom.yml.
 sandbox_config['hosts'] += ['dashboard.test']
 
 # vm_config
 #
-# This section for vm_config has its default, memory, core and the private ip that is been use by default. the private ip 
+# This section for vm_config has its default, memory, core and the private ip that is been use by default. the private ip
 # is something that doesn't get change often, so leaving as it is will work just fine.
 if ! sandbox_config['vm_config'].kind_of? Hash then
   sandbox_config['vm_config'] = Hash.new
@@ -151,7 +151,7 @@ Vagrant.configure( "2" ) do | config |
   # Every Vagrant development environment requires a box. You can search for boxes at
   # https://vagrantcloud.com/search.
   config.vm.box = "benlumia007/sandbox"
-  config.vm.box_version = "1.0.1"
+  config.vm.box_version = "1.0.0"
 
   # You can customize the name that appears in the VirtualBox Graphic User Interface by
   # setting up the name property. By default, Vagrant sets it to the container folder of
@@ -167,7 +167,7 @@ Vagrant.configure( "2" ) do | config |
   # Private Networking
   #
   # Create a private network, which allows host-only access to the machine using a specific IP. This should only work
-  # with VirtualBox and Parallels, whereas, Microsoft Hyper-V does not. Microsoft Hyper-V only detects an IP but no 
+  # with VirtualBox and Parallels, whereas, Microsoft Hyper-V does not. Microsoft Hyper-V only detects an IP but no
   # way to tell vagrantfile what IP that is.
   config.vm.network :private_network, id: "sandbox_primary", ip: sandbox_config['vm_config']['private_network_ip']
 
@@ -178,10 +178,10 @@ Vagrant.configure( "2" ) do | config |
   # file. There is really no point of having the same files so we only want to share specific files. We will then
   # disabled the default shared folder /vagrant and re-created as a non-sharing folder.
   config.vm.synced_folder ".", "/vagrant", disabled: true
-  
+
   # Default Synced Folders
   #
-  # Here are the synced folders that gets shared from the host to the virtual machine. 
+  # Here are the synced folders that gets shared from the host to the virtual machine.
   config.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
   config.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
   config.vm.synced_folder "database", "/srv/database"
@@ -216,7 +216,7 @@ Vagrant.configure( "2" ) do | config |
 
     # Default Synced Folders
     #
-    # Here are the synced folders that gets shared from the host to the virtual machine. 
+    # Here are the synced folders that gets shared from the host to the virtual machine.
     override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
@@ -244,7 +244,7 @@ Vagrant.configure( "2" ) do | config |
 
     # Default Synced Folders
     #
-    # Here are the synced folders that gets shared from the host to the virtual machine. 
+    # Here are the synced folders that gets shared from the host to the virtual machine.
     override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => []
