@@ -6,8 +6,8 @@ xdebug=`cat ${sandbox_config} | shyaml get-value options.xdebug 2> /dev/null`
 
 if [[ $xdebug == "True" ]]; then
     sudo phpenmod xdebug
-    sudo service php7.2-fpm restart
+    sudo service php7.4-fpm restart
 else
     sudo phpdismod xdebug
-    sudo service php7.2-fpm restart
+    sudo service php7.4-fpm restart
 fi
