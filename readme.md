@@ -6,7 +6,7 @@ Sandbox is a web development platform that uses [Vagrant](https://vagrantup.com)
 - VirtualBox 6.1 or higher
 
 ## Software Included
-Sandbox is built with Ubuntu 18.04 LTS (Bionic) based VirtualBox Virtual Machine which contains all of the software needed within the Vagrant Box, so no need to install every single software and configurations, everything has been configured and ready to go. Software includes:
+Sandbox is built with Ubuntu 20.04 LTS (Focal Fossa) based VirtualBox Virtual Machine which contains all of the software needed within the Vagrant Box, so no need to install every single software and configurations, everything has been configured and ready to go. Software includes:
 
 - [Nginx](https://www.nginx.com/)
 - [MySQL Server](https://dev.mysql.com/downloads/mysql/)
