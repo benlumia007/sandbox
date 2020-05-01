@@ -12,14 +12,26 @@
 # Below are your sites that gets generated when provision or when you run vagrant up for the first time.
 sites:
   sandbox:
+    provision: true
     repo: https://github.com/benlumia007/sandbox-custom-site.git
     hosts:
       - sandbox.test
+    custom:
+      plugins:
+        - query-monitor
+        - theme-check
+        - theme-sniffer
 
   # example:
+  #  provision: true
   #  repo: https://github.com/benlumia007/sandbox-custom-site.git
   #  hosts:
   #    - example.test
+  #  custom:
+  #    plugins:
+  #      - query-monitor
+  #      - theme-check
+  #      - theme-sniffer
 
   # example:
   #  repo: https://github.com/benlumia007/sandbox-empty-site.git
