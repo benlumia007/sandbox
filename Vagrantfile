@@ -58,12 +58,12 @@ sandbox_config['sites'].each do | site, args |
   defaults['vm_dir'] = "/srv/www/#{site}"
   defaults['local_dir'] = File.join( vagrant_dir, 'sites', site )
   defaults['branch'] = 'master'
-  defaults['provision'] = false
+  defaults['provision'] = true
   defaults['hosts'] = Array.new
 
   sandbox_config['sites'][site] = defaults.merge( args )
 
-  if ! sandbox_config['sites'][site]['provision'] then
+  if sandbox_config['sites'][site]['provision'] then
     site_paths = Dir.glob( Array.new( 4 ) { | i | sandbox_config['sites'][site]['local_dir'] + '/*' * ( i+1 ) + 'readme.md' } )
 
     sandbox_config['sites'][site]['hosts'] += site_paths.map do | path |
@@ -268,11 +268,15 @@ Vagrant.configure( "2" ) do | config |
   # use custom.sh as a replacement.
   config.vm.provision "default", type: "shell", path: File.join( "provision/scripts", "setup.sh" )
 
-  config.vm.provision "import-database", type: "shell", path: File.join( "provision/scripts/database.sh" )
+  sandbox_config['sites'].each do | site, args |
+    if args['provision'] === true then
+      config.vm.provision "import-database", type: "shell", path: File.join( "provision/scripts/database.sh" )
+    end
+  end
 
   # Add a provision script that allows site created when set in the sandbox-custom.yml
   sandbox_config['sites'].each do | site, args |
-    if args['provision'] === false then
+    if args['provision'] === true then
       config.vm.provision "site-#{site}",
         type: "shell",
         path: File.join( "provision/scripts", "sites.sh" ),
