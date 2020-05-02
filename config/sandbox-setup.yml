@@ -13,7 +13,7 @@
 sites:
   sandbox:
     provision: true
-    repo: https://github.com/benlumia007/sandbox-custom-site.git
+    repo: https://github.com/benlumia007/vagrant-for-wordpress-sites.git
     hosts:
       - sandbox.test
     custom:
@@ -24,7 +24,7 @@ sites:
 
   # example:
   #  provision: true
-  #  repo: https://github.com/benlumia007/sandbox-custom-site.git
+  #  repo: https://github.com/benlumia007/vagrant-for-wordpress-sites.git
   #  hosts:
   #    - example.test
   #  custom:
