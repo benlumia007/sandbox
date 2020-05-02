@@ -107,7 +107,7 @@ if ! sandbox_config['dashboard']
 end
 
 dashboard_defaults = Hash.new
-dashboard_defaults['repo'] = 'https://github.com/benlumia007/sandbox-dashboard.git'
+dashboard_defaults['repo'] = 'https://github.com/benlumia007/vagrant-for-wordpress-dashboard.git'
 dashboard_defaults['branch'] = 'master'
 sandbox_config['dashboard'] = dashboard_defaults.merge( sandbox_config['dashboard'] )
 
@@ -132,7 +132,7 @@ end
 
 if ! sandbox_config['resources'].key?('core')
   sandbox_config['resources']['core'] = Hash.new
-  sandbox_config['resources']['core']['repo'] = 'https://github.com/benlumia007/sandbox-resources.git'
+  sandbox_config['resources']['core']['repo'] = 'https://github.com/benlumia007/vagrant-for-wordpress-resources.git'
   sandbox_config['resources']['core']['branch'] = 'master'
 end
 
