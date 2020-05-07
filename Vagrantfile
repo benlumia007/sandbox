@@ -149,7 +149,7 @@ Vagrant.configure( "2" ) do | config |
 
   # Every Vagrant development environment requires a box. You can search for boxes at
   # https://vagrantcloud.com/search.
-  config.vm.box = "benlumia007/sandbox"
+  config.vm.box = "benlumia007/bionic64"
   config.vm.box_version = "1.0.0"
 
   # You can customize the name that appears in the VirtualBox Graphic User Interface by
@@ -198,66 +198,6 @@ Vagrant.configure( "2" ) do | config |
   sandbox_config['sites'].each do | site, args |
     if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
       config.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :group => "www-data", :mount_options => [ "dmode=0775", "fmode=0774" ]
-    end
-  end
-
-  # Microsoft Hyper-V
-  #
-  #
-  config.vm.provider :hyperv do | vm, override |
-    vm.vmname = File.basename(vagrant_dir) + "_" + (Digest::SHA256.hexdigest vagrant_dir)[0..10]
-    vm.memory = sandbox_config['vm_config']['memory']
-    vm.cpus = sandbox_config['vm_config']['core']
-    vm.enable_virtualization_extensions = true
-    vm.linked_clone = true
-
-    override.vm.network :private_network, id: "sandbox_primary", ip: nil
-
-    # Default Synced Folders
-    #
-    # Here are the synced folders that gets shared from the host to the virtual machine.
-    override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
-    override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
-    override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
-    override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
-
-    # Default Synced Folders for Logs
-    #
-    # Here are the Synced Folders that gets shared which considers to be for logs
-    override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dir_mode=0777", "file_mode=0777" ]
-
-    sandbox_config['sites'].each do | site, args |
-      if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
-        override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :group => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
-      end
-    end
-  end
-
-  # Parallels Desktop ( Pro )
-  #
-  #
-  config.vm.provider :parallels do | vm, override |
-    vm.name = File.basename(vagrant_dir) + "_" + (Digest::SHA256.hexdigest vagrant_dir)[0..10]
-    vm.memory = sandbox_config['vm_config']['memory']
-    vm.cpus = sandbox_config['vm_config']['core']
-
-    # Default Synced Folders
-    #
-    # Here are the synced folders that gets shared from the host to the virtual machine.
-    override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => []
-    override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => []
-    override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => []
-    override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => []
-
-    # Default Synced Folders for Logs
-    #
-    # Here are the Synced Folders that gets shared which considers to be for logs
-    override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
-
-    sandbox_config['sites'].each do | site, args |
-      if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
-        override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :group => "www-data", :mount_options => []
-      end
     end
   end
 
