@@ -267,15 +267,11 @@ Vagrant.configure( "2" ) do | config |
       end
   end
 
-  if defined?(VagrantPlugins::HostManager)
-    config.hostmanager.aliases = sandbox_config['hosts']
-    config.hostmanager.enabled = true
-    config.hostmanager.manage_host = true
-    config.hostmanager.manage_guest = true
-    config.hostmanager.ignore_private_ip = false
-    config.hostmanager.include_offline = true
+  # This uses the vagrant-hostsupdater plugin and adds an entry to your /etc/hosts file on your host system.
+  if defined?( VagrantPlugins::HostsUpdater )
+    config.hostsupdater.aliases = sandbox_config['hosts']
+    config.hostsupdater.remove_on_suspend = true
   end
-
   # triggers
   #
   # triggers allows you to certain commands so that things falls into place, when you vagrant halt or vagrant
