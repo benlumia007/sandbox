@@ -140,6 +140,11 @@ if ! sandbox_config['utilities'].kind_of? Hash then
   sandbox_config['utilities'] = Hash.new
 end
 
+if defined? sandbox_config['vm_config']['provider']
+  # Override or set the vagrant provider.
+  ENV['VAGRANT_DEFAULT_PROVIDER'] = sandbox_config['vm_config']['provider']
+end
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure configures the
 # configuration version (we support older styles for backwards compatibility). Please don't
 # change it unless you know what you're doing.
@@ -267,11 +272,23 @@ Vagrant.configure( "2" ) do | config |
       end
   end
 
-  # This uses the vagrant-hostsupdater plugin and adds an entry to your /etc/hosts file on your host system.
-  if defined?( VagrantPlugins::HostsUpdater )
-    config.hostsupdater.aliases = sandbox_config['hosts']
+  if defined?(VagrantPlugins::HostManager)
+    config.hostmanager.aliases = vvv_config['hosts']
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    config.hostmanager.manage_guest = true
+    config.hostmanager.ignore_private_ip = false
+    config.hostmanager.include_offline = true
+  elsif defined?(VagrantPlugins::HostsUpdater)
+    # Pass the found host names to the hostsupdater plugin so it can perform magic.
+    config.hostsupdater.aliases = vvv_config['hosts']
     config.hostsupdater.remove_on_suspend = true
+  else
+    puts "! Neither the HostManager or HostsUpdater plugins are installed!!! Domains won't work without one of these plugins!"
+    puts "Run vagrant plugin install vagrant-hostmanager then try again."
   end
+
+
   # triggers
   #
   # triggers allows you to certain commands so that things falls into place, when you vagrant halt or vagrant
