@@ -305,7 +305,7 @@ Vagrant.configure( "2" ) do | config |
   end
 
   if defined?(VagrantPlugins::HostManager)
-    config.hostmanager.aliases = vvv_config['hosts']
+    config.hostmanager.aliases = sandbox_config['hosts']
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
     config.hostmanager.manage_guest = true
@@ -313,7 +313,7 @@ Vagrant.configure( "2" ) do | config |
     config.hostmanager.include_offline = true
   elsif defined?(VagrantPlugins::HostsUpdater)
     # Pass the found host names to the hostsupdater plugin so it can perform magic.
-    config.hostsupdater.aliases = vvv_config['hosts']
+    config.hostsupdater.aliases = sandbox_config['hosts']
     config.hostsupdater.remove_on_suspend = true
   else
     puts "! Neither the HostManager or HostsUpdater plugins are installed!!! Domains won't work without one of these plugins!"
