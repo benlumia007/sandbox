@@ -20,7 +20,6 @@ sites:
       plugins:
         - query-monitor
         - theme-check
-        - theme-sniffer
 
   # example:
   #  provision: true
@@ -31,7 +30,6 @@ sites:
   #    plugins:
   #      - query-monitor
   #      - theme-check
-  #      - theme-sniffer
 
   # example:
   #  repo: https://github.com/benlumia007/sandbox-empty-site.git
