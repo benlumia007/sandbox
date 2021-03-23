@@ -8,6 +8,10 @@ noroot() {
     sudo -EH -u "vagrant" "$@";
 }
 
+if [[ ! -f /home/vagrant/.rnd ]]; then
+    touch /home/vagrant/.rnd
+fi
+
 if [[ ! -f /etc/apt/trusted.gpg.d/git-core_ubuntu_ppa.gpg ]]; then
     add-apt-repository ppa:git-core/ppa -y
 fi
