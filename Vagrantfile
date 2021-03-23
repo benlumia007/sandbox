@@ -154,8 +154,8 @@ Vagrant.configure( "2" ) do | config |
 
   # Every Vagrant development environment requires a box. You can search for boxes at
   # https://vagrantcloud.com/search.
-  config.vm.box = "benlumia007/bionic64"
-  config.vm.box_version = "1.0.0"
+  config.vm.box = "ubuntu/bionic64"
+  # config.vm.box_version = "1.0.0"
 
   # You can customize the name that appears in the VirtualBox Graphic User Interface by
   # setting up the name property. By default, Vagrant sets it to the container folder of
@@ -196,7 +196,7 @@ Vagrant.configure( "2" ) do | config |
   #
   # Here are the Synced Folders that gets shared which considers to be for logs
   config.vm.synced_folder "log/nginx", "/var/log/nginx", :owner => 'www-data', :group => 'adm'
-  config.vm.synced_folder "log/mysql", "/var/log/mysql", :owner => 'mysql', :group => 'adm'
+  # config.vm.synced_folder "log/mysql", "/var/log/mysql", :owner => 'mysql', :group => 'adm'
   config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dmode=0777", "fmode=0777"]
 
   # This section when set, it will synced a folder that will use www-data as default.
