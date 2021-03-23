@@ -9,7 +9,7 @@ noroot() {
 }
 
 if [[ ! -f /home/vagrant/.rnd ]]; then
-    touch /home/vagrant/.rnd
+    noroot touch /home/vagrant/.rnd
 fi
 
 if [[ ! -f /etc/apt/trusted.gpg.d/git-core_ubuntu_ppa.gpg ]]; then
