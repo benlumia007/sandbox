@@ -25,12 +25,13 @@ end
 # By default, sandbox-setup.yml is the main file with all the configurations needed to create and modify a site and modify
 # virtual machine if needed. When you run your first vagrant up, it will make a copy of sandbox-setup.yml and rename it to
 # sandbox-custom.yml so that the sandbox-setup.yml remains on touch.
-if File.file?( File.join( vagrant_dir, '/config/sandbox-custom.yml' ) ) == false then
-  FileUtils.cp( File.join( vagrant_dir, '/config/sandbox-setup.yml' ), File.join( vagrant_dir, '/config/sandbox-custom.yml' ) )
+if File.file?( File.join( vagrant_dir, '.global/custom.yml' ) ) == false then
+  FileUtils.mkdir( '.global' )
+  FileUtils.cp( File.join( vagrant_dir, '/config/sandbox-setup.yml' ), File.join( vagrant_dir, '.global/custom.yml' ) )
 end
 
 # This will register sandbox-custom.yml as the default to be used to configured the entire vm.
-sandbox_config_file = File.join( vagrant_dir, '/config/sandbox-custom.yml' )
+sandbox_config_file = File.join( vagrant_dir, '.global/custom.yml' )
 sandbox_config = YAML.load_file( sandbox_config_file )
 
 # This section allows you to use the sandbox-custom.yml to register sites so that it can be install sites per each request.
@@ -154,7 +155,7 @@ Vagrant.configure( "2" ) do | config |
 
   # Every Vagrant development environment requires a box. You can search for boxes at
   # https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/bionic64"
+  config.vm.box = "ubuntu/focal64"
   # config.vm.box_version = "1.0.0"
 
   # You can customize the name that appears in the VirtualBox Graphic User Interface by
@@ -186,6 +187,7 @@ Vagrant.configure( "2" ) do | config |
   # Default Synced Folders
   #
   # Here are the synced folders that gets shared from the host to the virtual machine.
+  config.vm.synced_folder ".global", "/srv/.global", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
   config.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
   config.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
   config.vm.synced_folder "database", "/srv/database"

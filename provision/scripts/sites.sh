@@ -20,7 +20,7 @@ provision=$5
 #
 # this allows you to grab information that are needed and use shyaml to read only,since
 # shyaml is not writeable but read only.
-sandbox_config="/srv/config/sandbox-custom.yml"
+sandbox_config="/srv/.global/custom.yml"
 
 # noroot
 #
