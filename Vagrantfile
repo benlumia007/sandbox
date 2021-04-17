@@ -27,7 +27,7 @@ end
 # sandbox-custom.yml so that the sandbox-setup.yml remains on touch.
 if File.file?( File.join( vagrant_dir, '.global/custom.yml' ) ) == false then
   FileUtils.mkdir( '.global' )
-  FileUtils.cp( File.join( vagrant_dir, '/config/sandbox-setup.yml' ), File.join( vagrant_dir, '.global/custom.yml' ) )
+  FileUtils.cp( File.join( vagrant_dir, '/config/default.yml' ), File.join( vagrant_dir, '.global/custom.yml' ) )
 end
 
 # This will register sandbox-custom.yml as the default to be used to configured the entire vm.
@@ -155,7 +155,7 @@ Vagrant.configure( "2" ) do | config |
 
   # Every Vagrant development environment requires a box. You can search for boxes at
   # https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/focal64"
+  config.vm.box = "benlumia007/focal64"
   # config.vm.box_version = "1.0.0"
 
   # You can customize the name that appears in the VirtualBox Graphic User Interface by
