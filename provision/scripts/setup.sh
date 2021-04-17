@@ -65,6 +65,7 @@ if [[ ! -f /usr/bin/php7.4 ]]; then
         php7.4-dev \
         php7.4-fpm \
         php7.4-gd \
+        php7.4-imagick \
         php7.4-imap \
         php7.4-json \
         php7.4-mbstring \
