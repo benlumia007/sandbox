@@ -253,6 +253,15 @@ Vagrant.configure( "2" ) do | config |
     end
   end
 
+  # Provision the dashboard that appears when you visit https://dashboard.test
+  config.vm.provision "site-dashboard",
+      type: "shell",
+      path: File.join( "provision/scripts", "dashboard.sh" ),
+      args: [
+        get_config_file['dashboard']['repo'],
+        get_config_file['dashboard']['branch']
+      ]
+
   # Add a provision script that allows site created when set in the sandbox-custom.yml
   get_config_file['sites'].each do | site, args |
     if args['provision'] === true then
@@ -268,15 +277,6 @@ Vagrant.configure( "2" ) do | config |
         ]
     end
   end
-
-  # Provision the dashboard that appears when you visit https://dashboard.test
-  config.vm.provision "site-dashboard",
-      type: "shell",
-      path: File.join( "provision/scripts", "dashboard.sh" ),
-      args: [
-        get_config_file['dashboard']['repo'],
-        get_config_file['dashboard']['branch']
-      ]
 
   # resources
   get_config_file['resources'].each do | name, args |
