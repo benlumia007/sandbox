@@ -18,25 +18,22 @@ sites:
       - sandbox.test
     custom:
       type: WordPress
-      plugins:
-        - query-monitor
-        - theme-check
+      constants:
+        - DISALLOW_FILE_EDIT
+        - WP_DEBUG
+        - WP_DEBUG_DISPLAY
 
-  # example:
-  #  provision: true
-  #  repo: https://github.com/benlumia007/vagrant-for-wordpress-sites.git
-  #  hosts:
-  #    - example.test
-  #  custom:
-  #    type: WordPress
-  #    plugins:
-  #      - query-monitor
-  #      - theme-check
-
-  # example:
-  #  repo: https://github.com/benlumia007/sandbox-empty-site.git
-  #  hosts:
-  #    - example.test
+#  example:
+#    provision: true
+#    repo: https://github.com/benlumia007/vagrant-for-wordpress-sites.git
+#    hosts:
+#      - example.test
+#    custom:
+#      type: WordPress
+#      constants:
+#        - DISALLOW_FILE_EDIT
+#        - WP_DEBUG
+#        - WP_DEBUG_DISPLAY
 
 # utilities
 #
@@ -69,4 +66,3 @@ vm_config:
 options:
   db_backups: true
   db_restores: true
-  xdebug: false
