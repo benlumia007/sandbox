@@ -17,6 +17,7 @@ sites:
     hosts:
       - sandbox.test
     custom:
+      type: WordPress
       plugins:
         - query-monitor
         - theme-check
@@ -27,6 +28,7 @@ sites:
   #  hosts:
   #    - example.test
   #  custom:
+  #    type: WordPress
   #    plugins:
   #      - query-monitor
   #      - theme-check
