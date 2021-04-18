@@ -44,6 +44,10 @@ if [[ ! -f /etc/nginx/conf.d/${domain}.conf ]]; then
     sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.conf"
 fi
 
+if [[ ! -d ${vm_dir}/public_html ]]; then
+    mkdir -p ${vm_dir}/public_html
+fi
+
 # Downloading WordPress
 #
 # All WordPress installation gets downloaded from GitHub.
