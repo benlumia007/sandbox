@@ -110,6 +110,7 @@ end
 dashboard_defaults = Hash.new
 dashboard_defaults['repo'] = 'https://github.com/benlumia007/vagrant-for-wordpress-dashboard.git'
 dashboard_defaults['branch'] = 'master'
+dashboard_defaults['vm_dir'] = '/srv/www/dashboard'
 get_config_file['dashboard'] = dashboard_defaults.merge( get_config_file['dashboard'] )
 
 # Resources
@@ -198,7 +199,7 @@ Vagrant.configure( "2" ) do | config |
   #
   # Here are the Synced Folders that gets shared which considers to be for logs
   config.vm.synced_folder "log/nginx", "/var/log/nginx", :owner => 'www-data', :group => 'adm'
-  # config.vm.synced_folder "log/mysql", "/var/log/mysql", :owner => 'mysql', :group => 'adm'
+  config.vm.synced_folder "log/mysql", "/var/log/mysql", :owner => 'mysql', :group => 'adm'
   config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dmode=0777", "fmode=0777"]
 
   # This section when set, it will synced a folder that will use www-data as default.
@@ -259,7 +260,8 @@ Vagrant.configure( "2" ) do | config |
       path: File.join( "provision/scripts", "dashboard.sh" ),
       args: [
         get_config_file['dashboard']['repo'],
-        get_config_file['dashboard']['branch']
+        get_config_file['dashboard']['branch'],
+        get_config_file['dashboard']['vm_dir']
       ]
 
   # Add a provision script that allows site created when set in the sandbox-custom.yml
