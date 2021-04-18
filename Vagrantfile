@@ -1,6 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-Vagrant.require_version ">= 2.2.7"
+Vagrant.require_version ">= 2.2.15"
 require 'yaml'
 require 'fileutils'
 
@@ -31,19 +31,19 @@ if File.file?( File.join( vagrant_dir, '.global/custom.yml' ) ) == false then
 end
 
 # This will register sandbox-custom.yml as the default to be used to configured the entire vm.
-sandbox_config_file = File.join( vagrant_dir, '.global/custom.yml' )
-sandbox_config = YAML.load_file( sandbox_config_file )
+set_config_file = File.join( vagrant_dir, '.global/custom.yml' )
+get_config_file = YAML.load_file( set_config_file )
 
 # This section allows you to use the sandbox-custom.yml to register sites so that it can be install sites per each request.
-if ! sandbox_config['sites'].kind_of? Hash then
-  sandbox_config['sites'] = Hash.new
+if ! get_config_file['sites'].kind_of? Hash then
+  get_config_file['sites'] = Hash.new
 end
 
-if ! sandbox_config['hosts'].kind_of? Hash then
-  sandbox_config['hosts'] = Array.new
+if ! get_config_file['hosts'].kind_of? Hash then
+  get_config_file['hosts'] = Array.new
 end
 
-sandbox_config['sites'].each do | site, args |
+get_config_file['sites'].each do | site, args |
   if args.kind_of? String then
     repo = args
     args = Hash.new
@@ -62,33 +62,33 @@ sandbox_config['sites'].each do | site, args |
   defaults['provision'] = true
   defaults['hosts'] = Array.new
 
-  sandbox_config['sites'][site] = defaults.merge( args )
+  get_config_file['sites'][site] = defaults.merge( args )
 
-  if sandbox_config['sites'][site]['provision'] then
-    site_paths = Dir.glob( Array.new( 4 ) { | i | sandbox_config['sites'][site]['local_dir'] + '/*' * ( i+1 ) + 'readme.md' } )
+  if get_config_file['sites'][site]['provision'] then
+    site_paths = Dir.glob( Array.new( 4 ) { | i | get_config_file['sites'][site]['local_dir'] + '/*' * ( i+1 ) + 'readme.md' } )
 
-    sandbox_config['sites'][site]['hosts'] += site_paths.map do | path |
+    get_config_file['sites'][site]['hosts'] += site_paths.map do | path |
       lines = File.readlines( path ).map( &:chomp )
       lines.grep( /\A[^#]/ )
     end.flatten
 
-    sandbox_config['hosts'] += sandbox_config['sites'][site]['hosts']
+    get_config_file['hosts'] += get_config_file['sites'][site]['hosts']
   end
-  sandbox_config['sites'][site].delete('hosts')
+  get_config_file['sites'][site].delete('hosts')
 end
 
 # dashboard.test
 #
 # This is the default dashboard, when enabled as you can see here, it will then generate a new site before the resources
 # takes affect, this will then let you see what exactly have you added a site using the sandbox-custom.yml.
-sandbox_config['hosts'] += ['dashboard.test']
+get_config_file['hosts'] += ['dashboard.test']
 
 # vm_config
 #
 # This section for vm_config has its default, memory, core and the private ip that is been use by default. the private ip
 # is something that doesn't get change often, so leaving as it is will work just fine.
-if ! sandbox_config['vm_config'].kind_of? Hash then
-  sandbox_config['vm_config'] = Hash.new
+if ! get_config_file['vm_config'].kind_of? Hash then
+  get_config_file['vm_config'] = Hash.new
 end
 
 defaults = Hash.new
@@ -96,54 +96,54 @@ defaults['memory'] = 2048
 defaults['cores'] = 2
 defaults['private_network_ip'] = '192.141.145.100'
 
-sandbox_config['vm_config'] = defaults.merge( sandbox_config['vm_config'] )
+get_config_file['vm_config'] = defaults.merge( get_config_file['vm_config'] )
 
-sandbox_config['hosts'] = sandbox_config['hosts'].uniq
+get_config_file['hosts'] = get_config_file['hosts'].uniq
 
 # dashboard configuration
 #
 # this will grab the dashboard repo and gets installed before the resources takes place.
-if ! sandbox_config['dashboard']
-  sandbox_config['dashboard'] = Hash.new
+if ! get_config_file['dashboard']
+  get_config_file['dashboard'] = Hash.new
 end
 
 dashboard_defaults = Hash.new
 dashboard_defaults['repo'] = 'https://github.com/benlumia007/vagrant-for-wordpress-dashboard.git'
 dashboard_defaults['branch'] = 'master'
-sandbox_config['dashboard'] = dashboard_defaults.merge( sandbox_config['dashboard'] )
+get_config_file['dashboard'] = dashboard_defaults.merge( get_config_file['dashboard'] )
 
 # Resources
 #
 # This is the resources that gets added by default under the sandbox-custom.yml. this will
 # automatically add phpmyadmin and tls-ca for ssl certificates.
-if ! sandbox_config['resources'].kind_of? Hash then
-  sandbox_config['resources'] = Hash.new
+if ! get_config_file['resources'].kind_of? Hash then
+  get_config_file['resources'] = Hash.new
 else
-  sandbox_config['resources'].each do | name, args |
+  get_config_file['resources'].each do | name, args |
     if args.kind_of? String then
         repo = args
         args = Hash.new
         args['repo'] = repo
         args['branch'] = 'master'
 
-        sandbox_config['resources'][name] = args
+        get_config_file['resources'][name] = args
     end
   end
 end
 
-if ! sandbox_config['resources'].key?('core')
-  sandbox_config['resources']['core'] = Hash.new
-  sandbox_config['resources']['core']['repo'] = 'https://github.com/benlumia007/vagrant-for-wordpress-resources.git'
-  sandbox_config['resources']['core']['branch'] = 'master'
+if ! get_config_file['resources'].key?('core')
+  get_config_file['resources']['core'] = Hash.new
+  get_config_file['resources']['core']['repo'] = 'https://github.com/benlumia007/vagrant-for-wordpress-resources.git'
+  get_config_file['resources']['core']['branch'] = 'master'
 end
 
-if ! sandbox_config['utilities'].kind_of? Hash then
-  sandbox_config['utilities'] = Hash.new
+if ! get_config_file['utilities'].kind_of? Hash then
+  get_config_file['utilities'] = Hash.new
 end
 
-if defined? sandbox_config['vm_config']['provider']
+if defined? get_config_file['vm_config']['provider']
   # Override or set the vagrant provider.
-  ENV['VAGRANT_DEFAULT_PROVIDER'] = sandbox_config['vm_config']['provider']
+  ENV['VAGRANT_DEFAULT_PROVIDER'] = get_config_file['vm_config']['provider']
 end
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure configures the
@@ -165,8 +165,8 @@ Vagrant.configure( "2" ) do | config |
   config.vm.provider "virtualbox" do | vm |
     vm.name = File.basename(vagrant_dir) + "_" + (Digest::SHA256.hexdigest vagrant_dir)[0..10]
 
-    vm.customize ["modifyvm", :id, "--memory", sandbox_config['vm_config']['memory']]
-    vm.customize ["modifyvm", :id, "--cpus", sandbox_config['vm_config']['cores']]
+    vm.customize ["modifyvm", :id, "--memory", get_config_file['vm_config']['memory']]
+    vm.customize ["modifyvm", :id, "--cpus", get_config_file['vm_config']['cores']]
   end
 
   # Private Networking
@@ -174,7 +174,7 @@ Vagrant.configure( "2" ) do | config |
   # Create a private network, which allows host-only access to the machine using a specific IP. This should only work
   # with VirtualBox and Parallels, whereas, Microsoft Hyper-V does not. Microsoft Hyper-V only detects an IP but no
   # way to tell vagrantfile what IP that is.
-  config.vm.network :private_network, id: "sandbox_primary", ip: sandbox_config['vm_config']['private_network_ip']
+  config.vm.network :private_network, id: "sandbox_primary", ip: get_config_file['vm_config']['private_network_ip']
 
   # /vagrant
   #
@@ -202,7 +202,7 @@ Vagrant.configure( "2" ) do | config |
   config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dmode=0777", "fmode=0777"]
 
   # This section when set, it will synced a folder that will use www-data as default.
-  sandbox_config['sites'].each do | site, args |
+  get_config_file['sites'].each do | site, args |
     if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
       config.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :group => "www-data", :mount_options => [ "dmode=0775", "fmode=0774" ]
     end
@@ -213,8 +213,8 @@ Vagrant.configure( "2" ) do | config |
   #
   config.vm.provider :hyperv do | vm, override |
     vm.vmname = File.basename(vagrant_dir) + "_" + (Digest::SHA256.hexdigest vagrant_dir)[0..10]
-    vm.memory = sandbox_config['vm_config']['memory']
-    vm.cpus = sandbox_config['vm_config']['core']
+    vm.memory = get_config_file['vm_config']['memory']
+    vm.cpus = get_config_file['vm_config']['core']
     vm.enable_virtualization_extensions = true
     vm.linked_clone = true
 
@@ -233,7 +233,7 @@ Vagrant.configure( "2" ) do | config |
     # Here are the Synced Folders that gets shared which considers to be for logs
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dir_mode=0777", "file_mode=0777" ]
 
-    sandbox_config['sites'].each do | site, args |
+    get_config_file['sites'].each do | site, args |
       if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
         override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :group => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
       end
@@ -247,14 +247,14 @@ Vagrant.configure( "2" ) do | config |
   # use custom.sh as a replacement.
   config.vm.provision "default", type: "shell", path: File.join( "provision/scripts", "setup.sh" )
 
-  sandbox_config['sites'].each do | site, args |
+  get_config_file['sites'].each do | site, args |
     if args['provision'] === true then
       config.vm.provision "import-database", type: "shell", path: File.join( "provision/scripts/database.sh" )
     end
   end
 
   # Add a provision script that allows site created when set in the sandbox-custom.yml
-  sandbox_config['sites'].each do | site, args |
+  get_config_file['sites'].each do | site, args |
     if args['provision'] === true then
       config.vm.provision "site-#{site}",
         type: "shell",
@@ -274,12 +274,12 @@ Vagrant.configure( "2" ) do | config |
       type: "shell",
       path: File.join( "provision/scripts", "dashboard.sh" ),
       args: [
-        sandbox_config['dashboard']['repo'],
-        sandbox_config['dashboard']['branch']
+        get_config_file['dashboard']['repo'],
+        get_config_file['dashboard']['branch']
       ]
 
   # resources
-  sandbox_config['resources'].each do | name, args |
+  get_config_file['resources'].each do | name, args |
     config.vm.provision "resources-#{name}",
       type: "shell",
       path: File.join( "provision/scripts", "resources.sh" ),
@@ -290,7 +290,7 @@ Vagrant.configure( "2" ) do | config |
       ]
   end
 
-  sandbox_config['utilities'].each do | name, utilities |
+  get_config_file['utilities'].each do | name, utilities |
     if ! utilities.kind_of? Array then
       utilities = Hash.new
     end
@@ -307,7 +307,7 @@ Vagrant.configure( "2" ) do | config |
   end
 
   if defined?(VagrantPlugins::HostManager)
-    config.hostmanager.aliases = sandbox_config['hosts']
+    config.hostmanager.aliases = get_config_file['hosts']
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
     config.hostmanager.manage_guest = true
@@ -315,7 +315,7 @@ Vagrant.configure( "2" ) do | config |
     config.hostmanager.include_offline = true
   elsif defined?(VagrantPlugins::HostsUpdater)
     # Pass the found host names to the hostsupdater plugin so it can perform magic.
-    config.hostsupdater.aliases = sandbox_config['hosts']
+    config.hostsupdater.aliases = get_config_file['hosts']
     config.hostsupdater.remove_on_suspend = true
   else
     puts "! Neither the HostManager or HostsUpdater plugins are installed!!! Domains won't work without one of these plugins!"

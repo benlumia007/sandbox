@@ -16,11 +16,11 @@ branch=$3
 vm_dir=$4
 provision=$5
 
-# /vagrant/sandbox-custom.yml
+# /srv/.global/custom.yml
 #
 # this allows you to grab information that are needed and use shyaml to read only,since
 # shyaml is not writeable but read only.
-sandbox_config="/srv/.global/custom.yml"
+get_config_file="/srv/.global/custom.yml"
 
 # noroot
 #
@@ -35,9 +35,14 @@ noroot() {
 # this should get the sites.site and outputs it out so that it can be read and continue to
 # insall the site's information.
 get_config_value() {
-    local value=`cat ${sandbox_config} | shyaml get-value sites.${domain}.custom.${1} 2> /dev/null`
+    local value=`cat ${get_config_file} | shyaml get-value sites.${domain}.custom.${1} 2> /dev/null`
     echo ${value:-$@}
 }
+
+if [[ ! -f /etc/nginx/conf.d/${domain}.conf ]]; then
+    cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.conf"
+    sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.conf"
+fi
 
 # Downloading WordPress
 #
