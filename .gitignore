@@ -1,25 +1,25 @@
 .global
-/.vagrant
-/config/sandbox-custom.yml
+.vagrant
+config/sandbox-custom.yml
 
 # Logs
-/log/nginx/*
-!/log/nginx/readme.md
+log/nginx/*
+log/nginx/readme.md
 
-/log/php/*
-!/log/php/readme.md
+log/php/*
+!log/php/readme.md
 
-/log/mysql/*
-!/log/mysql/readme.md
+log/mysql/*
+!log/mysql/readme.md
 
-/certificates
-/provision/*
-!/provision/scripts/*
+certificates
+provision/*
+!provision/scripts/*
 
 # database
-/database/*
-!/database/readme.md
+database/*
+!database/readme.md
 
 # There is no need to share individual sites with one another.
-/sites/*
-!/sites/readme.md
+sites/*
+!sites/readme.md
