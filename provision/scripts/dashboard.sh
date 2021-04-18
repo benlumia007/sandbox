@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 repo=$1
 branch=${2:-master}
-dir="/srv/www/dashboard/public_html"
+dir="${3}/public_html"
 
 # noroot
 #
