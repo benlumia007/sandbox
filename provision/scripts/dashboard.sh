@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 repo=$1
 branch=${2:-master}
-dir="${3}/public_html"
+vm_dir=${3}
+dir="${vm_dir}/public_html"
 
 # noroot
 #
@@ -15,7 +16,7 @@ noroot() {
 #
 # this will install a dashboard specifically under the following directory so that it can be
 # served as a site. 
-if [[ ! -d ${dir} ]]; then
+if [[ ! -d "/etc/nginx/conf.d/dashboard.conf" ]]; then
   cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/dashboard.conf"
   sed -i -e "s/{{DOMAIN}}/dashboard/g" "/etc/nginx/conf.d/dashboard.conf"
 fi
