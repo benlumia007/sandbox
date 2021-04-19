@@ -246,8 +246,8 @@ Vagrant.configure( "2" ) do | config |
   #
   config.vm.provider :parallels do | vm, override |
     vm.name = File.basename(vagrant_dir) + "_" + (Digest::SHA256.hexdigest vagrant_dir)[0..10]
-    vm.memory = sandbox_config['vm_config']['memory']
-    vm.cpus = sandbox_config['vm_config']['core']
+    vm.memory = get_config_file['vm_config']['memory']
+    vm.cpus = get_config_file['vm_config']['core']
 
     # Default Synced Folders
     #
@@ -262,7 +262,7 @@ Vagrant.configure( "2" ) do | config |
     # Here are the Synced Folders that gets shared which considers to be for logs
     override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
 
-    sandbox_config['sites'].each do | site, args |
+    get_config_file['sites'].each do | site, args |
       if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
         override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :group => "www-data", :mount_options => []
       end
