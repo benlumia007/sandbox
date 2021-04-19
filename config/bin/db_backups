@@ -9,8 +9,6 @@ noroot() {
 }
 
 if [[ $db_backups != "False"  ]]; then
-    mkdir -p /srv/database
-    
     noroot mysql -u root -e "show databases" | grep -v -F "information_schema" | grep -v -F "performance_schema" | grep -v -F "mysql" | grep -v -F "Database" | grep -v -F "sys" |
     while read dbname;
         do
