@@ -13,7 +13,7 @@ if [ 'up', 'reload' ].include? ARGV[0] then
   Contributor:    benlumia007
   Version:        1.0.0
 
-  Project:        https://github.com/benlumia007/sandbox
+  Project:        https://github.com/benlumia007/sturdy-vagrant
   Dashboard:      https://dashboard.test
 
   HEREDOC
