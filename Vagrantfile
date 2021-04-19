@@ -58,7 +58,7 @@ get_config_file['sites'].each do | site, args |
   defaults['repo'] = false
   defaults['vm_dir'] = "/srv/www/#{site}"
   defaults['local_dir'] = File.join( vagrant_dir, 'sites', site )
-  defaults['branch'] = 'master'
+  defaults['branch'] = 'main'
   defaults['provision'] = true
   defaults['hosts'] = Array.new
 
@@ -108,8 +108,8 @@ if ! get_config_file['dashboard']
 end
 
 dashboard_defaults = Hash.new
-dashboard_defaults['repo'] = 'https://github.com/benlumia007/vagrant-for-wordpress-dashboard.git'
-dashboard_defaults['branch'] = 'master'
+dashboard_defaults['repo'] = 'https://github.com/benlumia007/sturdy-vagrant-dashboard.git'
+dashboard_defaults['branch'] = 'main'
 dashboard_defaults['vm_dir'] = '/srv/www/dashboard'
 get_config_file['dashboard'] = dashboard_defaults.merge( get_config_file['dashboard'] )
 
@@ -125,7 +125,7 @@ else
         repo = args
         args = Hash.new
         args['repo'] = repo
-        args['branch'] = 'master'
+        args['branch'] = 'main'
 
         get_config_file['resources'][name] = args
     end
@@ -134,8 +134,8 @@ end
 
 if ! get_config_file['resources'].key?('core')
   get_config_file['resources']['core'] = Hash.new
-  get_config_file['resources']['core']['repo'] = 'https://github.com/benlumia007/vagrant-for-wordpress-resources.git'
-  get_config_file['resources']['core']['branch'] = 'master'
+  get_config_file['resources']['core']['repo'] = 'https://github.com/benlumia007/sturdy-vagrant-resources.git'
+  get_config_file['resources']['core']['branch'] = 'main'
 end
 
 if ! get_config_file['utilities'].kind_of? Hash then
