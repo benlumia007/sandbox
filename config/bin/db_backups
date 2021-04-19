@@ -1,0 +1,13 @@
+#!/bin/bash
+
+noroot() {
+    sudo -EH -u "vagrant" "$@";
+}
+
+if [[ "${db_backups}" != "False" ]]; then
+    noroot mysql -u root -e "show databases" | grep -v -F "information_schema" | grep -v -F "performance_schema" | grep -v -F "mysql" | grep -v -F "Database" | grep -v -F "sys" |
+    while read dbname;
+        do
+            noroot mysqldump -u root "${dbname}" > "/srv/database/${dbname}.sql"
+        done
+fi
