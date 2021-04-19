@@ -1,3 +1,9 @@
 #!/bin/bash
 
-/srv/config/bin/db_backups
+get_config_file="/srv/.global/custom.yml"
+
+db_backups=`cat ${get_config_file} | shyaml get-value options.db_backups 2> /dev/null`
+
+if [[ "${db_backups}" != "False" ]]; then
+    /srv/config/bin/db_backups
+fi
