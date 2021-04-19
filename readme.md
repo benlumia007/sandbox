@@ -1,19 +1,18 @@
-# Sandbox
-Sandbox is a web development platform that uses [Vagrant](https://vagrantup.com) and [VirtualBox](https://www.virtualbox.org) to focus on WordPress Development. 
+# Sturdy Vagrant
+Sturdy Vagrant is a web development platform that uses [Vagrant](https://vagrantup.com) and [VirtualBox](https://www.virtualbox.org) to focus on WordPress Development. 
 
 ## System Requirements
-- Vagrant 2.2.7 or higher
+- Vagrant 2.2.13 or higher
 - VirtualBox 6.1 or higher
 
 ## Software Included
-Sandbox is built with Ubuntu 20.04 LTS (Focal Fossa) based VirtualBox Virtual Machine which contains all of the software needed within the Vagrant Box, so no need to install every single software and configurations, everything has been configured and ready to go. Software includes:
+Sturdy Vagrant is built with Ubuntu 20.04 LTS (Focal Fossa) based VirtualBox Virtual Machine which contains all of the software needed within the Vagrant Box, so no need to install every single software and configurations, everything has been configured and ready to go. Software includes:
 
 - [Nginx](https://www.nginx.com/)
 - [MySQL Server](https://dev.mysql.com/downloads/mysql/)
 - [PHP 7.4](http://www.php.net/downloads.php)
 - [Composer](https://getcomposer.org/)
 - [WP-Cli](https://wp-cli.org/)
-- [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer)
 - [MailHog](https://https://github.com/mailhog/MailHog/)
 
 ## How to Use Sandbox
