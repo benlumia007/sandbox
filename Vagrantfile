@@ -241,6 +241,34 @@ Vagrant.configure( "2" ) do | config |
     end
   end
 
+  # Parallels Desktop ( Pro )
+  #
+  #
+  config.vm.provider :parallels do | vm, override |
+    vm.name = File.basename(vagrant_dir) + "_" + (Digest::SHA256.hexdigest vagrant_dir)[0..10]
+    vm.memory = sandbox_config['vm_config']['memory']
+    vm.cpus = sandbox_config['vm_config']['core']
+
+    # Default Synced Folders
+    #
+    # Here are the synced folders that gets shared from the host to the virtual machine. 
+    override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => []
+    override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => []
+    override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => []
+    override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => []
+
+    # Default Synced Folders for Logs
+    #
+    # Here are the Synced Folders that gets shared which considers to be for logs
+    override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
+
+    sandbox_config['sites'].each do | site, args |
+      if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
+        override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :group => "www-data", :mount_options => []
+      end
+    end
+  end
+
   # setup.sh or custom.sh
   #
   # By default, the Vagrantfile is set to use the setup.sh bash script which is located in
