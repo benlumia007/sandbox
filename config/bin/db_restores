@@ -32,7 +32,7 @@ fi
 #
 # this is where all the database of *.sql will be located when you do a vagrant halt or vagrant
 # destroy, it wil then back up the database depending on how much sites you have generated.
-cd /srv/database/backups/
+cd /srv/database
 
 # site in `get_sites`
 #
