@@ -252,20 +252,20 @@ Vagrant.configure( "2" ) do | config |
     # Default Synced Folders
     #
     # Here are the synced folders that gets shared from the host to the virtual machine. 
-    config.vm.synced_folder ".global", "/srv/.global", :owner => "vagrant", :group => "vagrant", :mount_options => []
-    override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => []
-    override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => []
-    override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => []
+    config.vm.synced_folder ".global", "/srv/.global", :owner => "vagrant", :group => "vagrant", :mount_options => [ 'share' ]
+    override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => [ 'share' ]
+    override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => [ 'share' ]
+    override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => [ 'share' ]
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ 'share' ]
 
     # Default Synced Folders for Logs
     #
     # Here are the Synced Folders that gets shared which considers to be for logs
-    override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => []
+    override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ 'share' ]
 
     get_config_file['sites'].each do | site, args |
       if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
-        override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :group => "www-data", :mount_options => []
+        override.vm.synced_folder args['local_dir'], args['vm_dir'], :owner => "vagrant", :group => "www-data", :mount_options => [ 'share' ]
       end
     end
   end
