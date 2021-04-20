@@ -156,8 +156,8 @@ Vagrant.configure( "2" ) do | config |
 
   # Every Vagrant development environment requires a box. You can search for boxes at
   # https://vagrantcloud.com/search.
-  config.vm.box = "benlumia007/focal64"
-  config.vm.box_version = "1.0.0"
+  config.vm.box = "/Users/benlumia007/Parallels/custom.box"
+  # config.vm.box_version = "1.0.0"
 
   # You can customize the name that appears in the VirtualBox Graphic User Interface by
   # setting up the name property. By default, Vagrant sets it to the container folder of
@@ -252,10 +252,11 @@ Vagrant.configure( "2" ) do | config |
     # Default Synced Folders
     #
     # Here are the synced folders that gets shared from the host to the virtual machine. 
+    config.vm.synced_folder ".global", "/srv/.global", :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => []
     override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => []
-    override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => []
+    override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ 'share' ]
 
     # Default Synced Folders for Logs
     #
