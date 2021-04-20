@@ -54,6 +54,7 @@ vm_config:
   memory: 2048
   core: 2
   # provider: hyperv
+  # provider: parallels
 
 # options
 #
