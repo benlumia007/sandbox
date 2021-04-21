@@ -2,12 +2,13 @@
 Sturdy Vagrant is local developer environment platform that focuses on web development. It uses [Vagrant](https://www.vagrantup.com) to manage Virtual Machines and [VirtualBox](https://www.virtualbox.org/) for virtualization.
 
 ## Table of Content
-1. Overview
+1. [Overview](https://github.com/benlumia007/sturdy-vagrant#overview)
+2. [Requirements](https://github.com/benlumia007/sturdy-vagrant#requirements)
 
 ## Overview
+Sturdy is an easy and automat local developer environment can be use for any purposes such as WordPress, ClassicPress and others that works on Linux, macOS, and Windows.
 
-
-## System Requirements
+## Requirements
 - Vagrant 2.2.14 or higher
 - VirtualBox 6.1 or higher
 
