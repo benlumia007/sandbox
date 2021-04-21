@@ -1,8 +1,8 @@
 # Sturdy Vagrant
-Sturdy Vagrant is a web development platform that focuses on web development. It uses [Vagrant](https://www.vagrantup.com) to manage Virtual Machines and [VirtualBox](https://www.virtualbox.org/) for virtualization.
+Sturdy Vagrant is local developer environment platform that focuses on web development. It uses [Vagrant](https://www.vagrantup.com) to manage Virtual Machines and [VirtualBox](https://www.virtualbox.org/) for virtualization.
 
 ## System Requirements
-- Vagrant 2.2.13 or higher
+- Vagrant 2.2.14 or higher
 - VirtualBox 6.1 or higher
 
 ## Software Included
