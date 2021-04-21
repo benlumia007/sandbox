@@ -1,5 +1,5 @@
 # Sturdy Vagrant
-Sturdy Vagrant is a web development platform that uses [Vagrant](https://vagrantup.com) and [VirtualBox](https://www.virtualbox.org) to focus on WordPress Development. 
+Sturdy Vagrant is a web development platform that focuses on web development. It uses [Vagrant](https://www.vagrantup.com) to manage Virtual Machines and [VirtualBox](https://www.virtualbox.org/) for virtualization.
 
 ## System Requirements
 - Vagrant 2.2.13 or higher
