@@ -1,6 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-Vagrant.require_version ">= 2.2.15"
+Vagrant.require_version ">= 2.2.14"
 require 'yaml'
 require 'fileutils'
 
