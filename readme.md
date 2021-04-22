@@ -6,7 +6,7 @@ Sturdy Vagrant is local developer environment platform that focuses on web devel
 2. [Requirements](https://github.com/benlumia007/sturdy-vagrant#requirements)
 
 ## Overview
-Sturdy is an easy and automat local developer environment can be use for any purposes such as WordPress, ClassicPress and others that works on Linux, macOS, and Windows.
+Sturdy Vagrant is an easy and automate local environment can be use for any purposes such as WordPress, ClassicPress and others that works on Linux, macOS, and Windows.
 
 ## Requirements
 - Vagrant 2.2.14 or higher
@@ -32,4 +32,4 @@ If you wish to add more sites beforehand, then you will need to copy the sandbox
 ## Licensing
 This project Sandbox is under GNU GPL, version 2.0 or higher.
 
-2019 (C) Benjamin Lu
+2019-2021 (C) Benjamin Lu
