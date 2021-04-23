@@ -20,21 +20,21 @@ if [ 'up', 'reload' ].include? ARGV[0] then
   puts splash
 end
 
-# sandbox-setup.yml and sandbox-custom.yml
+# default.yml and custom.yml
 #
-# By default, sandbox-setup.yml is the main file with all the configurations needed to create and modify a site and modify
-# virtual machine if needed. When you run your first vagrant up, it will make a copy of sandbox-setup.yml and rename it to
-# sandbox-custom.yml so that the sandbox-setup.yml remains on touch.
+# By default, default.yml is the main file with all the configurations needed to create and modify a site and modify
+# virtual machine if needed. When you run your first vagrant up, it will make a copy of default.yml and rename it to
+# custom.yml so that the default.yml remains on touch.
 if File.file?( File.join( vagrant_dir, '.global/custom.yml' ) ) == false then
   FileUtils.mkdir( '.global' )
   FileUtils.cp( File.join( vagrant_dir, '/config/default.yml' ), File.join( vagrant_dir, '.global/custom.yml' ) )
 end
 
-# This will register sandbox-custom.yml as the default to be used to configured the entire vm.
+# This will register custom.yml as the default to be used to configured the entire vm.
 set_config_file = File.join( vagrant_dir, '.global/custom.yml' )
 get_config_file = YAML.load_file( set_config_file )
 
-# This section allows you to use the sandbox-custom.yml to register sites so that it can be install sites per each request.
+# This section allows you to use the custom.yml to register sites so that it can be install sites per each request.
 if ! get_config_file['sites'].kind_of? Hash then
   get_config_file['sites'] = Hash.new
 end
@@ -80,7 +80,7 @@ end
 # dashboard.test
 #
 # This is the default dashboard, when enabled as you can see here, it will then generate a new site before the resources
-# takes affect, this will then let you see what exactly have you added a site using the sandbox-custom.yml.
+# takes affect, this will then let you see what exactly have you added a site using the custom.yml.
 get_config_file['hosts'] += ['dashboard.test']
 
 # vm_config
@@ -115,7 +115,7 @@ get_config_file['dashboard'] = dashboard_defaults.merge( get_config_file['dashbo
 
 # Resources
 #
-# This is the resources that gets added by default under the sandbox-custom.yml. this will
+# This is the resources that gets added by default under the custom.yml. this will
 # automatically add phpmyadmin and tls-ca for ssl certificates.
 if ! get_config_file['resources'].kind_of? Hash then
   get_config_file['resources'] = Hash.new
@@ -294,7 +294,7 @@ Vagrant.configure( "2" ) do | config |
         get_config_file['dashboard']['vm_dir']
       ]
 
-  # Add a provision script that allows site created when set in the sandbox-custom.yml
+  # Add a provision script that allows site created when set in the custom.yml
   get_config_file['sites'].each do | site, args |
     if args['provision'] === true then
       config.vm.provision "site-#{site}",
