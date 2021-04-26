@@ -27,7 +27,7 @@ end
 # custom.yml so that the default.yml remains on touch.
 if File.file?( File.join( vagrant_dir, '.global/custom.yml' ) ) == false then
   FileUtils.mkdir( '.global' )
-  FileUtils.cp( File.join( vagrant_dir, '/config/default.yml' ), File.join( vagrant_dir, '.global/custom.yml' ) )
+  FileUtils.cp( File.join( vagrant_dir, 'config/default.yml' ), File.join( vagrant_dir, '.global/custom.yml' ) )
 end
 
 # This will register custom.yml as the default to be used to configured the entire vm.
