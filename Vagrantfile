@@ -109,14 +109,14 @@ vvv_config['sites'].each do |site, args|
   defaults['vm_dir'] = "/srv/www/#{site}"
   defaults['local_dir'] = File.join(vagrant_dir, 'sites', site)
   defaults['branch'] = 'main'
-  defaults['skip_provisioning'] = false
+  defaults['provision'] = false
   defaults['allow_customfile'] = false
   defaults['nginx_upstream'] = 'php'
   defaults['hosts'] = []
 
   vvv_config['sites'][site] = defaults.merge(args)
 
-  unless vvv_config['sites'][site]['skip_provisioning']
+  unless ! vvv_config['sites'][site]['provision']
     site_host_paths = Dir.glob(Array.new(4) { |i| vvv_config['sites'][site]['local_dir'] + '/*' * (i + 1) + '/vvv-hosts' })
     vvv_config['sites'][site]['hosts'] += site_host_paths.map do |path|
       lines = File.readlines(path).map(&:chomp)
@@ -711,22 +711,20 @@ Vagrant.configure('2') do |config|
     end
   end
 
-  vvv_config['sites'].each do |site, args|
-    next if args['skip_provisioning']
-
-    config.vm.provision "site-#{site}",
-                        type: 'shell',
-                        keep_color: true,
-                        path: File.join('provision/scripts', 'sites.sh'),
-                        args: [
-                          site,
-                          args['repo'].to_s,
-                          args['branch'],
-                          args['vm_dir'],
-                          args['skip_provisioning'].to_s,
-                          args['nginx_upstream']
-                        ],
-                        env: { "VVV_LOG" => "site-#{site}" }
+  # Add a provision script that allows site created when set in the custom.yml
+  vvv_config['sites'].each do | site, args |
+    if args['provision'] === true then
+      config.vm.provision "site-#{site}",
+        type: "shell",
+        path: File.join( "provision/scripts", "sites.sh" ),
+        args: [
+          site,
+          args['repo'].to_s,
+          args['branch'],
+          args['vm_dir'],
+          args['provision'].to_s,
+        ]
+    end
   end
 
   # provision-post.sh acts as a post-hook to the default provisioning. Anything that should
