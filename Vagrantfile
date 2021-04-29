@@ -40,6 +40,13 @@ if ! get_config_file['hosts'].kind_of? Hash then
   get_config_file['hosts'] = Array.new
 end
 
+# dashboard.test
+#
+# This is the default dashboard, when enabled as you can see here, it will then generate a new site before the resources
+# takes affect, this will then let you see what exactly have you added a site using the custom.yml.
+get_config_file['hosts'] += ['dashboard.test']
+
+
 get_config_file['sites'].each do | site, args |
   if args.kind_of? String then
     repo = args
@@ -56,13 +63,13 @@ get_config_file['sites'].each do | site, args |
   defaults['vm_dir'] = "/srv/www/#{site}"
   defaults['local_dir'] = File.join( vagrant_dir, 'sites', site )
   defaults['branch'] = 'main'
-  defaults['provision'] = true
+  defaults['provision'] = false
   defaults['hosts'] = Array.new
 
   get_config_file['sites'][site] = defaults.merge( args )
 
   if get_config_file['sites'][site]['provision'] then
-    site_paths = Dir.glob( Array.new( 4 ) { | i | get_config_file['sites'][site]['local_dir'] + '/*' * ( i+1 ) + '/sturdy-vagrant' } )
+    site_paths = Dir.glob( Array.new( 4 ) { | i | get_config_file['sites'][site]['local_dir'] + '/*' * ( i+1 ) + '/sv-hosts' } )
 
     get_config_file['sites'][site]['hosts'] += site_paths.map do | path |
       lines = File.readlines( path ).map( &:chomp )
@@ -73,12 +80,6 @@ get_config_file['sites'].each do | site, args |
   end
   get_config_file['sites'][site].delete('hosts')
 end
-
-# dashboard.test
-#
-# This is the default dashboard, when enabled as you can see here, it will then generate a new site before the resources
-# takes affect, this will then let you see what exactly have you added a site using the custom.yml.
-get_config_file['hosts'] += ['dashboard.test']
 
 # vm_config
 #
