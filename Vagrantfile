@@ -15,7 +15,7 @@ if [ 'up', 'reload' ].include? ARGV[0] then
 
   Project:        https://github.com/benlumia007/sturdy-vagrant
   Dashboard:      https://dashboard.test
-  
+
   HEREDOC
   puts splash
 end
@@ -339,12 +339,13 @@ Vagrant.configure( "2" ) do | config |
       end
   end
 
-  if Vagrant.has_plugin?('vagrant-goodhosts')
-    config.goodhosts.aliases = get_config_file['hosts']
-    config.goodhosts.remove_on_suspend = true
+ if defined?(VagrantPlugins::HostsUpdater)
+    # Pass the found host names to the hostsupdater plugin so it can perform magic.
+    config.hostsupdater.aliases = get_config_file['hosts']
+    config.hostsupdater.remove_on_suspend = true
   else
-    puts "! Plugin vagrant-hostgoodhosts is not installed!!! Domains won't work without it!"
-    puts "Please run vagrant plugin install vagrant-hostgoodhosts then try again."
+    puts "! Neither the HostManager or HostsUpdater plugins are installed!!! Domains won't work without one of these plugins!"
+    puts "Run vagrant plugin install vagrant-hostmanager then try again."
   end
 
 
