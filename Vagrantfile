@@ -23,46 +23,6 @@ File.open("#{vagrant_dir}/version", 'r') do |f|
   version = version.gsub("\n", '')
 end
 
-unless Vagrant::Util::Platform.windows?
-  if Process.uid == 0
-    sudo_warnings
-  end
-end
-
-# whitelist when we show the logo, else it'll show on global Vagrant commands
-show_logo = true if %w[up resume status provision reload].include? ARGV[0]
-show_logo = false if ENV['VVV_SKIP_LOGO']
-
-# Show the initial splash screen
-if show_logo
-  git_or_zip = 'zip-no-vcs'
-  branch = ''
-  commit = ''
-  if File.directory?("#{vagrant_dir}/.git")
-    git_or_zip = 'git::'
-    branch = `git --git-dir="#{vagrant_dir}/.git" --work-tree="#{vagrant_dir}" rev-parse --abbrev-ref HEAD`
-    branch = branch.chomp("\n"); # remove trailing newline so it doesn't break the ascii art
-    commit = `git --git-dir="#{vagrant_dir}/.git" --work-tree="#{vagrant_dir}" rev-parse --short HEAD`
-    commit = '(' + commit.chomp("\n") + ')'; # remove trailing newline so it doesn't break the ascii art
-  end
-
-  splashfirst = <<~HEREDOC
-    \033[1;38;5;196m#{red}__ #{green}__ #{blue}__ __
-    #{red}\\ V#{green}\\ V#{blue}\\ V / #{red}Varying #{green}Vagrant #{blue}Vagrants
-    #{red} \\_/#{green}\\_/#{blue}\\_/  #{purple}v#{version}#{creset}-#{branch_c}#{git_or_zip}#{branch}#{commit}#{creset}
-  HEREDOC
-  puts splashfirst
-end
-
-unless Vagrant::Util::Platform.windows?
-  if Process.uid == 0
-    puts " "
-    puts "#{red} ⚠ DANGER VAGRANT IS RUNNING AS ROOT/SUDO, DO NOT USE SUDO ⚠#{creset}"
-    puts " "
-  end
-end
-# Load the config file before the second section of the splash screen
-
 # Perform file migrations from older versions
 vvv_config_file = File.join(vagrant_dir, '.global/custom.yml')
 unless File.file?(vvv_config_file)
@@ -178,92 +138,6 @@ vvv_config['vagrant-plugins'] = {} unless vvv_config['vagrant-plugins']
 
 # Create a global variable to use in functions and classes
 $vvv_config = vvv_config
-
-# Show the second splash screen section
-
-if show_logo
-  platform = ['platform-' + Vagrant::Util::Platform.platform]
-  if Vagrant::Util::Platform.windows?
-    platform << 'windows '
-    platform << 'wsl ' if Vagrant::Util::Platform.wsl?
-    platform << 'msys ' if Vagrant::Util::Platform.msys?
-    platform << 'cygwin ' if Vagrant::Util::Platform.cygwin?
-    if Vagrant::Util::Platform.windows_hyperv_enabled?
-      platform << 'HyperV-Enabled '
-    end
-    platform << 'HyperV-Admin ' if Vagrant::Util::Platform.windows_hyperv_admin?
-    if Vagrant::Util::Platform.windows_admin?
-      platform << 'HasWinAdminPriv '
-    else
-      platform << 'missingWinAdminPriv ' unless Vagrant::Util::Platform.windows_admin?
-    end
-  else
-    platform << 'shell:' + ENV['SHELL'] if ENV['SHELL']
-    platform << 'systemd ' if Vagrant::Util::Platform.systemd?
-  end
-
-  platform << 'vagrant-hostmanager' if Vagrant.has_plugin?('vagrant-hostmanager')
-  platform << 'vagrant-hostsupdater' if Vagrant.has_plugin?('vagrant-hostsupdater')
-  platform << 'vagrant-goodhosts' if Vagrant.has_plugin?('vagrant-goodhosts')
-  platform << 'vagrant-vbguest' if Vagrant.has_plugin?('vagrant-vbguest')
-  platform << 'vagrant-disksize' if Vagrant.has_plugin?('vagrant-disksize')
-
-  platform << 'CaseSensitiveFS' if Vagrant::Util::Platform.fs_case_sensitive?
-  unless Vagrant::Util::Platform.terminal_supports_colors?
-    platform << 'monochrome-terminal'
-  end
-
-  if defined? vvv_config['vm_config']['wordcamp_contributor_day_box']
-    if vvv_config['vm_config']['wordcamp_contributor_day_box'] == true
-      platform << 'contributor_day_box'
-    end
-  end
-
-  if defined? vvv_config['vm_config']['box']
-    unless vvv_config['vm_config']['box'].nil?
-      puts "Custom Box: Box overridden via .global/custom.yml , this won't take effect until a destroy + reprovision happens"
-      platform << 'box_override:' + vvv_config['vm_config']['box']
-    end
-  end
-
-  if defined? vvv_config['general']['db_share_type']
-    if vvv_config['general']['db_share_type'] != true
-      platform << 'shared_db_folder_disabled'
-    else
-      platform << 'shared_db_folder_enabled'
-    end
-  else
-    platform << 'shared_db_folder_default'
-  end
-
-  provider_version = '??'
-
-  provider_meta = nil
-
-  case vvv_config['vm_config']['provider']
-  when 'virtualbox'
-    provider_meta = VagrantPlugins::ProviderVirtualBox::Driver::Meta.new()
-    provider_version = provider_meta.version
-  when 'parallels'
-    provider_meta = VagrantPlugins::Parallels::Driver::Meta.new()
-    provider_version = provider_meta.version
-  when 'vmware'
-    provider_version = '??'
-  when 'hyperv'
-    provider_version = 'n/a'
-  else
-    provider_version = '??'
-  end
-
-  splashsecond = <<~HEREDOC
-    #{yellow}Platform: #{yellow}#{platform.join(' ')}, #{purple}VVV Path: "#{vagrant_dir}"
-    #{green}Vagrant: #{green}v#{Vagrant::VERSION}, #{blue}#{vvv_config['vm_config']['provider']}: #{blue}v#{provider_version}
-    #{docs}Docs:       #{url}https://varyingvagrantvagrants.org/
-    #{docs}Contribute: #{url}https://github.com/varying-vagrant-vagrants/vvv
-    #{docs}Dashboard:  #{url}http://vvv.test#{creset}
-  HEREDOC
-  puts splashsecond
-end
 
 if defined? vvv_config['vm_config']['provider']
   # Override or set the vagrant provider.
