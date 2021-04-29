@@ -272,13 +272,17 @@ Vagrant.configure( "2" ) do | config |
     end
   end
 
-  # setup.sh or custom.sh
+  # setup.sh
   #
   # By default, the Vagrantfile is set to use the setup.sh bash script which is located in
-  # the provision directory. If custom.sh is detected when created manually, then it will
-  # use custom.sh as a replacement.
+  # the provision directory.
   config.vm.provision "default", type: "shell", path: File.join( "provision/scripts", "setup.sh" )
 
+  # import-database
+  #
+  # We should import databases if exists so that when you do a vagrant destroy and vagrant up, it 
+  # will check of the *.sql exists then import database but will check the tables in mysql first, if it exists
+  # stop the sequence.
   get_config_file['sites'].each do | site, args |
     if args['provision'] === true then
       config.vm.provision "import-database", type: "shell", path: File.join( "provision/scripts/database.sh" )
@@ -312,6 +316,8 @@ Vagrant.configure( "2" ) do | config |
   end
 
   # resources
+  #
+  # creates and pulls resources into provision/resources/core
   get_config_file['resources'].each do | name, args |
     config.vm.provision "resources-#{name}",
       type: "shell",
@@ -323,6 +329,10 @@ Vagrant.configure( "2" ) do | config |
       ]
   end
 
+  # utilities
+  #
+  # checks if provision/resources/core exists then continue to deploy the core features
+  # such as phpmyadmin and tls-ca.
   get_config_file['utilities'].each do | name, utilities |
     if ! utilities.kind_of? Array then
       utilities = Hash.new
@@ -339,6 +349,9 @@ Vagrant.configure( "2" ) do | config |
       end
   end
 
+# vagrant-hostsupdater
+#
+# If the vagrant-hostsupdater exists then it should allow all hosts be added automatically
  if defined?(VagrantPlugins::HostsUpdater)
     # Pass the found host names to the hostsupdater plugin so it can perform magic.
     config.hostsupdater.aliases = get_config_file['hosts']
