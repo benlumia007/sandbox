@@ -8,7 +8,7 @@
 # dir = where the resources going to be downloaded to.
 name=$1
 repo=$2
-branch=${3:-master}
+branch=${3}
 dir="/srv/provision/resources/${name}"
 
 # noroot
