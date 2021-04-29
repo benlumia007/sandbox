@@ -9,10 +9,13 @@ vagrant_dir = File.expand_path( File.dirname( __FILE__ ) )
 
 if [ 'up', 'reload' ].include? ARGV[0] then
   splash = <<-HEREDOC
+
   Contributor:    benlumia007
   Version:        1.0.0
+
   Project:        https://github.com/benlumia007/sturdy-vagrant
   Dashboard:      https://dashboard.test
+  
   HEREDOC
   puts splash
 end
