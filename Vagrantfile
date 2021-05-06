@@ -157,8 +157,9 @@ Vagrant.configure( "2" ) do | config |
 
   # Every Vagrant development environment requires a box. You can search for boxes at
   # https://vagrantcloud.com/search.
-  config.vm.box = "benlumia007/sturdy-vagrant"
-  config.vm.box_version = "1.0.0"
+  # config.vm.box = "benlumia007/sturdy-vagrant"
+  config.vm.box = "ubuntu/focal64"
+  # config.vm.box_version = "1.0.0"
 
   # You can customize the name that appears in the VirtualBox Graphic User Interface by
   # setting up the name property. By default, Vagrant sets it to the container folder of
@@ -200,7 +201,7 @@ Vagrant.configure( "2" ) do | config |
   #
   # Here are the Synced Folders that gets shared which considers to be for logs
   config.vm.synced_folder "log/nginx", "/var/log/nginx", :owner => 'www-data', :group => 'adm'
-  config.vm.synced_folder "log/mysql", "/var/log/mysql", :owner => 'mysql', :group => 'adm'
+  # config.vm.synced_folder "log/mysql", "/var/log/mysql", :owner => 'mysql', :group => 'adm'
   config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dmode=0777", "fmode=0777"]
 
   # This section when set, it will synced a folder that will use www-data as default.
@@ -225,7 +226,7 @@ Vagrant.configure( "2" ) do | config |
     # Microsoft Hyper-V  Synced Folders
     #
     # Here are the synced folders that gets shared from the host to the virtual machine. We will be overriding
-    # the default synced folder for Microsoft Hyper-V 
+    # the default synced folder for Microsoft Hyper-V
     override.vm.synced_folder ".global", "/srv/.global", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
@@ -278,7 +279,7 @@ Vagrant.configure( "2" ) do | config |
 
   # import-database
   #
-  # We should import databases if exists so that when you do a vagrant destroy and vagrant up, it 
+  # We should import databases if exists so that when you do a vagrant destroy and vagrant up, it
   # will check of the *.sql exists then import database but will check the tables in mysql first, if it exists
   # stop the sequence.
   get_config_file['sites'].each do | site, args |
