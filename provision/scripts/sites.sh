@@ -43,7 +43,7 @@ get_config_value() {
 if [[ ! -f /etc/apache2/sites-available/${domain}.conf ]]; then
   echo "Copying apache2.conf    /etc/apache2/sites-available/${domain}.conf"
   cp "/srv/config/apache/apache.conf" "/etc/apache2/sites-available/${domain}.conf"
-  sed -i -e "s/{{DOMAIN}}/${DOMIN}/g" "/etc/apache2/sites-available/${domain}.conf"
+  sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.conf"
   echo "enable ${domain}"
   a2ensite ${domain}.conf
   echo "restarting apache server"
