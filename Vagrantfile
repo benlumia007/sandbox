@@ -199,9 +199,9 @@ Vagrant.configure( "2" ) do | config |
   # Default Synced Folders for Logs
   #
   # Here are the Synced Folders that gets shared which considers to be for logs
-  config.vm.synced_folder "log/nginx", "/var/log/nginx", :owner => 'www-data', :group => 'adm'
-  # config.vm.synced_folder "log/mysql", "/var/log/mysql", :owner => 'mysql', :group => 'adm'
-  config.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dmode=0777", "fmode=0777"]
+  config.vm.synced_folder "logs/apache2", "/var/logs/apache2", :owner => 'www-data', :group => 'adm'
+  config.vm.synced_folder "logs/mysql", "/var/logs/mysql", :owner => 'mysql', :group => 'adm'
+  config.vm.synced_folder "logs/php", "/var/logs/php", :owner => 'vagrant', :mount_options => [ "dmode=0777", "fmode=0777"]
 
   # This section when set, it will synced a folder that will use www-data as default.
   get_config_file['sites'].each do | site, args |
@@ -232,7 +232,7 @@ Vagrant.configure( "2" ) do | config |
     override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
 
-    override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ "dir_mode=0777", "file_mode=0777" ]
+    override.vm.synced_folder "logs/php", "/var/logs/php", :owner => 'vagrant', :mount_options => [ "dir_mode=0777", "file_mode=0777" ]
 
     get_config_file['sites'].each do | site, args |
       if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then
@@ -261,7 +261,7 @@ Vagrant.configure( "2" ) do | config |
     # Default Synced Folders for Logs
     #
     # Here are the Synced Folders that gets shared which considers to be for logs
-    override.vm.synced_folder "log/php", "/var/log/php", :owner => 'vagrant', :mount_options => [ 'share' ]
+    override.vm.synced_folder "logs/php", "/var/logs/php", :owner => 'vagrant', :mount_options => [ 'share' ]
 
     get_config_file['sites'].each do | site, args |
       if args['local_dir'] != File.join( vagrant_dir, 'sites', site ) then

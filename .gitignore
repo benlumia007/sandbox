@@ -3,14 +3,14 @@
 config/sandbox-custom.yml
 
 # Logs
-log/nginx/*
-log/nginx/readme.md
+logs/apache2/*
+!logs/nginx/readme.md
 
-log/php/*
-!log/php/readme.md
+logs/php/*
+!logs/php/readme.md
 
-log/mysql/*
-!log/mysql/readme.md
+logs/mysql/*
+!logs/mysql/readme.md
 
 certificates
 provision/*
