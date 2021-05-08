@@ -44,7 +44,6 @@ if [[ ! -f /etc/apache2/sites-available/${domain}.conf ]]; then
   cp "/srv/config/apache/apache.conf" "/etc/apache2/sites-available/${domain}.conf"
   sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.conf"
   a2ensite ${domain}.conf > /dev/null 2>&1
-  service apache2 restart
 fi
 
 if [[ ! -d ${vm_dir}/public_html ]]; then
