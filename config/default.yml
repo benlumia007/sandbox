@@ -11,11 +11,23 @@
 
 # Below are your sites that gets generated when provision or when you run vagrant up for the first time.
 sites:
-  sandbox:
+  classicpress:
     provision: true
     repo: https://github.com/benlumia007/sturdy-vagrant-sites.git
     hosts:
-      - sandbox.test
+      - classicpress.test
+    custom:
+      type: ClassicPress
+      constants:
+        - DISALLOW_FILE_EDIT
+        - WP_DEBUG
+        - WP_DEBUG_DISPLAY
+
+  wordpress:
+    provision: true
+    repo: https://github.com/benlumia007/sturdy-vagrant-sites.git
+    hosts:
+      - wordpress.test
     custom:
       type: WordPress
       constants:
