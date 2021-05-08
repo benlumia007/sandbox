@@ -1,6 +1,6 @@
 .global
 .vagrant
-config/sandbox-custom.yml
+config/default.yml
 
 # Logs
 logs/apache2/*
