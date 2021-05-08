@@ -17,10 +17,9 @@ noroot() {
 # this will install a dashboard specifically under the following directory so that it can be
 # served as a site.
 if [[ ! -d "/etc/apache2/sites-available/dashboard.conf" ]]; then
-  echo "copying apache2.conf    /etc/apache2/sites-available/dashboard.conf"
   cp "/srv/config/apache/apache.conf" "/etc/apache2/sites-available/dashboard.conf"
   sed -i -e "s/{{DOMAIN}}/dashboard/g" "/etc/apache2/sites-available/dashboard.conf"
-  a2ensite "dashboard.conf" -q
+  a2ensite "dashboard.conf" > /dev/null 2>&1
 fi
 
 if [[ false != "dashboard" && false != "${repo}" ]]; then
