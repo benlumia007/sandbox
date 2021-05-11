@@ -3,7 +3,7 @@
 config/default.yml
 
 # Logs
-logs/*
+logs
 
 certificates
 provision/*
