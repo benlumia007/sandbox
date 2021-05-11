@@ -3,14 +3,7 @@
 config/default.yml
 
 # Logs
-logs/apache2/*
-!logs/nginx/readme.md
-
-logs/php/*
-!logs/php/readme.md
-
-logs/mysql/*
-!logs/mysql/readme.md
+logs/*
 
 certificates
 provision/*
