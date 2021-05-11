@@ -199,9 +199,9 @@ Vagrant.configure( "2" ) do | config |
   # Default Synced Folders for Logs
   #
   # Here are the Synced Folders that gets shared which considers to be for logs
-  config.vm.synced_folder "logs/apache2", "/var/logs/apache2", :owner => 'www-data', :group => 'adm'
-  config.vm.synced_folder "logs/mysql", "/var/logs/mysql", :owner => 'mysql', :group => 'adm'
-  config.vm.synced_folder "logs/php", "/var/logs/php", :owner => 'vagrant', :mount_options => [ "dmode=0777", "fmode=0777"]
+  config.vm.synced_folder "logs/apache2", "/var/logs/apache2", :owner => 'www-data', :group => 'adm', create: true
+  config.vm.synced_folder "logs/mysql", "/var/logs/mysql", :owner => 'mysql', :group => 'adm', create: true
+  config.vm.synced_folder "logs/php", "/var/logs/php", :owner => 'vagrant', :mount_options => [ "dmode=0777", "fmode=0777"], create: true
 
   # This section when set, it will synced a folder that will use www-data as default.
   get_config_file['sites'].each do | site, args |
