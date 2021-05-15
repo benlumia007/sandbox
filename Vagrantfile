@@ -355,8 +355,8 @@ Vagrant.configure( "2" ) do | config |
     config.hostsupdater.aliases = get_config_file['hosts']
     config.hostsupdater.remove_on_suspend = true
   else
-    puts "! Neither the HostManager or HostsUpdater plugins are installed!!! Domains won't work without one of these plugins!"
-    puts "Run vagrant plugin install vagrant-hostmanager then try again."
+    puts "! HostsUpdater is not install!!! Domains won't work without one of these plugins!"
+    puts "Run vagrant plugin install vagrant-hostsupdater then try again."
   end
 
 
