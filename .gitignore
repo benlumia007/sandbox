@@ -13,5 +13,4 @@ provision/*
 databases
 
 # There is no need to share individual sites with one another.
-sites/*
-!sites/readme.md
+sites

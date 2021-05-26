@@ -194,7 +194,7 @@ Vagrant.configure( "2" ) do | config |
   config.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
   config.vm.synced_folder "databases", "/srv/databases", create: true
   config.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dmode=0775", "fmode=0774" ]
-  config.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ "dmode=0775", "fmode=0774" ]
+  config.vm.synced_folder "sites", "/srv/www", create: true, :owner => "vagrant", :group => "www-data", :mount_options => [ "dmode=0775", "fmode=0774" ]
 
   # Default Synced Folders for Logs
   #
