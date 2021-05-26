@@ -230,7 +230,7 @@ Vagrant.configure( "2" ) do | config |
     override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
     override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
-    override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
+    override.vm.synced_folder "sites", "/srv/www", create: true, :owner => "vagrant", :group => "www-data", :mount_options => [ "dir_mode=0775", "file_mode=0774" ]
 
     override.vm.synced_folder "logs/php", "/var/logs/php", :owner => 'vagrant', :mount_options => [ "dir_mode=0777", "file_mode=0777" ]
 
@@ -256,7 +256,7 @@ Vagrant.configure( "2" ) do | config |
     override.vm.synced_folder "certificates", "/srv/certificates", create: true, :owner => "vagrant", :group => "vagrant", :mount_options => [ 'share' ]
     override.vm.synced_folder "config", "/srv/config", :owner => "vagrant", :group => "vagrant", :mount_options => [ 'share' ]
     override.vm.synced_folder "provision", "/srv/provision", :owner => "vagrant", :group => "vagrant", :mount_options => [ 'share' ]
-    override.vm.synced_folder "sites", "/srv/www", :owner => "vagrant", :group => "www-data", :mount_options => [ 'share' ]
+    override.vm.synced_folder "sites", "/srv/www", create: true, :owner => "vagrant", :group => "www-data", :mount_options => [ 'share' ]
 
     # Default Synced Folders for Logs
     #
