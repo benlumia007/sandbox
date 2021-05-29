@@ -274,7 +274,7 @@ Vagrant.configure( "2" ) do | config |
   #
   # By default, the Vagrantfile is set to use the setup.sh bash script which is located in
   # the provision directory.
-  config.vm.provision "default", type: "shell", path: File.join( "provision/scripts", "setup.sh" )
+  config.vm.provision "default", type: "shell", path: File.join( "provision", "setup.sh" )
 
   # import-database
   #
@@ -283,14 +283,14 @@ Vagrant.configure( "2" ) do | config |
   # stop the sequence.
   get_config_file['sites'].each do | site, args |
     if args['provision'] === true then
-      config.vm.provision "import-database", type: "shell", path: File.join( "provision/scripts/database.sh" )
+      config.vm.provision "import-database", type: "shell", path: File.join( "provision", "database.sh" )
     end
   end
 
   # Provision the dashboard that appears when you visit https://dashboard.test
   config.vm.provision "site-dashboard",
       type: "shell",
-      path: File.join( "provision/scripts", "dashboard.sh" ),
+      path: File.join( "provision", "dashboard.sh" ),
       args: [
         get_config_file['dashboard']['repo'],
         get_config_file['dashboard']['branch'],
@@ -302,7 +302,7 @@ Vagrant.configure( "2" ) do | config |
     if args['provision'] === true then
       config.vm.provision "site-#{site}",
         type: "shell",
-        path: File.join( "provision/scripts", "sites.sh" ),
+        path: File.join( "provision", "sites.sh" ),
         args: [
           site,
           args['repo'].to_s,
@@ -319,7 +319,7 @@ Vagrant.configure( "2" ) do | config |
   get_config_file['resources'].each do | name, args |
     config.vm.provision "resources-#{name}",
       type: "shell",
-      path: File.join( "provision/scripts", "resources.sh" ),
+      path: File.join( "provision", "resources.sh" ),
       args: [
           name,
           args['repo'].to_s,
@@ -339,7 +339,7 @@ Vagrant.configure( "2" ) do | config |
     utilities.each do | utility |
         config.vm.provision "resources-#{name}-#{utility}",
           type: "shell",
-          path: File.join( "provision/scripts", "utility.sh" ),
+          path: File.join( "provision", "utility.sh" ),
           args: [
               name,
               utility

@@ -4,6 +4,4 @@ certificates
 config/default.yml
 databases
 logs
-provision/*
-!provision/scripts/*
 sites
